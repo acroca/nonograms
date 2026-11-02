@@ -115,7 +115,17 @@ document.addEventListener(
   'touchend',
   (e) => {
     const now = Date.now();
-    if (now - lastTouchEnd < 350) e.preventDefault();
+    if (now - lastTouchEnd < 350) {
+      e.preventDefault();
+      // preventDefault also swallows the click, so rapid taps on buttons (e.g. the
+      // number pad) would be lost. Re-dispatch the click ourselves.
+      const btn = (e.target as Element | null)?.closest?.('button');
+      const touch = e.changedTouches[0];
+      const r = btn?.getBoundingClientRect();
+      const inside =
+        r && touch && touch.clientX >= r.left && touch.clientX <= r.right && touch.clientY >= r.top && touch.clientY <= r.bottom;
+      if (btn && inside && !btn.disabled) btn.click();
+    }
     lastTouchEnd = now;
   },
   { passive: false },
