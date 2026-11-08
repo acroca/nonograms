@@ -132,12 +132,12 @@ const RAW: Record<string, RawGuide> = {
 
   sudoku: {
     goal: {
-      en: 'Fill the 9×9 grid with digits 1 to 9.',
-      es: 'Llena la cuadrícula de 9×9 con los dígitos del 1 al 9.',
+      en: 'Fill the grid with digits 1 to 9 (1 to 4 on a 4×4 grid, 1 to 6 on a 6×6 grid).',
+      es: 'Llena la cuadrícula con los dígitos del 1 al 9 (del 1 al 4 en 4×4, del 1 al 6 en 6×6).',
     },
     rules: {
-      en: ['Each row contains 1–9 exactly once.', 'Each column contains 1–9 exactly once.', 'Each 3×3 box (thick lines) contains 1–9 exactly once.', 'Given digits can’t be changed.'],
-      es: ['Cada fila contiene del 1 al 9 exactamente una vez.', 'Cada columna contiene del 1 al 9 exactamente una vez.', 'Cada caja de 3×3 (líneas gruesas) contiene del 1 al 9 exactamente una vez.', 'Los dígitos dados no se pueden cambiar.'],
+      en: ['Each row contains every digit exactly once.', 'Each column contains every digit exactly once.', 'Each box (thick lines: 3×3 on 9×9, 2×3 on 6×6, 2×2 on 4×4) contains every digit exactly once.', 'Given digits can’t be changed.', 'Pick the size (4×4, 6×6 or 9×9) when starting a new puzzle.'],
+      es: ['Cada fila contiene cada dígito exactamente una vez.', 'Cada columna contiene cada dígito exactamente una vez.', 'Cada caja (líneas gruesas: 3×3 en 9×9, 2×3 en 6×6, 2×2 en 4×4) contiene cada dígito exactamente una vez.', 'Los dígitos dados no se pueden cambiar.', 'Elige el tamaño (4×4, 6×6 o 9×9) al empezar un nuevo puzzle.'],
     },
     controls: {
       en: ['Tap a cell, then tap a number on the pad. Tap the same number again (or ⌫) to clear it.', 'Turn on Notes to pencil in candidates. Entering a digit removes it from the notes in its row, column and box.', 'The selected cell’s row, column and box are shaded, and matching digits are highlighted.'],

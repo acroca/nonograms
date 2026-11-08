@@ -42,8 +42,14 @@ describe('helpers', () => {
     expect(peers(0)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 18, 19, 20, 27, 36, 45, 54, 63, 72]);
   });
 
+  it('smaller grids use 2×2 and 2×3 boxes', () => {
+    expect(peers(0, 4)).toEqual([1, 2, 3, 4, 5, 8, 12]);
+    expect(peers(0, 6)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 12, 18, 24, 30]);
+    for (let i = 0; i < 36; i++) expect(peers(i, 6)).toHaveLength(12);
+  });
+
   it('exports the variants', () => {
-    expect(VARIANTS.map((v) => v.id)).toEqual(['easy', 'medium', 'hard']);
+    expect(VARIANTS.map((v) => v.id)).toEqual(['4', '6', 'easy', 'medium', 'hard']);
     expect(DEFAULT_VARIANT).toBe('easy');
   });
 });
@@ -55,6 +61,8 @@ describe('generate', () => {
   }, 30_000);
 
   const cases: [string, [number, number], number][] = [
+    ['4', [5, 7], 1],
+    ['6', [12, 15], 0],
     ['easy', [36, 42], 1],
     ['medium', [28, 34], 2],
     ['hard', [23, 27], 3],
@@ -64,7 +72,9 @@ describe('generate', () => {
       for (let seed = 1; seed <= 8; seed++) {
         const p = generate(variant, seed * 7919);
         expect(p.variant).toBe(variant);
-        expect(p.givens).toHaveLength(81);
+        const n = variant === '4' ? 4 : variant === '6' ? 6 : 9;
+        expect(p.givens).toHaveLength(n * n);
+        expect(p.solution).toHaveLength(n * n);
         expect(p.givens.every((g, i) => g === 0 || g === p.solution[i])).toBe(true);
         const clues = p.givens.filter((g) => g).length;
         expect(clues).toBeGreaterThanOrEqual(lo);
@@ -72,7 +82,8 @@ describe('generate', () => {
         expect(validate(p, p.solution)).toBe(true);
         expect(countSolutions(p)).toBe(1);
         expect(solveLogic(p)).toEqual({ solved: true, grid: p.solution });
-        expect(solveLogic(p, level as 1 | 2 | 3).solved).toBe(true);
+        if (level) expect(solveLogic(p, level as 1 | 2 | 3).solved).toBe(true);
+        else expect(solveLogic(p, 2).solved).toBe(true);
         if (level > 1) expect(solveLogic(p, (level - 1) as 1 | 2).solved).toBe(false);
       }
     }, 60_000);
@@ -124,6 +135,19 @@ describe('validate', () => {
     expect(validate({ givens: [] }, PATTERN.map((d, i) => (i === 40 ? 0 : d)))).toBe(false);
     expect(validate({ givens: [] }, PATTERN.slice(0, 80))).toBe(false);
     expect(validate({ givens: [] }, PATTERN.map((d) => d + 9))).toBe(false);
+  });
+
+  it('accepts valid 4×4 and 6×6 grids and checks their boxes', () => {
+    const four = [1, 2, 3, 4, 3, 4, 1, 2, 2, 1, 4, 3, 4, 3, 2, 1];
+    expect(validate({ givens: [] }, four)).toBe(true);
+    expect(validate({ givens: [] }, [1, 2, 3, 4, 2, 3, 4, 1, 3, 4, 1, 2, 4, 1, 2, 3])).toBe(false);
+    const six = Array.from({ length: 36 }, (_, i) => {
+      const r = Math.floor(i / 6);
+      return ((r * 3 + Math.floor(r / 2) + (i % 6)) % 6) + 1;
+    });
+    expect(validate({ givens: [] }, six)).toBe(true);
+    expect(countSolutions({ givens: six })).toBe(1);
+    expect(validate({ givens: new Array(81).fill(0) }, four)).toBe(false);
   });
 
   it('rejects a grid that contradicts a given', () => {
