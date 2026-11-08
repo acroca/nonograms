@@ -1,26 +1,33 @@
 import { mulberry32, randInt, shuffle, type Rng } from '../../core/rng';
 
-/** Classic 9×9 Sudoku. Cells are row-major (`i = r * 9 + c`); digits are 1..9 and 0 means empty. */
+/**
+ * Sudoku on an N×N grid (4×4, 6×6 or the classic 9×9). Cells are row-major (`i = r * N + c`); digits are 1..N and
+ * 0 means empty.
+ */
 export interface SudokuPuzzle {
-  /** 81 entries: the clue digit, or 0 for a cell the player fills in. */
+  /** N×N entries: the clue digit, or 0 for a cell the player fills in. */
   givens: number[];
-  /** 81 digits: the unique solution. */
+  /** N×N digits: the unique solution. */
   solution: number[];
   variant: string;
   seed: number;
 }
 
+/** The 9×9 variants keep their original ids (difficulties) so older saves and best times stay valid. */
 export const VARIANTS: { id: string; label: string }[] = [
-  { id: 'easy', label: 'Easy' },
-  { id: 'medium', label: 'Medium' },
-  { id: 'hard', label: 'Hard' },
+  { id: '4', label: '4×4' },
+  { id: '6', label: '6×6' },
+  { id: 'easy', label: '9×9 Easy' },
+  { id: 'medium', label: '9×9 Medium' },
+  { id: 'hard', label: '9×9 Hard' },
 ];
 export const DEFAULT_VARIANT = 'easy';
 
-export const SIZE = 9;
-export const BOX = 3;
-const CELLS = SIZE * SIZE;
-const ALL = 0x1ff;
+/** Supported grid sizes and their box shape (rows × columns). */
+export const BOXES: Record<number, [number, number]> = { 4: [2, 2], 6: [2, 3], 9: [3, 3] };
+
+/** Grid side of a puzzle (older saves have 81 cells). */
+export const sizeOf = (puzzle: { givens: ArrayLike<number> }): number => Math.round(Math.sqrt(puzzle.givens.length));
 
 /**
  * Technique levels of the logic solver:
@@ -31,32 +38,56 @@ const ALL = 0x1ff;
 export type Level = 1 | 2 | 3;
 export const LEVELS: Record<string, Level> = { easy: 1, medium: 2, hard: 3 };
 
-/** The 27 units (9 rows, 9 columns, 9 boxes), each listing its 9 cells. */
-const UNITS: number[][] = [];
-for (let r = 0; r < SIZE; r++) UNITS.push(Array.from({ length: SIZE }, (_, c) => r * SIZE + c));
-for (let c = 0; c < SIZE; c++) UNITS.push(Array.from({ length: SIZE }, (_, r) => r * SIZE + c));
-for (let b = 0; b < SIZE; b++) {
-  const r0 = Math.floor(b / BOX) * BOX;
-  const c0 = (b % BOX) * BOX;
-  UNITS.push(Array.from({ length: SIZE }, (_, k) => (r0 + Math.floor(k / BOX)) * SIZE + c0 + (k % BOX)));
-}
-const boxOf = (i: number): number => Math.floor(i / 27) * BOX + Math.floor((i % SIZE) / BOX);
-const PEERS: number[][] = [];
-const IS_PEER = new Uint8Array(CELLS * CELLS);
-for (let i = 0; i < CELLS; i++) {
-  const set = new Set([...UNITS[Math.floor(i / SIZE)], ...UNITS[SIZE + (i % SIZE)], ...UNITS[2 * SIZE + boxOf(i)]]);
-  set.delete(i);
-  PEERS.push([...set].sort((a, b) => a - b));
-  for (const p of set) IS_PEER[i * CELLS + p] = 1;
+/** Precomputed layout of one grid size. */
+export interface Geometry {
+  size: number;
+  cells: number;
+  /** Bitmask of every digit 1..size. */
+  all: number;
+  /** The 3·size units (rows, then columns, then boxes), each listing its cells. */
+  units: number[][];
+  boxOf: (i: number) => number;
+  peers: number[][];
+  isPeer: Uint8Array;
 }
 
-/** The 20 cells sharing a row, column or box with cell `i`. */
-export function peers(i: number): number[] {
-  return PEERS[i].slice();
+const GEOMETRIES = new Map<number, Geometry>();
+
+function geometry(size: number): Geometry {
+  const cached = GEOMETRIES.get(size);
+  if (cached) return cached;
+  if (!BOXES[size]) throw new Error(`Unsupported Sudoku size: ${size}`);
+  const [bh, bw] = BOXES[size];
+  const cells = size * size;
+  const units: number[][] = [];
+  for (let r = 0; r < size; r++) units.push(Array.from({ length: size }, (_, c) => r * size + c));
+  for (let c = 0; c < size; c++) units.push(Array.from({ length: size }, (_, r) => r * size + c));
+  for (let b = 0; b < size; b++) {
+    const r0 = Math.floor(b / (size / bw)) * bh;
+    const c0 = (b % (size / bw)) * bw;
+    units.push(Array.from({ length: size }, (_, k) => (r0 + Math.floor(k / bw)) * size + c0 + (k % bw)));
+  }
+  const boxOf = (i: number): number => Math.floor(Math.floor(i / size) / bh) * (size / bw) + Math.floor((i % size) / bw);
+  const peers: number[][] = [];
+  const isPeer = new Uint8Array(cells * cells);
+  for (let i = 0; i < cells; i++) {
+    const set = new Set([...units[Math.floor(i / size)], ...units[size + (i % size)], ...units[2 * size + boxOf(i)]]);
+    set.delete(i);
+    peers.push([...set].sort((a, b) => a - b));
+    for (const p of set) isPeer[i * cells + p] = 1;
+  }
+  const g: Geometry = { size, cells, all: (1 << size) - 1, units, boxOf, peers, isPeer };
+  GEOMETRIES.set(size, g);
+  return g;
 }
 
-const POP = new Uint8Array(ALL + 1);
-for (let m = 1; m <= ALL; m++) POP[m] = POP[m >> 1] + (m & 1);
+/** The cells sharing a row, column or box with cell `i` (20 on a 9×9 grid). */
+export function peers(i: number, size = 9): number[] {
+  return geometry(size).peers[i].slice();
+}
+
+const POP = new Uint8Array(0x200);
+for (let m = 1; m < 0x200; m++) POP[m] = POP[m >> 1] + (m & 1);
 const bitOf = (d: number): number => 1 << (d - 1);
 const digitOf = (bit: number): number => 32 - Math.clz32(bit);
 
@@ -84,6 +115,7 @@ function someCombination<T>(items: T[], k: number, fn: (combo: T[]) => boolean):
  * (bit d-1 for digit d); a placed cell keeps just its own bit. `bad` flags a contradiction.
  */
 export interface SolverState {
+  g: Geometry;
   value: Uint8Array;
   cand: Uint16Array;
   filled: number;
@@ -91,8 +123,9 @@ export interface SolverState {
 }
 
 /** A state with no digits placed and every candidate open (handy for testing single techniques). */
-export function emptyState(): SolverState {
-  return { value: new Uint8Array(CELLS), cand: new Uint16Array(CELLS).fill(ALL), filled: 0, bad: false };
+export function emptyState(size = 9): SolverState {
+  const g = geometry(size);
+  return { g, value: new Uint8Array(g.cells), cand: new Uint16Array(g.cells).fill(g.all), filled: 0, bad: false };
 }
 
 function place(s: SolverState, i: number, d: number): void {
@@ -101,7 +134,7 @@ function place(s: SolverState, i: number, d: number): void {
   s.value[i] = d;
   s.cand[i] = bit;
   s.filled++;
-  for (const p of PEERS[i]) {
+  for (const p of s.g.peers[i]) {
     if (s.cand[p] & bit) {
       s.cand[p] &= ~bit;
       if (!s.cand[p]) s.bad = true;
@@ -121,7 +154,7 @@ const open = (s: SolverState, i: number, bit: number): boolean => s.value[i] ===
 
 function nakedSingles(s: SolverState): boolean {
   let progress = false;
-  for (let i = 0; i < CELLS && !s.bad; i++) {
+  for (let i = 0; i < s.g.cells && !s.bad; i++) {
     if (s.value[i] === 0 && POP[s.cand[i]] === 1) {
       place(s, i, digitOf(s.cand[i]));
       progress = true;
@@ -132,14 +165,14 @@ function nakedSingles(s: SolverState): boolean {
 
 function hiddenSingles(s: SolverState): boolean {
   let progress = false;
-  for (const unit of UNITS) {
+  for (const unit of s.g.units) {
     let once = 0;
     let twice = 0;
     for (const i of unit) {
       twice |= once & s.cand[i];
       once |= s.cand[i];
     }
-    if (once !== ALL) s.bad = true;
+    if (once !== s.g.all) s.bad = true;
     if (s.bad) return progress;
     for (let only = once & ~twice; only; only &= only - 1) {
       const bit = only & -only;
@@ -158,25 +191,26 @@ function hiddenSingles(s: SolverState): boolean {
  * Claiming: a digit confined to one box within a row/column is removed from the rest of that box.
  */
 function lockedCandidates(s: SolverState): boolean {
+  const { size, units, boxOf } = s.g;
   let progress = false;
-  for (let u = 0; u < UNITS.length; u++) {
-    for (let d = 1; d <= SIZE; d++) {
+  for (let u = 0; u < units.length; u++) {
+    for (let d = 1; d <= size; d++) {
       const bit = bitOf(d);
-      const cells = UNITS[u].filter((i) => open(s, i, bit));
+      const cells = units[u].filter((i) => open(s, i, bit));
       if (cells.length < 2) continue;
       const targets: number[] = [];
-      if (u >= 2 * SIZE) {
-        const r = Math.floor(cells[0] / SIZE);
-        const c = cells[0] % SIZE;
-        if (cells.every((i) => Math.floor(i / SIZE) === r)) targets.push(r);
-        if (cells.every((i) => i % SIZE === c)) targets.push(SIZE + c);
+      if (u >= 2 * size) {
+        const r = Math.floor(cells[0] / size);
+        const c = cells[0] % size;
+        if (cells.every((i) => Math.floor(i / size) === r)) targets.push(r);
+        if (cells.every((i) => i % size === c)) targets.push(size + c);
       } else {
         const b = boxOf(cells[0]);
-        if (cells.every((i) => boxOf(i) === b)) targets.push(2 * SIZE + b);
+        if (cells.every((i) => boxOf(i) === b)) targets.push(2 * size + b);
       }
       for (const t of targets) {
-        for (const i of UNITS[t]) {
-          if (s.value[i] === 0 && !UNITS[u].includes(i) && eliminate(s, i, bit)) progress = true;
+        for (const i of units[t]) {
+          if (s.value[i] === 0 && !units[u].includes(i) && eliminate(s, i, bit)) progress = true;
         }
       }
     }
@@ -186,7 +220,7 @@ function lockedCandidates(s: SolverState): boolean {
 
 /** Naked subset: k cells of a unit whose candidates together are just k digits own those digits. */
 function nakedSubsets(s: SolverState, k: number): boolean {
-  for (const unit of UNITS) {
+  for (const unit of s.g.units) {
     const cells = unit.filter((i) => s.value[i] === 0 && POP[s.cand[i]] <= k);
     const found = someCombination(cells, k, (combo) => {
       const mask = combo.reduce((m, i) => m | s.cand[i], 0);
@@ -204,10 +238,10 @@ function nakedSubsets(s: SolverState, k: number): boolean {
 
 /** Hidden subset: k digits that fit in only the same k cells of a unit leave no room for other digits there. */
 function hiddenSubsets(s: SolverState, k: number): boolean {
-  for (const unit of UNITS) {
+  for (const unit of s.g.units) {
     const where: number[] = [];
     const digits: number[] = [];
-    for (let d = 1; d <= SIZE; d++) {
+    for (let d = 1; d <= s.g.size; d++) {
       let pos = 0;
       unit.forEach((i, j) => {
         if (open(s, i, bitOf(d))) pos |= 1 << j;
@@ -218,7 +252,7 @@ function hiddenSubsets(s: SolverState, k: number): boolean {
     const found = someCombination(digits, k, (combo) => {
       const pos = combo.reduce((m, d) => m | where[d], 0);
       if (POP[pos] !== k) return false;
-      const others = ALL & ~combo.reduce((m, d) => m | bitOf(d), 0);
+      const others = s.g.all & ~combo.reduce((m, d) => m | bitOf(d), 0);
       let progress = false;
       unit.forEach((i, j) => {
         if (pos & (1 << j) && eliminate(s, i, others)) progress = true;
@@ -235,15 +269,16 @@ function hiddenSubsets(s: SolverState, k: number): boolean {
  * occupy those columns in these rows, so it is removed from the rest of those columns (and vice versa).
  */
 function fish(s: SolverState, k: number): boolean {
-  for (let d = 1; d <= SIZE; d++) {
+  const { size } = s.g;
+  for (let d = 1; d <= size; d++) {
     const bit = bitOf(d);
     for (const byRow of [true, false]) {
-      const cell = (line: number, x: number): number => (byRow ? line * SIZE + x : x * SIZE + line);
+      const cell = (line: number, x: number): number => (byRow ? line * size + x : x * size + line);
       const where: number[] = [];
       const lines: number[] = [];
-      for (let line = 0; line < SIZE; line++) {
+      for (let line = 0; line < size; line++) {
         let pos = 0;
-        for (let x = 0; x < SIZE; x++) if (open(s, cell(line, x), bit)) pos |= 1 << x;
+        for (let x = 0; x < size; x++) if (open(s, cell(line, x), bit)) pos |= 1 << x;
         where[line] = pos;
         if (POP[pos] >= 2 && POP[pos] <= k) lines.push(line);
       }
@@ -251,9 +286,9 @@ function fish(s: SolverState, k: number): boolean {
         const cover = base.reduce((m, line) => m | where[line], 0);
         if (POP[cover] !== k) return false;
         let progress = false;
-        for (let line = 0; line < SIZE; line++) {
+        for (let line = 0; line < size; line++) {
           if (base.includes(line)) continue;
-          for (let x = 0; x < SIZE; x++) {
+          for (let x = 0; x < size; x++) {
             if (cover & (1 << x) && s.value[cell(line, x)] === 0 && eliminate(s, cell(line, x), bit)) progress = true;
           }
         }
@@ -270,17 +305,18 @@ function fish(s: SolverState, k: number): boolean {
  * so z is removed from every cell seeing both pincers.
  */
 function xyWing(s: SolverState): boolean {
-  for (let pivot = 0; pivot < CELLS; pivot++) {
+  const { cells, peers, isPeer } = s.g;
+  for (let pivot = 0; pivot < cells; pivot++) {
     const pm = s.cand[pivot];
     if (s.value[pivot] !== 0 || POP[pm] !== 2) continue;
-    const wings = PEERS[pivot].filter((p) => s.value[p] === 0 && POP[s.cand[p]] === 2 && POP[s.cand[p] & pm] === 1);
+    const wings = peers[pivot].filter((p) => s.value[p] === 0 && POP[s.cand[p]] === 2 && POP[s.cand[p] & pm] === 1);
     for (const a of wings) {
       const z = s.cand[a] & ~pm;
       for (const b of wings) {
         if (b <= a || s.cand[b] !== (z | (pm & ~s.cand[a]))) continue;
         let progress = false;
-        for (const c of PEERS[a]) {
-          if (c !== b && s.value[c] === 0 && IS_PEER[b * CELLS + c] && eliminate(s, c, z)) progress = true;
+        for (const c of peers[a]) {
+          if (c !== b && s.value[c] === 0 && isPeer[b * cells + c] && eliminate(s, c, z)) progress = true;
         }
         if (progress) return true;
       }
@@ -312,10 +348,10 @@ const TECHNIQUES: { level: Level; apply: (s: SolverState) => boolean }[] = [
  * level that made progress) tells exactly which levels can solve the puzzle.
  */
 function runLogic(givens: ArrayLike<number>, maxLevel: Level): { state: SolverState; level: Level } {
-  const s = emptyState();
-  for (let i = 0; i < CELLS && !s.bad; i++) if (givens[i]) place(s, i, givens[i]);
+  const s = emptyState(sizeOf({ givens }));
+  for (let i = 0; i < s.g.cells && !s.bad; i++) if (givens[i]) place(s, i, givens[i]);
   let level: Level = 1;
-  while (!s.bad && s.filled < CELLS) {
+  while (!s.bad && s.filled < s.g.cells) {
     const t = TECHNIQUES.find((t) => t.level <= maxLevel && t.apply(s));
     if (!t) break;
     if (t.level > level) level = t.level;
@@ -329,7 +365,7 @@ function runLogic(givens: ArrayLike<number>, maxLevel: Level): { state: SolverSt
  */
 export function solveLogic(puzzle: { givens: number[] }, maxLevel: Level = 3): { solved: boolean; grid: number[] } {
   const { state } = runLogic(puzzle.givens, maxLevel);
-  return { solved: !state.bad && state.filled === CELLS, grid: Array.from(state.value) };
+  return { solved: !state.bad && state.filled === state.g.cells, grid: Array.from(state.value) };
 }
 
 // ---------------------------------------------------------------------------
@@ -342,13 +378,14 @@ export function solveLogic(puzzle: { givens: number[] }, maxLevel: Level = 3): {
  * digits are tried in random order. Clashing givens yield no solutions.
  */
 function search(grid: Uint8Array, onSolution: () => boolean, rng?: Rng): void {
-  const rows = new Uint16Array(SIZE);
-  const cols = new Uint16Array(SIZE);
-  const boxes = new Uint16Array(SIZE);
-  for (let i = 0; i < CELLS; i++) {
+  const { size, cells, all, boxOf } = geometry(sizeOf({ givens: grid }));
+  const rows = new Uint16Array(size);
+  const cols = new Uint16Array(size);
+  const boxes = new Uint16Array(size);
+  for (let i = 0; i < cells; i++) {
     if (!grid[i]) continue;
     const bit = bitOf(grid[i]);
-    const [r, c, b] = [Math.floor(i / SIZE), i % SIZE, boxOf(i)];
+    const [r, c, b] = [Math.floor(i / size), i % size, boxOf(i)];
     if ((rows[r] | cols[c] | boxes[b]) & bit) return;
     rows[r] |= bit;
     cols[c] |= bit;
@@ -357,9 +394,9 @@ function search(grid: Uint8Array, onSolution: () => boolean, rng?: Rng): void {
   const rec = (): boolean => {
     let best = -1;
     let bestMask = 0;
-    for (let i = 0; i < CELLS; i++) {
+    for (let i = 0; i < cells; i++) {
       if (grid[i]) continue;
-      const mask = ALL & ~(rows[Math.floor(i / SIZE)] | cols[i % SIZE] | boxes[boxOf(i)]);
+      const mask = all & ~(rows[Math.floor(i / size)] | cols[i % size] | boxes[boxOf(i)]);
       if (!mask) return false;
       if (best < 0 || POP[mask] < POP[bestMask]) {
         best = i;
@@ -368,7 +405,7 @@ function search(grid: Uint8Array, onSolution: () => boolean, rng?: Rng): void {
       }
     }
     if (best < 0) return onSolution();
-    const [r, c, b] = [Math.floor(best / SIZE), best % SIZE, boxOf(best)];
+    const [r, c, b] = [Math.floor(best / size), best % size, boxOf(best)];
     const digits: number[] = [];
     for (let m = bestMask; m; m &= m - 1) digits.push(digitOf(m & -m));
     if (rng) shuffle(rng, digits);
@@ -390,22 +427,13 @@ function search(grid: Uint8Array, onSolution: () => boolean, rng?: Rng): void {
   rec();
 }
 
-/** Whether a complete grid has each digit 1..9 exactly once in every row, column and box. */
+/** Whether a complete grid has each digit 1..N exactly once in every row, column and box. */
 function followsRules(grid: ArrayLike<number>): boolean {
-  if (grid.length !== CELLS) return false;
-  for (let i = 0; i < CELLS; i++) if (!Number.isInteger(grid[i]) || grid[i] < 1 || grid[i] > SIZE) return false;
-  for (let u = 0; u < SIZE; u++) {
-    const row = new Set<number>();
-    const col = new Set<number>();
-    const box = new Set<number>();
-    for (let k = 0; k < SIZE; k++) {
-      row.add(grid[u * SIZE + k]);
-      col.add(grid[k * SIZE + u]);
-      box.add(grid[(Math.floor(u / BOX) * BOX + Math.floor(k / BOX)) * SIZE + (u % BOX) * BOX + (k % BOX)]);
-    }
-    if (row.size !== SIZE || col.size !== SIZE || box.size !== SIZE) return false;
-  }
-  return true;
+  const size = sizeOf({ givens: grid });
+  if (!BOXES[size] || grid.length !== size * size) return false;
+  const { cells, units } = geometry(size);
+  for (let i = 0; i < cells; i++) if (!Number.isInteger(grid[i]) || grid[i] < 1 || grid[i] > size) return false;
+  return units.every((unit) => new Set(unit.map((i) => grid[i])).size === size);
 }
 
 /** Counts solutions by propagation + backtracking, stopping as soon as `limit` are found. */
@@ -421,7 +449,7 @@ export function countSolutions(puzzle: { givens: ArrayLike<number> }, limit = 2)
 
 /** Whether `grid` is a complete, valid Sudoku that keeps all of the puzzle's givens. */
 export function validate(puzzle: { givens: number[] }, grid: number[]): boolean {
-  return followsRules(grid) && puzzle.givens.every((g, i) => g === 0 || g === grid[i]);
+  return followsRules(grid) && (!puzzle.givens.length || puzzle.givens.length === grid.length) && puzzle.givens.every((g, i) => g === 0 || g === grid[i]);
 }
 
 // ---------------------------------------------------------------------------
@@ -429,6 +457,8 @@ export function validate(puzzle: { givens: number[] }, grid: number[]): boolean 
 // ---------------------------------------------------------------------------
 
 interface Recipe {
+  /** Grid side. */
+  size: number;
   level: Level;
   /** Inclusive range the target clue count is drawn from. */
   clues: [number, number];
@@ -439,9 +469,11 @@ interface Recipe {
 }
 
 const RECIPES: Record<string, Recipe> = {
-  easy: { level: 1, clues: [36, 42], floor: 36, needs: 1 },
-  medium: { level: 2, clues: [28, 34], floor: 28, needs: 2 },
-  hard: { level: 3, clues: [23, 27], floor: 23, needs: 3 },
+  '4': { size: 4, level: 1, clues: [5, 7], floor: 5, needs: 1 },
+  '6': { size: 6, level: 2, clues: [12, 15], floor: 12, needs: 1 },
+  easy: { size: 9, level: 1, clues: [36, 42], floor: 36, needs: 1 },
+  medium: { size: 9, level: 2, clues: [28, 34], floor: 28, needs: 2 },
+  hard: { size: 9, level: 3, clues: [23, 27], floor: 23, needs: 3 },
 };
 /** Attempts that keep 180° rotational symmetry before also removing single clues. */
 const SYMMETRIC_TRIES = 25;
@@ -455,20 +487,21 @@ const HARD_TRIES = 60;
  * returns null if that never happens.
  */
 function dig(rng: Rng, solution: Uint8Array, recipe: Recipe, needs: Level, symmetric: boolean): Uint8Array | null {
+  const cells = solution.length;
   const grid = solution.slice();
   const puzzle = { givens: grid };
   const [lo, hi] = recipe.clues;
   const target = lo + randInt(rng, hi - lo + 1);
-  const half = Array.from({ length: Math.ceil(CELLS / 2) }, (_, i) => (i === CELLS - 1 - i ? [i] : [i, CELLS - 1 - i]));
+  const half = Array.from({ length: Math.ceil(cells / 2) }, (_, i) => (i === cells - 1 - i ? [i] : [i, cells - 1 - i]));
   const groups = shuffle(rng, half);
-  if (!symmetric) groups.push(...shuffle(rng, Array.from({ length: CELLS }, (_, i) => [i])));
-  let clues = CELLS;
+  if (!symmetric) groups.push(...shuffle(rng, Array.from({ length: cells }, (_, i) => [i])));
+  let clues = cells;
   let level = 1;
   for (const group of groups) {
     if (clues - group.length < recipe.floor || group.some((i) => !grid[i])) continue;
     for (const i of group) grid[i] = 0;
     const run = countSolutions(puzzle) === 1 ? runLogic(grid, recipe.level) : null;
-    if (!run || run.state.bad || run.state.filled < CELLS) {
+    if (!run || run.state.bad || run.state.filled < cells) {
       for (const i of group) grid[i] = solution[i];
       continue;
     }
@@ -480,16 +513,16 @@ function dig(rng: Rng, solution: Uint8Array, recipe: Recipe, needs: Level, symme
 }
 
 /**
- * Generates a puzzle with a unique solution that the logic solver finishes at the variant's level: easy needs
- * only singles; medium needs locked candidates or pairs; hard needs triples, fish or an XY-Wing (falling back to
- * anything beyond singles if many attempts fail). Unknown variants are generated as the default one.
+ * Generates a puzzle with a unique solution that the logic solver finishes at the variant's level: 4×4 and easy
+ * need only singles; 6×6 may also use locked candidates or pairs; medium needs locked candidates or pairs; hard
+ * needs triples, fish or an XY-Wing (falling back to anything beyond singles if many attempts fail). Unknown variants are generated as the default one.
  */
 export function generate(variant: string, seed: number): SudokuPuzzle {
   const id = variant in RECIPES ? variant : DEFAULT_VARIANT;
   const recipe = RECIPES[id];
   const rng = mulberry32(seed);
   for (let attempt = 0; ; attempt++) {
-    const solution = new Uint8Array(CELLS);
+    const solution = new Uint8Array(recipe.size * recipe.size);
     search(solution, () => true, rng);
     const needs = recipe.needs === 3 && attempt >= HARD_TRIES ? 2 : recipe.needs;
     const givens = dig(rng, solution, recipe, needs, attempt < SYMMETRIC_TRIES);

@@ -60,6 +60,9 @@ export const ES: Record<string, string> = {
   'Hard': 'Difícil',
   'Small 6×6': 'Pequeño 6×6',
   'Medium 8×8': 'Mediano 8×8',
+  '9×9 Easy': '9×9 Fácil',
+  '9×9 Medium': '9×9 Media',
+  '9×9 Hard': '9×9 Difícil',
 
   // Shared controls
   'Number pad': 'Teclado numérico',
@@ -92,7 +95,7 @@ export const ES: Record<string, string> = {
   'queen': 'reina',
   'mark': 'marca',
   'Sudoku': 'Sudoku',
-  'The classic: every row, column and 3×3 box holds 1 to 9.': 'El clásico: cada fila, columna y caja de 3×3 contiene del 1 al 9.',
+  'The classic: every row, column and box holds each digit once. 4×4, 6×6 or 9×9.': 'El clásico: cada fila, columna y caja contiene cada dígito una vez. 4×4, 6×6 o 9×9.',
   'Sudoku board': 'Tablero de Sudoku',
   'Killer Sudoku': 'Sudoku Killer',
   'Sudoku with no clues — just cages whose digits add up to a sum.': 'Sudoku sin pistas: solo jaulas cuyos dígitos suman un total.',

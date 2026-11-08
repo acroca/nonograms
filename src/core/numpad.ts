@@ -197,8 +197,8 @@ export function mountPad(opts: PadOptions): Pad {
   };
 }
 
-/** Cells in the same row, column or box of a square grid (box = 0 for no boxes). */
-export function gridPeers(n: number, box = 0): (i: number) => number[] {
+/** Cells in the same row, column or box of a square grid (box = 0 for no boxes; boxes are `box` × `boxCols`). */
+export function gridPeers(n: number, box = 0, boxCols = box): (i: number) => number[] {
   const cache: number[][] = [];
   return (i) => {
     if (cache[i]) return cache[i];
@@ -211,8 +211,8 @@ export function gridPeers(n: number, box = 0): (i: number) => number[] {
     }
     if (box) {
       const br = r - (r % box);
-      const bc = c - (c % box);
-      for (let dr = 0; dr < box; dr++) for (let dc = 0; dc < box; dc++) out.add((br + dr) * n + bc + dc);
+      const bc = c - (c % boxCols);
+      for (let dr = 0; dr < box; dr++) for (let dc = 0; dc < boxCols; dc++) out.add((br + dr) * n + bc + dc);
     }
     out.delete(i);
     return (cache[i] = [...out]);
