@@ -189,4 +189,9 @@ export const ES: Record<string, string> = {
   'Draw one loop through every pearl, turning on black and straight on white.': 'Dibuja un único bucle por todas las perlas: gira en las negras y sigue recto en las blancas.',
   'Masyu board': 'Tablero de Masyu',
   'Tap a gap: line → ✕ → empty. Drag cell to cell to draw.': 'Toca un hueco: línea → ✕ → vacío. Arrastra de casilla en casilla para dibujar.',
+  'Norinori': 'Norinori',
+  'Shade two cells in every region, in dominoes that never touch.': 'Sombrea dos casillas en cada región, en dominós que nunca se tocan.',
+  'Norinori board': 'Tablero de Norinori',
+  'Tap: shade → dot → clear. Drag to paint.': 'Toca: sombrear → punto → borrar. Arrastra para pintar.',
+  'unshaded': 'sin sombrear',
 };

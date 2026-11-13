@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with eighteen logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with nineteen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -170,6 +170,14 @@ Draw one closed loop through the centres of cells, visiting every pearl. The loo
 
 <img src="docs/masyu.png" width="240" alt="Masyu" />
 
+### Norinori
+
+Shade cells so every outlined region holds exactly two shaded cells, and every shaded cell belongs to exactly one domino. Dominoes never touch side by side.
+
+**Sizes:** 5×5, 6×6
+
+<img src="docs/norinori.png" width="240" alt="Norinori" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -255,6 +263,10 @@ solver and an independent rule checker.
   at a time) until the puzzle with a pearl on every legal site has a single solution that the solver
   finds, then pearls are thinned in random order while it still does. The solver uses degree-0-or-2,
   black/white pearl rules, no premature loops, and one-step lookahead.
+- **Norinori**: non-touching dominoes are planted and regions are grown around them, then region borders
+  are nudged (never breaking the planted answer) to minimise what the solver can't decide; kept once a solver
+  using region counts, the domino rule and one-step lookahead finishes the grid. Only small sizes: larger
+  grids are too slow to find.
 
 ## Project layout
 

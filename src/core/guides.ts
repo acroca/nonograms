@@ -466,6 +466,29 @@ const RAW: Record<string, RawGuide> = {
       es: ['Dos perlas negras juntas, o una negra en el borde, limitan mucho el bucle: empieza por ahí.', 'Una perla negra junto al borde debe girar alejándose de él.', 'Tres perlas blancas seguidas no pueden ir todas rectas: al menos un extremo debe girar.', 'Marca con ✕ los tramos que sabes sin usar para evitar callejones sin salida y bucles pequeños.'],
     },
   },
+
+  norinori: {
+    goal: {
+      en: 'Shade cells so that every region has exactly two shaded cells, forming dominoes.',
+      es: 'Sombrea casillas para que cada región tenga exactamente dos casillas sombreadas, formando dominós.',
+    },
+    rules: {
+      en: ['Every outlined region contains exactly two shaded cells.', 'Every shaded cell is part of exactly one domino: it touches exactly one other shaded cell, side by side.', 'A domino may stretch over two regions, and two dominoes never touch side by side (diagonals are fine).'],
+      es: ['Cada región delimitada contiene exactamente dos casillas sombreadas.', 'Cada casilla sombreada forma parte de exactamente un dominó: toca por un lado exactamente a otra casilla sombreada.', 'Un dominó puede abarcar dos regiones, y dos dominós nunca se tocan por los lados (en diagonal sí).'],
+    },
+    controls: {
+      en: ['Tap to cycle: shaded → dot (a cell you know is not shaded) → empty.', 'Drag to apply the same mark to several cells. Shaded cells in red break a rule.'],
+      es: ['Toca para alternar: sombreada → punto (una casilla que sabes que no se sombrea) → vacía.', 'Arrastra para aplicar la misma marca a varias casillas. Las casillas sombreadas en rojo rompen una regla.'],
+    },
+    examples: [
+      ex(['# # .', '. . .', '. . .'], undefined, 'A valid domino: two shaded cells side by side, touching nothing else shaded.', 'Un dominó válido: dos casillas sombreadas juntas que no tocan ninguna otra sombreada.'),
+      ex(['# # #', '. . .', '. . .'], undefined, 'Not allowed: the middle cell touches two shaded cells.', 'No permitido: la casilla central toca dos casillas sombreadas.'),
+    ],
+    tips: {
+      en: ['A region with only two cells is entirely shaded.', 'Cells next to a finished domino can’t be shaded: mark them with dots.', 'A lone cell with no free neighbour can never be shaded.'],
+      es: ['Una región de solo dos casillas se sombrea entera.', 'Las casillas junto a un dominó terminado no pueden sombrearse: márcalas con puntos.', 'Una casilla sin ningún vecino libre nunca puede sombrearse.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {
