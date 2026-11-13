@@ -29,10 +29,30 @@ function migrateLegacyNonogram() {
   }
 }
 
+const OPENED_KEY = 'opened';
+const FAVOURITES_KEY = 'favourites';
+const idSet = (key: string) => new Set(load<string[]>(key) ?? []);
+
+const HEART =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5 4.6 13.3a4.9 4.9 0 0 1 0-7 5 5 0 0 1 7 0l.4.4.4-.4a5 5 0 0 1 7 0 4.9 4.9 0 0 1 0 7Z"/></svg>';
+
+function toggleFavourite(id: string) {
+  const favourites = idSet(FAVOURITES_KEY);
+  if (!favourites.delete(id)) favourites.add(id);
+  save(FAVOURITES_KEY, [...favourites]);
+  renderMenu();
+  list.querySelector<HTMLElement>(`[data-fav="${id}"]`)?.focus();
+}
+
 function renderMenu() {
   const best = bestTimes();
+  const opened = idSet(OPENED_KEY);
+  const favourites = idSet(FAVOURITES_KEY);
+  // Favourites first; the sort is stable, so each group keeps the registry order.
+  const games = [...GAMES].sort((a, b) => Number(favourites.has(b.id)) - Number(favourites.has(a.id)));
   list.replaceChildren();
-  for (const game of GAMES) {
+  for (const game of games) {
+    const item = el('div', 'card-item');
     const card = el('button', 'card');
     card.type = 'button';
     const icon = el('span', 'card-icon');
@@ -51,12 +71,22 @@ function renderMenu() {
     }
     card.append(icon, el('span', 'card-title', t(game.title)), el('span', 'card-blurb', t(game.blurb)));
     if (meta) card.append(el('span', 'card-meta', meta));
-    if (NEW_GAMES.has(game.id)) card.append(el('span', 'card-badge', t('New')));
+    // A saved puzzle also counts as opened, for games played before opens were tracked.
+    if (NEW_GAMES.has(game.id) && !opened.has(game.id) && !session) card.append(el('span', 'card-badge', t('New')));
     card.addEventListener('click', () => {
       history.pushState({ fromMenu: true }, '', `#/${game.id}`);
       route();
     });
-    list.append(card);
+    const isFav = favourites.has(game.id);
+    const fav = el('button', 'card-fav');
+    fav.type = 'button';
+    fav.innerHTML = HEART;
+    fav.dataset.fav = game.id;
+    fav.setAttribute('aria-pressed', String(isFav));
+    fav.setAttribute('aria-label', t(isFav ? 'Remove {game} from favourites' : 'Add {game} to favourites', { game: t(game.title) }));
+    fav.addEventListener('click', () => toggleFavourite(game.id));
+    item.append(card, fav);
+    list.append(item);
   }
 }
 
@@ -76,6 +106,8 @@ function route() {
   current = game?.id ?? '';
   if (game) {
     menuScreen.hidden = true;
+    const opened = idSet(OPENED_KEY);
+    if (!opened.has(game.id)) save(OPENED_KEY, [...opened, game.id]);
     screen.open(game);
     trackGame(game.id);
   } else {
