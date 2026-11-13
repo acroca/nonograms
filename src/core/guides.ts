@@ -332,6 +332,29 @@ const RAW: Record<string, RawGuide> = {
       es: ['Un 1 con un solo vecino oculto: ese vecino es una mina.', 'Si todas las minas de un número están marcadas, los demás vecinos son seguros.', 'Compara números vecinos: la diferencia entre ellos suele indicar dónde están las minas.'],
     },
   },
+
+  tents: {
+    goal: {
+      en: 'Pitch a tent next to every tree without any two tents touching.',
+      es: 'Planta una tienda junto a cada árbol sin que dos tiendas se toquen.',
+    },
+    rules: {
+      en: ['Every tree has exactly one tent next to it (above, below, left or right), and every tent belongs to exactly one tree.', 'Tents never touch each other, not even diagonally.', 'The numbers outside the grid tell how many tents are in each row and column.'],
+      es: ['Cada árbol tiene exactamente una tienda a su lado (arriba, abajo, izquierda o derecha), y cada tienda pertenece a un único árbol.', 'Las tiendas nunca se tocan, ni siquiera en diagonal.', 'Los números fuera de la cuadrícula indican cuántas tiendas hay en cada fila y columna.'],
+    },
+    controls: {
+      en: ['Tap a square to cycle: tent → grass (a square you know has no tent) → empty.', 'Drag to apply the same mark to several squares. Numbers turn grey when satisfied and red when exceeded.'],
+      es: ['Toca una casilla para alternar: tienda → hierba (una casilla que sabes sin tienda) → vacía.', 'Arrastra para aplicar la misma marca a varias casillas. Los números se ponen grises al cumplirse y rojos si se superan.'],
+    },
+    examples: [
+      ex(['🌲 ⛺ .', '. . .', '. . .'], undefined, 'A tent is pitched right beside its tree.', 'Una tienda plantada justo al lado de su árbol.'),
+      ex(['🌲 ⛺ .', '. 🌲 ⛺', '. . .'], undefined, 'Not allowed: the two tents touch diagonally.', 'No permitido: las dos tiendas se tocan en diagonal.'),
+    ],
+    tips: {
+      en: ['A square with no tree beside it can never hold a tent: mark it as grass.', 'A tree with only one free neighbour must get its tent there.', 'When a tree has two possible squares that touch a common square, that common square is grass.', 'A row or column with a 0 is entirely grass; one whose count equals its free squares is entirely tents.'],
+      es: ['Una casilla sin árbol al lado nunca puede tener tienda: márcala como hierba.', 'Un árbol con un solo vecino libre debe poner su tienda ahí.', 'Si un árbol tiene dos casillas posibles que tocan una casilla común, esa casilla común es hierba.', 'Una fila o columna con un 0 es toda hierba; si su número iguala sus casillas libres, son todas tiendas.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

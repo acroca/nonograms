@@ -154,4 +154,11 @@ export const ES: Record<string, string> = {
   'flagged': 'con bandera',
   '💣 {n} left · long-press for the other tool': '💣 {n} restantes · mantén pulsado para la otra herramienta',
   'Tap any cell to start — the first tap is always safe.': 'Toca cualquier casilla para empezar: el primer toque siempre es seguro.',
+  'Tents': 'Tiendas',
+  'Pitch one tent beside every tree; tents never touch.': 'Planta una tienda junto a cada árbol; las tiendas nunca se tocan.',
+  'Tents board': 'Tablero de Tiendas',
+  'Tap: tent → grass → clear. Drag to paint.': 'Toca: tienda → hierba → borrar. Arrastra para pintar.',
+  'tree': 'árbol',
+  'tent': 'tienda',
+  'grass': 'hierba',
 };

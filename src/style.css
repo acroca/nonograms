@@ -1447,3 +1447,74 @@ button.primary {
 .about a {
   color: var(--accent);
 }
+
+/* Boards with clue cells around the field (Tents, Battleships, Thermometers, Skyscrapers) */
+.edge-board {
+  display: grid;
+  justify-content: center;
+}
+.edge-field {
+  display: grid;
+  box-shadow: 0 0 0 2px var(--line-strong);
+  box-sizing: content-box;
+}
+.edge-field > .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.eclue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--cell) * 0.5);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.eclue.done {
+  color: var(--done);
+}
+.eclue.bad {
+  color: var(--bad);
+}
+
+/* Tents */
+.board-tents {
+  --tree: #15803d;
+  --tent: #d97706;
+}
+.board-tents .tree,
+.board-tents .tent {
+  width: 78%;
+  height: 78%;
+}
+.board-tents .tree {
+  color: var(--tree);
+}
+.board-tents .tent {
+  display: none;
+  color: var(--tent);
+}
+.board-tents .is-tent .tent {
+  display: block;
+}
+.board-tents .grass-dot {
+  display: none;
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.7;
+}
+.board-tents .is-grass .grass-dot {
+  display: block;
+}
+.board-tents .cell.is-tent.clash {
+  background: color-mix(in srgb, var(--bad) 35%, var(--surface));
+}
+.board-tents .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}

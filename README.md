@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with twelve logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with thirteen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -122,6 +122,14 @@ Clear the field without hitting a mine: each number counts the mines in the eigh
 
 <img src="docs/minesweeper.png" width="240" alt="Minesweeper (no guessing)" />
 
+### Tents
+
+Pitch one tent next to every tree, matched one to one. Tents never touch each other, not even diagonally, and the numbers give the tents in each row and column.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/tents.png" width="240" alt="Tents" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -185,6 +193,9 @@ solver and an independent rule checker.
 - **Minesweeper**: mines are placed after your first tap, outside its 3×3 area; while a
   simulated player using single/pair rules, frontier enumeration and the mine count gets stuck,
   a mine is moved off the stuck frontier (or the layout is redrawn).
+- **Tents**: non-touching tents are placed first, each with a tree beside it, and the row/column
+  counts are read off; layouts are re-rolled until a solver using counts, tree adjacency, tent
+  exclusion and "common neighbour of a tree's candidates" reasoning solves them.
 
 ## Project layout
 

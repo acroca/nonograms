@@ -11,6 +11,7 @@ import { nurikabe } from './nurikabe';
 import { queens } from './queens';
 import { slitherlink } from './slitherlink';
 import { sudoku } from './sudoku';
+import { tents } from './tents';
 
 /** Games in menu order. */
-export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, kakuro, hitori, nurikabe, slitherlink, minesweeper];
+export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents];
