@@ -1,0 +1,10 @@
+// Cloudflare Workers Builds uses this to publish a preview of every pull request branch.
+// The live site is deployed to GitHub Pages by .github/workflows/deploy.yml, not from here.
+{
+  "name": "pwagames",
+  "compatibility_date": "2026-11-13",
+  "assets": {
+    "directory": "./dist"
+  },
+  "previews": {}
+}

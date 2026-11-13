@@ -1,8 +1,9 @@
 import { defineConfig } from 'vitest/config';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// GitHub Pages serves the project at https://<user>.github.io/<repo>/
-const base = process.env.BASE_PATH ?? '/pwagames/';
+// GitHub Pages serves the project at https://<user>.github.io/<repo>/, while Cloudflare's
+// pull request previews (built with WORKERS_CI set) are served from the root of their own host.
+const base = process.env.BASE_PATH ?? (process.env.WORKERS_CI ? '/' : '/pwagames/');
 
 export default defineConfig({
   base,
