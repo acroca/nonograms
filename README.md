@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with fifteen logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with sixteen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -81,6 +81,14 @@ Fill a Latin square while obeying the greater-than and less-than signs between n
 **Sizes:** 5×5, 6×6
 
 <img src="docs/futoshiki.png" width="240" alt="Futoshiki" />
+
+### Skyscrapers
+
+Fill a Latin square with building heights. Each clue on the edge says how many buildings are visible from that side, since taller buildings hide shorter ones.
+
+**Sizes:** 4×4, 5×5, 6×6
+
+<img src="docs/skyscrapers.png" width="240" alt="Skyscrapers" />
 
 ### Kakuro
 
@@ -219,6 +227,10 @@ solver and an independent rule checker.
   (never crossing, never touching another island), then extra bridges are added between facing
   islands; numbers are the resulting bridge counts. Puzzles are kept when a solver using island
   counts, crossing exclusion and "no closed group / only one way out" connectivity solves them.
+- **Skyscrapers**: all edge clues are read off a random Latin square, then dropped in random order
+  while a solver (all-different with hidden singles, plus every row/column arrangement consistent
+  with a clue and the remaining candidates) still solves it; a third of the dropped clues are handed
+  back so the puzzle isn't a bare minimum.
 
 ## Project layout
 

@@ -400,6 +400,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una isla cuyo número es el doble de sus vecinos posibles (como un 4 con dos vecinos) necesita dos puentes a cada uno.', 'Un 1 junto a otro 1 no puede unirlos salvo que sean las únicas dos islas.', 'Piensa siempre en la conectividad: un grupo terminado sin salida es un callejón sin salida.'],
     },
   },
+
+  skyscrapers: {
+    goal: {
+      en: 'Place a building of height 1 to N in every square so that each clue counts the buildings visible from its edge.',
+      es: 'Coloca un edificio de altura 1 a N en cada casilla para que cada pista cuente los edificios visibles desde su borde.',
+    },
+    rules: {
+      en: ['Each row and each column holds the heights 1 to N exactly once.', 'A number outside the grid tells how many buildings you can see looking along that row or column from that side.', 'A taller building hides every shorter one behind it.'],
+      es: ['Cada fila y cada columna contiene las alturas de 1 a N exactamente una vez.', 'Un número fuera de la cuadrícula indica cuántos edificios se ven mirando a lo largo de esa fila o columna desde ese lado.', 'Un edificio más alto oculta a todos los más bajos que tiene detrás.'],
+    },
+    controls: {
+      en: ['Tap a square, then a number on the pad. Tap the same number again to clear it.', 'Notes lets you pencil in possible heights. Clues turn grey when their line is correct and red when it is not.'],
+      es: ['Toca una casilla y luego un número del teclado. Toca el mismo número otra vez para borrarlo.', 'Notas permite anotar alturas posibles. Las pistas se ponen grises cuando su línea es correcta y rojas si no lo es.'],
+    },
+    examples: [
+      ex(['#4 1 2 3 4', '#1 4 3 2 1'], undefined, 'From the left, the first row shows all four buildings (1 2 3 4 rises every step); the second shows just one, the 4, which hides the rest.', 'Desde la izquierda, la primera fila deja ver los cuatro edificios (1 2 3 4 sube en cada paso); la segunda solo uno, el 4, que oculta a los demás.'),
+    ],
+    tips: {
+      en: ['A clue of 1 means the tallest building (N) is right next to the clue.', 'A clue of N means the heights ascend 1, 2, … N from that side.', 'With a clue of 2, the first building can’t be the tallest, otherwise you would see only one.'],
+      es: ['Una pista de 1 significa que el edificio más alto (N) está justo junto a la pista.', 'Una pista de N significa que las alturas suben 1, 2, … N desde ese lado.', 'Con una pista de 2, el primer edificio no puede ser el más alto; si lo fuera solo verías uno.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

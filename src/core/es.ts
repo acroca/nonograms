@@ -174,4 +174,7 @@ export const ES: Record<string, string> = {
   'Join the islands with bridges to match their numbers.': 'Une las islas con puentes para que coincidan con sus números.',
   'Bridges board': 'Tablero de Puentes',
   'Tap a bridge to add one, two or none. Drag between islands.': 'Toca un puente para poner uno, dos o ninguno. Arrastra entre islas.',
+  'Skyscrapers': 'Rascacielos',
+  'Fill a Latin square of building heights; clues count what you can see.': 'Rellena un cuadrado latino de alturas; las pistas cuentan lo que se ve.',
+  'Skyscrapers board': 'Tablero de Rascacielos',
 };

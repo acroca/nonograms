@@ -13,6 +13,7 @@ import { generate as sudoku } from './sudoku/logic';
 import { generate as tents } from './tents/logic';
 import { generate as lightup } from './lightup/logic';
 import { generate as bridges } from './bridges/logic';
+import { generate as skyscrapers } from './skyscrapers/logic';
 
 /** Puzzle generators by game id. Imported by the generation worker, so keep this free of DOM code. */
 export const GENERATORS: Record<string, (variant: string, seed: number, extra?: any) => unknown> = {
@@ -31,4 +32,5 @@ export const GENERATORS: Record<string, (variant: string, seed: number, extra?: 
   tents,
   lightup,
   bridges,
+  skyscrapers,
 };
