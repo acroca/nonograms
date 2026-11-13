@@ -26,26 +26,101 @@ It then runs full-screen and works offline.
 
 ## Games
 
-<table>
-  <tr>
-    <td align="center" width="25%"><img src="docs/nonogram.png" width="180" alt="Nonogram" /><br /><b>Nonogram</b><br /><sub>10×10</sub></td>
-    <td align="center" width="25%"><img src="docs/binairo.png" width="180" alt="Binairo (Takuzu)" /><br /><b>Binairo (Takuzu)</b><br /><sub>6×6, 8×8, 10×10</sub></td>
-    <td align="center" width="25%"><img src="docs/queens.png" width="180" alt="Queens (Star Battle)" /><br /><b>Queens (Star Battle)</b><br /><sub>7×7 – 10×10</sub></td>
-    <td align="center" width="25%"><img src="docs/sudoku.png" width="180" alt="Sudoku" /><br /><b>Sudoku</b><br /><sub>4×4, 6×6, 9×9 (easy, medium, hard)</sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="25%"><img src="docs/killer.png" width="180" alt="Killer Sudoku" /><br /><b>Killer Sudoku</b><br /><sub>Easy, medium, hard</sub></td>
-    <td align="center" width="25%"><img src="docs/kenken.png" width="180" alt="KenKen" /><br /><b>KenKen</b><br /><sub>4×4, 5×5, 6×6</sub></td>
-    <td align="center" width="25%"><img src="docs/futoshiki.png" width="180" alt="Futoshiki" /><br /><b>Futoshiki</b><br /><sub>5×5, 6×6</sub></td>
-    <td align="center" width="25%"><img src="docs/kakuro.png" width="180" alt="Kakuro" /><br /><b>Kakuro</b><br /><sub>6×6, 8×8 (including clue cells)</sub></td>
-  </tr>
-  <tr>
-    <td align="center" width="25%"><img src="docs/hitori.png" width="180" alt="Hitori" /><br /><b>Hitori</b><br /><sub>6×6, 7×7, 8×8</sub></td>
-    <td align="center" width="25%"><img src="docs/nurikabe.png" width="180" alt="Nurikabe" /><br /><b>Nurikabe</b><br /><sub>7×7 – 10×10</sub></td>
-    <td align="center" width="25%"><img src="docs/slitherlink.png" width="180" alt="Slitherlink" /><br /><b>Slitherlink</b><br /><sub>5×5, 6×6, 7×7</sub></td>
-    <td align="center" width="25%"><img src="docs/minesweeper.png" width="180" alt="Minesweeper (no guessing)" /><br /><b>Minesweeper (no guessing)</b><br /><sub>9×9, 9×16</sub></td>
-  </tr>
-</table>
+### Nonogram
+
+Paint the hidden picture. The numbers beside each row and column give the lengths of its runs of filled cells, in order, with at least one empty cell between runs.
+
+**Sizes:** 10×10
+
+<img src="docs/nonogram.png" width="240" alt="Nonogram" />
+
+### Binairo (Takuzu)
+
+Fill the grid with 0s and 1s. Every row and column holds as many 0s as 1s, never three of the same digit in a row, and no two rows or two columns are identical.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/binairo.png" width="240" alt="Binairo (Takuzu)" />
+
+### Queens (Star Battle)
+
+Place one queen in every row, every column and every colored region. No two queens may touch, not even diagonally.
+
+**Sizes:** 7×7 – 10×10
+
+<img src="docs/queens.png" width="240" alt="Queens (Star Battle)" />
+
+### Sudoku
+
+The classic: every row, column and box holds each digit exactly once.
+
+**Sizes:** 4×4, 6×6, 9×9 (easy, medium, hard)
+
+<img src="docs/sudoku.png" width="240" alt="Sudoku" />
+
+### Killer Sudoku
+
+Sudoku with cages instead of clues: the digits in each dashed cage add up to its sum, and no digit repeats inside a cage.
+
+**Sizes:** Easy, medium, hard
+
+<img src="docs/killer.png" width="240" alt="Killer Sudoku" />
+
+### KenKen
+
+Fill a Latin square (each digit once per row and column) so that every cage reaches its target using its operation: +, −, × or ÷.
+
+**Sizes:** 4×4, 5×5, 6×6
+
+<img src="docs/kenken.png" width="240" alt="KenKen" />
+
+### Futoshiki
+
+Fill a Latin square while obeying the greater-than and less-than signs between neighbouring cells.
+
+**Sizes:** 5×5, 6×6
+
+<img src="docs/futoshiki.png" width="240" alt="Futoshiki" />
+
+### Kakuro
+
+A crossword of sums: each run of white cells adds up to the clue at its start, using the digits 1–9 without repeating one inside a run.
+
+**Sizes:** 6×6, 8×8 (including clue cells)
+
+<img src="docs/kakuro.png" width="240" alt="Kakuro" />
+
+### Hitori
+
+Shade cells so that no number repeats in any row or column. Shaded cells may not touch side by side, and the unshaded cells must stay connected.
+
+**Sizes:** 6×6, 7×7, 8×8
+
+<img src="docs/hitori.png" width="240" alt="Hitori" />
+
+### Nurikabe
+
+Flood the grid with sea, leaving islands. Each island contains exactly one number and has that many cells; the sea is one connected area with no 2×2 pools.
+
+**Sizes:** 7×7 – 10×10
+
+<img src="docs/nurikabe.png" width="240" alt="Nurikabe" />
+
+### Slitherlink
+
+Draw a single closed loop along the grid lines. Each number says how many of the four sides of its cell are part of the loop.
+
+**Sizes:** 5×5, 6×6, 7×7
+
+<img src="docs/slitherlink.png" width="240" alt="Slitherlink" />
+
+### Minesweeper (no guessing)
+
+Clear the field without hitting a mine: each number counts the mines in the eight surrounding cells. Every board can be finished by logic alone, with no forced guesses.
+
+**Sizes:** 9×9, 9×16
+
+<img src="docs/minesweeper.png" width="240" alt="Minesweeper (no guessing)" />
 
 ## Shared features
 
