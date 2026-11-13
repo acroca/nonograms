@@ -4,7 +4,7 @@ import { openGuide } from './core/guide';
 import { LANGS, applyStatic, lang, onLangChange, setLang, t } from './core/i18n';
 import { load, loadRaw, save } from './core/storage';
 import { el, formatTime } from './core/util';
-import { GAMES } from './games/registry';
+import { GAMES, NEW_GAMES } from './games/registry';
 import { initInstall, initShare } from './core/install';
 import { trackGame } from './core/analytics';
 import './style.css';
@@ -51,6 +51,7 @@ function renderMenu() {
     }
     card.append(icon, el('span', 'card-title', t(game.title)), el('span', 'card-blurb', t(game.blurb)));
     if (meta) card.append(el('span', 'card-meta', meta));
+    if (NEW_GAMES.has(game.id)) card.append(el('span', 'card-badge', t('New')));
     card.addEventListener('click', () => {
       history.pushState({ fromMenu: true }, '', `#/${game.id}`);
       route();
