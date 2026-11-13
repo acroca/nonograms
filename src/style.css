@@ -15,6 +15,7 @@
   --bad: #dc2626;
   --good: #16a34a;
   --given: #e2e8f0;
+  --fav: #e11d48;
   /* App bar sits under the iOS status bar, whose text is always white. */
   --bar: #0f172a;
   --bar-fg: #f8fafc;
@@ -50,6 +51,7 @@
     --bad: #f87171;
     --good: #4ade80;
     --given: #334155;
+    --fav: #fb7185;
   }
 }
 
@@ -224,7 +226,14 @@ button.primary {
   gap: 0.75rem;
 }
 
+.card-item {
+  position: relative;
+  display: flex;
+}
+
 .card {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -236,10 +245,41 @@ button.primary {
   position: relative;
 }
 
+/* Sits on top of the card rather than inside it: buttons can't nest. */
+.card-fav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  color: var(--muted);
+}
+
+.card-fav svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.card-fav[aria-pressed='true'] {
+  color: var(--fav);
+}
+
+.card-fav[aria-pressed='true'] svg {
+  fill: currentColor;
+}
+
 .card-badge {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
+  top: 0.75rem;
+  right: 2.75rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
   background: var(--accent);
@@ -1401,6 +1441,8 @@ button.primary {
 .ex-svg {
   --lit: #fde68a;
   --mercury: #ef4444;
+  --glass: #94a3b8;
+  --bore: #f1f5f9;
   width: calc(var(--cols) * 2.3rem);
   max-width: 100%;
   height: auto;
@@ -1409,6 +1451,7 @@ button.primary {
 @media (prefers-color-scheme: dark) {
   .ex-svg {
     --lit: #78601a;
+    --bore: #0f172a;
   }
 }
 
@@ -1613,24 +1656,30 @@ button.primary {
   stroke-width: 0.07;
 }
 
-.ex-line.ex-thermo,
-.ex-line.ex-mercury {
-  stroke-width: 0.38;
+.ex-line.ex-glass {
+  stroke: var(--glass);
+  stroke-width: 0.4;
 }
 
-.ex-line.ex-thermo {
-  stroke: var(--line);
+.ex-glass-bulb {
+  fill: var(--glass);
+}
+
+.ex-line.ex-bore {
+  stroke: var(--bore);
+  stroke-width: 0.28;
+}
+
+.ex-bore-bulb {
+  fill: var(--bore);
 }
 
 .ex-line.ex-mercury {
   stroke: var(--mercury);
+  stroke-width: 0.28;
 }
 
-.ex-bulb.ex-thermo {
-  fill: var(--line);
-}
-
-.ex-bulb.ex-mercury {
+.ex-drop {
   fill: var(--mercury);
 }
 
@@ -2143,38 +2192,73 @@ button.primary {
 /* Thermometers */
 .board-thermometers {
   --mercury: #ef4444;
-  --glass: #cbd5e1;
+  --glass: #94a3b8;
+  --bore: #f1f5f9;
 }
 @media (prefers-color-scheme: dark) {
   .board-thermometers {
-    --glass: #475569;
+    --glass: #94a3b8;
+    --bore: #0f172a;
   }
 }
-.board-thermometers .cell .tube {
-  position: absolute;
-  background: var(--glass);
+/* The thermometers are one drawing under the (see-through) cells, so the grid lines and marks stay on top of it. */
+.board-thermometers .edge-field {
+  position: relative;
+  background: var(--surface);
 }
-.board-thermometers .cell .bulb {
-  position: absolute;
-  width: 76%;
-  height: 76%;
-  border-radius: 50%;
-  background: var(--glass);
+.board-thermometers .cell {
+  background: none;
 }
-.board-thermometers .cell.fill .tube,
-.board-thermometers .cell.fill .bulb {
-  background: var(--mercury);
+.board-thermometers .thermo-art {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.board-thermometers .thermo-art path {
+  fill: none;
+  stroke-linejoin: round;
+}
+.board-thermometers .glass {
+  stroke: var(--glass);
+  stroke-width: 0.4;
+  stroke-linecap: round;
+}
+.board-thermometers .glass-bulb {
+  fill: var(--glass);
+}
+.board-thermometers .bore {
+  stroke: var(--bore);
+  stroke-width: 0.28;
+  stroke-linecap: round;
+}
+.board-thermometers .bore-bulb {
+  fill: var(--bore);
+}
+.board-thermometers .mercury {
+  display: none;
+}
+.board-thermometers .mercury.on {
+  display: inline;
+}
+.board-thermometers .level {
+  stroke: var(--mercury);
+  stroke-width: 0.28;
+}
+.board-thermometers .drop {
+  fill: var(--mercury);
 }
 .board-thermometers .cell.mark::after {
   content: '✕';
   position: absolute;
-  color: var(--muted);
-  font-size: calc(var(--cell) * 0.4);
+  color: var(--fg);
+  font-size: calc(var(--cell) * 0.36);
+  font-weight: 700;
   line-height: 1;
 }
-.board-thermometers .cell.clash .tube,
-.board-thermometers .cell.clash .bulb {
-  box-shadow: 0 0 0 2px var(--bad);
+.board-thermometers .cell.clash {
+  background: color-mix(in srgb, var(--bad) 25%, transparent);
 }
 .board-thermometers .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);

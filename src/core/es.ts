@@ -27,6 +27,8 @@ export const ES: Record<string, string> = {
   'Undo': 'Deshacer',
   'Check': 'Comprobar',
   'New': 'Nuevo',
+  'Add {game} to favourites': 'Añadir {game} a favoritos',
+  'Remove {game} from favourites': 'Quitar {game} de favoritos',
   'Creating puzzle…': 'Creando puzzle…',
   "Couldn't create a puzzle.": 'No se pudo crear el puzzle.',
   'Try again': 'Reintentar',

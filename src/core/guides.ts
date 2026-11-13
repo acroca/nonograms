@@ -1434,12 +1434,12 @@ const RAW: Record<string, RawGuide> = {
       en: [
         'Tap a square to cycle: filled → ✕ → empty. A ✕ is your own mark for a square you know stays empty.',
         'Drag to apply the same mark to several squares.',
-        'Numbers turn grey when satisfied and red when exceeded. Mercury right after a ✕ on the same thermometer gets a red outline.',
+        'Numbers turn grey when satisfied and red when exceeded. A filled square right after a ✕ on the same thermometer is tinted red.',
       ],
       es: [
         'Toca una casilla para alternar: llena → ✕ → vacía. La ✕ es tu propia marca para una casilla que sabes que queda vacía.',
         'Arrastra para aplicar la misma marca a varias casillas.',
-        'Los números se ponen grises al cumplirse y rojos si se superan. El mercurio que va justo después de una ✕ en el mismo termómetro recibe un contorno rojo.',
+        'Los números se ponen grises al cumplirse y rojos si se superan. Una casilla llena justo después de una ✕ en el mismo termómetro se tiñe de rojo.',
       ],
     },
     examples: [

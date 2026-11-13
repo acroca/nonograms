@@ -139,11 +139,19 @@ function drawLine(out: SVGElement, style: LineStyle, spec: string) {
     }
     return;
   }
-  const cls = style === 'mercury-gap' ? 'mercury' : style;
-  out.append(svg('polyline', `ex-line ex-${cls}`, { points: poly(p) }));
-  if (style === 'thermo' || style === 'mercury') {
-    out.append(svg('circle', `ex-bulb ex-${style}`, { cx: p[0][0], cy: p[0][1], r: 0.33 }));
+  if (style === 'thermo') {
+    // Drawn like the Thermometers board: a glass tube with a bulb at its first point, hollow inside.
+    const [cx, cy] = p[0];
+    out.append(svg('polyline', 'ex-line ex-glass', { points: poly(p) }), svg('circle', 'ex-glass-bulb', { cx, cy, r: 0.36 }));
+    out.append(svg('polyline', 'ex-line ex-bore', { points: poly(p) }), svg('circle', 'ex-bore-bulb', { cx, cy, r: 0.3 }));
+    return;
   }
+  if (style === 'mercury' || style === 'mercury-gap') {
+    out.append(svg('polyline', 'ex-line ex-mercury', { points: poly(p) }));
+    if (style === 'mercury') out.append(svg('circle', 'ex-drop', { cx: p[0][0], cy: p[0][1], r: 0.3 }));
+    return;
+  }
+  out.append(svg('polyline', `ex-line ex-${style}`, { points: poly(p) }));
 }
 
 /** Renders the drawing of an example as an inline SVG, one unit per square. */
