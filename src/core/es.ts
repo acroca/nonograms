@@ -214,4 +214,9 @@ export const ES: Record<string, string> = {
   'Numberlink board': 'Tablero de Numberlink',
   'Drag from a number through the cells to draw its path. Tap a path cell to clear it.': 'Arrastra desde un número por las casillas para dibujar su camino. Toca una casilla del camino para borrarla.',
   'path {n}': 'camino {n}',
+  'Thermometers': 'Termómetros',
+  'Fill the thermometers from the bulb to match the row and column counts.': 'Llena los termómetros desde el bulbo para cumplir los números de filas y columnas.',
+  'Thermometers board': 'Tablero de Termómetros',
+  'Tap: fill → ✕ → clear. Drag to paint.': 'Toca: llenar → ✕ → borrar. Arrastra para pintar.',
+  'marked empty': 'marcada vacía',
 };

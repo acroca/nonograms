@@ -577,6 +577,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Un número en una esquina solo tiene dos salidas; una casilla con un solo vecino libre es un callejón sin salida.', 'Las casillas de un pasillo de ancho uno obligan al camino a recorrerlo.', 'Como hay que usar todas las casillas, evita dejar huecos a los que el camino no pueda llegar.'],
     },
   },
+
+  thermometers: {
+    goal: {
+      en: 'Fill each thermometer with mercury from its bulb so every row and column has the right number of filled cells.',
+      es: 'Llena cada termómetro de mercurio desde su bulbo para que cada fila y columna tenga la cantidad correcta de casillas llenas.',
+    },
+    rules: {
+      en: ['Mercury starts at the round bulb and rises along the thermometer without gaps, as far as you like (or not at all).', 'The numbers beside the grid tell how many cells are filled in each row and column.', 'Every cell belongs to a thermometer.'],
+      es: ['El mercurio parte del bulbo redondo y sube por el termómetro sin huecos, hasta donde quieras (o nada).', 'Los números junto a la cuadrícula indican cuántas casillas están llenas en cada fila y columna.', 'Cada casilla pertenece a un termómetro.'],
+    },
+    controls: {
+      en: ['Tap a cell to cycle: filled → ✕ (known empty) → clear. Drag to apply the same mark to several cells.', 'Numbers turn grey when satisfied and red when exceeded.'],
+      es: ['Toca una casilla para alternar: llena → ✕ (vacía segura) → borrar. Arrastra para aplicar la misma marca a varias casillas.', 'Los números se ponen grises al cumplirse y rojos si se superan.'],
+    },
+    examples: [
+      ex(['*1 *1 .'], undefined, 'A thermometer of three cells filled up to its second cell: the bulb and the cell after it hold mercury.', 'Un termómetro de tres casillas lleno hasta la segunda: el bulbo y la casilla siguiente tienen mercurio.'),
+    ],
+    tips: {
+      en: ['A filled cell forces everything between it and the bulb to be filled; an empty cell forces everything beyond it to be empty.', 'A row or column with 0 is empty; one whose count equals its length is full.', 'A tip cell far from the bulb can only be filled if the whole thermometer is.'],
+      es: ['Una casilla llena obliga a llenar todo lo que hay entre ella y el bulbo; una vacía obliga a dejar vacío todo lo que hay más allá.', 'Una fila o columna con 0 está vacía; si su número iguala su longitud, está llena.', 'La punta lejos del bulbo solo puede llenarse si se llena todo el termómetro.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

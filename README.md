@@ -210,6 +210,14 @@ Connect each pair of equal numbers with a path. Paths never cross or share cells
 
 <img src="docs/numberlink.png" width="240" alt="Numberlink" />
 
+### Thermometers
+
+Fill each thermometer with mercury from its bulb, without gaps, so that each row and column holds the given number of filled cells.
+
+**Sizes:** 5×5, 6×6, 7×7, 8×8
+
+<img src="docs/thermometers.png" width="240" alt="Thermometers" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -312,6 +320,10 @@ solver and an independent rule checker.
   into pieces, whose ends become the pairs. A layout is kept when a solver using cell degrees (1 at a number,
   2 elsewhere), no closed loops, no joining different pairs and one-step lookahead solves it and the counting
   solver agrees it is unique. 8×8 and larger were too slow to find, so they are not offered.
+- **Thermometers**: the grid is covered by random snaking thermometers, each filled to a random level, and the
+  row/column counts are read off; layouts are kept when plain deductions are enough to make real progress and
+  a solver using counts, the mercury rule and one-step lookahead solves them. 10×10 was too slow to find, so it
+  is not offered.
 
 ## Project layout
 
