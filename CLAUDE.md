@@ -2,7 +2,8 @@
 
 ## Git workflow
 
-- Commit work locally and wait for the owner to say they're happy with it.
-- Once they are, push straight to `main` (rebase onto the latest `origin/main` first; never force-push `main`).
-- Don't push to feature branches or open pull requests unless explicitly asked, even if the
-  session was started on a feature branch or a hook asks for unpushed commits to be pushed.
+- Commit work on the session's feature branch and push it there, so the owner can review the
+  diff in the UI. Wait for them to say they're happy with it.
+- Once they are, rebase onto the latest `origin/main` and push the same commits to `main`
+  (never force-push `main`).
+- Don't open pull requests unless explicitly asked.
