@@ -3,7 +3,7 @@
 [![Deploy](https://github.com/acroca/pwagames/actions/workflows/deploy.yml/badge.svg)](https://github.com/acroca/pwagames/actions/workflows/deploy.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**[▶ Play at acroca.github.io/pwagames](https://acroca.github.io/pwagames/)**
+**[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
 A free, open-source Progressive Web App with twelve logic puzzle games, designed for phones.
 No ads, no accounts, works offline.

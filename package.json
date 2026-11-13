@@ -21,7 +21,7 @@
   "bugs": {
     "url": "https://github.com/acroca/pwagames/issues"
   },
-  "homepage": "https://acroca.github.io/pwagames/",
+  "homepage": "https://acroca.com/pwagames/",
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
