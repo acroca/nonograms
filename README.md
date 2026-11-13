@@ -1,11 +1,31 @@
-# Logic Puzzles (pwagames)
+# Logic Puzzles
 
-A Progressive Web App with a collection of logic puzzle games, designed for iPhone.
-Open **https://acroca.github.io/pwagames/** in Safari and use **Share → Add to Home Screen**
-to install it; it then runs full-screen and works offline.
+[![Deploy](https://github.com/acroca/pwagames/actions/workflows/deploy.yml/badge.svg)](https://github.com/acroca/pwagames/actions/workflows/deploy.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+**[▶ Play at acroca.github.io/pwagames](https://acroca.github.io/pwagames/)**
+
+A free, open-source Progressive Web App with twelve logic puzzle games, designed for phones.
+No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
 alone — no guessing needed.
+
+<p align="center">
+  <img src="docs/menu.png" width="190" alt="Game menu" />
+  <img src="docs/queens.png" width="190" alt="Queens" />
+  <img src="docs/sudoku.png" width="190" alt="Sudoku" />
+  <img src="docs/slitherlink.png" width="190" alt="Slitherlink" />
+</p>
+
+## Install
+
+Open the link above on your phone and tap **Install app**, or:
+
+- **iPhone / iPad**: in Safari, **Share → Add to Home Screen**.
+- **Android**: in the browser menu (⋮), **Install app** or **Add to Home screen**.
+
+It then runs full-screen and works offline.
 
 ## Games
 
@@ -14,7 +34,7 @@ alone — no guessing needed.
 | Nonogram | 10×10 |
 | Binairo (Takuzu) | 6×6, 8×8, 10×10 |
 | Queens (Star Battle) | 7×7 – 10×10 |
-| Sudoku | Easy, medium, hard |
+| Sudoku | 4×4, 6×6, 9×9 (easy, medium, hard) |
 | Killer Sudoku | Easy, medium, hard |
 | KenKen | 4×4, 5×5, 6×6 |
 | Futoshiki | 5×5, 6×6 |
@@ -114,3 +134,17 @@ npm run icons    # regenerate PWA icons in public/
 `.github/workflows/deploy.yml` tests, builds, and publishes to GitHub Pages on every push to
 `main`. The repository's Pages source must be set to **GitHub Actions**
 (Settings → Pages → Build and deployment).
+
+## Privacy
+
+No accounts, no cookies, no ads. Progress and best times stay in your browser's local storage.
+Anonymous usage counts (page views, which game was opened, new puzzles started) are collected
+with [GoatCounter](https://www.goatcounter.com/), which stores no personal data.
+
+## Contributing
+
+Bug reports, ideas and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE) © Albert Callarisa
