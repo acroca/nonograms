@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with twenty-one logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with twenty-six logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
