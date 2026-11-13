@@ -1377,49 +1377,290 @@ button.primary {
   font-size: 0.9rem;
 }
 
-.ex-grid {
-  display: flex;
-  flex-direction: column;
-  border: 2px solid var(--line-strong);
+.example.bad {
+  border-color: color-mix(in srgb, var(--bad) 55%, var(--line));
 }
 
-.ex-row {
-  display: flex;
+.example.ok {
+  border-color: color-mix(in srgb, var(--good) 55%, var(--line));
 }
 
-.ex-cell {
-  min-width: 2.2rem;
-  height: 2.2rem;
-  padding: 0 0.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
+.ex-verdict {
+  font-weight: 700;
+}
+
+.example.bad .ex-verdict {
+  color: var(--bad);
+}
+
+.example.ok .ex-verdict {
+  color: var(--good);
+}
+
+/* Example drawings: an SVG with one unit per square, see core/example.ts. */
+.ex-svg {
+  --lit: #fde68a;
+  --mercury: #ef4444;
+  width: calc(var(--cols) * 2.3rem);
+  max-width: 100%;
+  height: auto;
+  overflow: visible;
+}
+@media (prefers-color-scheme: dark) {
+  .ex-svg {
+    --lit: #78601a;
+  }
+}
+
+.ex-back {
+  fill: var(--surface);
+}
+
+.ex-back.ex-tint {
+  fill: color-mix(in srgb, hsl(var(--h) 75% 55%) 24%, var(--surface));
+}
+
+.ex-back.ex-soft {
+  fill: var(--given);
+}
+
+.ex-back.ex-lit {
+  fill: var(--lit);
+}
+
+.ex-back.ex-hl {
+  fill: var(--highlight);
+}
+
+.ex-back.ex-dark {
+  fill: var(--fill);
+}
+
+.ex-back.ex-bad {
+  fill: color-mix(in srgb, var(--bad) 22%, var(--surface));
+}
+
+.ex-back.ex-dark.ex-bad {
+  fill: var(--bad);
+}
+
+.ex-thin,
+.ex-wall,
+.ex-cage,
+.ex-diagonal,
+.ex-line,
+.ex-cross,
+.ex-ring,
+.ex-water,
+.ex-domino,
+.ex-island,
+.ex-pearl-white {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ex-thin {
+  stroke: var(--line);
+  stroke-width: 0.03;
+}
+
+.ex-wall {
+  stroke: var(--line-strong);
+  stroke-width: 0.07;
+  stroke-linecap: square;
+}
+
+.ex-cage {
+  stroke: var(--muted);
+  stroke-width: 0.03;
+  stroke-dasharray: 0.07 0.06;
+  stroke-linecap: butt;
+}
+
+.ex-diagonal {
+  stroke: var(--bg);
+  stroke-width: 0.03;
+}
+
+.ex-text {
+  fill: var(--fg);
+  font-size: 0.5px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
+  text-anchor: middle;
+  dominant-baseline: central;
 }
 
-.ex-cell.dark {
-  background: var(--fill);
-  color: var(--bg);
+.ex-text.ex-emoji {
+  font-size: 0.56px;
 }
 
-.ex-cell.hl {
-  background: var(--highlight);
-  color: var(--accent);
+.ex-text.ex-small {
+  font-size: 0.4px;
 }
 
-.ex-cell.op {
-  border-color: transparent;
-  min-width: 1.4rem;
-  color: var(--accent);
+.ex-text.ex-clue {
+  font-size: 0.44px;
 }
 
-.ex-pre {
-  margin: 0;
-  font-family: ui-monospace, monospace;
-  font-weight: 700;
-  line-height: 1.3;
+.ex-text.ex-sign {
+  fill: var(--accent);
+}
+
+.ex-text.ex-label {
+  font-size: 0.22px;
+  text-anchor: start;
+}
+
+.ex-caged .ex-text {
+  font-size: 0.42px;
+}
+
+.ex-stone {
+  fill: var(--fill);
+}
+
+.ex-stone.ex-bad {
+  fill: var(--bad);
+}
+
+.ex-text.ex-kakuro {
+  fill: var(--bg);
+  font-size: 0.3px;
+}
+
+.ex-text.ex-on-disc {
+  fill: #fff;
+  font-size: 0.4px;
+}
+
+.ex-on-dark .ex-text {
+  fill: var(--bg);
+}
+
+.ex-on-hl .ex-text {
+  fill: var(--accent);
+}
+
+.ex-on-bad .ex-text {
+  fill: var(--bad);
+}
+
+.ex-on-dark.ex-on-bad .ex-text {
+  fill: var(--bg);
+}
+
+.ex-cross {
+  stroke: var(--cross);
+  stroke-width: 0.07;
+}
+
+.ex-cross.ex-cross-small {
+  stroke-width: 0.05;
+}
+
+.ex-dot,
+.ex-centre {
+  fill: var(--muted);
+}
+
+.ex-node,
+.ex-pearl-black,
+.ex-ship {
+  fill: var(--fill);
+}
+
+.ex-on-bad .ex-ship {
+  fill: var(--bad);
+}
+
+.ex-ring {
+  stroke: var(--accent);
+  stroke-width: 0.06;
+}
+
+.ex-pearl-white {
+  fill: var(--surface);
+  stroke: var(--fill);
+  stroke-width: 0.07;
+}
+
+.ex-on-bad .ex-pearl-white,
+.ex-on-bad .ex-pearl-black {
+  stroke: var(--bad);
+  stroke-width: 0.09;
+}
+
+.ex-water {
+  stroke: var(--accent);
+  stroke-width: 0.06;
+}
+
+.ex-island {
+  fill: var(--surface);
+  stroke: var(--fill);
+  stroke-width: 0.06;
+}
+
+.ex-line.ex-loop {
+  stroke: var(--fill);
+  stroke-width: 0.12;
+}
+
+.ex-line.ex-bridge {
+  stroke: var(--fill);
+  stroke-width: 0.07;
+}
+
+.ex-line.ex-thermo,
+.ex-line.ex-mercury {
+  stroke-width: 0.38;
+}
+
+.ex-line.ex-thermo {
+  stroke: var(--line);
+}
+
+.ex-line.ex-mercury {
+  stroke: var(--mercury);
+}
+
+.ex-bulb.ex-thermo {
+  fill: var(--line);
+}
+
+.ex-bulb.ex-mercury {
+  fill: var(--mercury);
+}
+
+.ex-path-a {
+  --h: 280;
+}
+
+.ex-path-b {
+  --h: 150;
+}
+
+.ex-path-c {
+  --h: 25;
+}
+
+.ex-line[class*='ex-path-'] {
+  stroke: color-mix(in srgb, hsl(var(--h) 75% 55%) 45%, var(--surface));
+  stroke-width: 0.56;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.ex-disc {
+  fill: hsl(var(--h) 65% 42%);
+}
+
+.ex-domino {
+  fill: color-mix(in srgb, var(--accent) 16%, transparent);
+  stroke: var(--accent);
+  stroke-width: 0.06;
 }
 
 #menu-screen .topbar h1 {
