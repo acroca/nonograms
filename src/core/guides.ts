@@ -511,6 +511,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Empieza rodeando los 1 y completando los grupos que ya tienen el tamaño correcto.', 'Un número dado con un único vecino libre debe crecer por ese vecino.', 'Una casilla a la que ningún grupo puede llegar con espacio suficiente no puede tener un número grande.'],
     },
   },
+
+  kuromasu: {
+    goal: {
+      en: 'Shade cells so that every number can see exactly that many unshaded cells.',
+      es: 'Sombrea casillas para que cada número vea exactamente esa cantidad de casillas sin sombrear.',
+    },
+    rules: {
+      en: ['A number counts the cells it sees, itself included, looking up, down, left and right until a shaded cell or the edge.', 'Numbered cells are never shaded.', 'Shaded cells can’t touch each other side by side.', 'All unshaded cells must stay connected as one area.'],
+      es: ['Un número cuenta las casillas que ve, incluida la suya, mirando arriba, abajo, izquierda y derecha hasta una casilla sombreada o el borde.', 'Las casillas con número nunca se sombrean.', 'Las casillas sombreadas no pueden tocarse por los lados.', 'Todas las casillas sin sombrear deben seguir conectadas como una única zona.'],
+    },
+    controls: {
+      en: ['Tap to cycle: shaded → dot (known unshaded) → empty. Drag to apply the same mark to several cells.', 'A number turns grey when it can’t change any more, and red when it can no longer be satisfied.'],
+      es: ['Toca para alternar: sombreada → punto (seguro sin sombrear) → vacía. Arrastra para aplicar la misma marca a varias casillas.', 'Un número se pone gris cuando ya no puede cambiar, y rojo cuando ya no puede cumplirse.'],
+    },
+    examples: [
+      ex(['*3 . #', '. . .', '# . .'], undefined, 'The 3 sees itself plus the cell to its right (the next one is shaded) and the cell below (the one after that is shaded): 1 + 1 + 1 = 3.', 'El 3 se ve a sí mismo, la casilla de su derecha (la siguiente está sombreada) y la de abajo (la siguiente está sombreada): 1 + 1 + 1 = 3.'),
+    ],
+    tips: {
+      en: ['A 1 is surrounded by shaded cells (or the edge).', 'A number as large as its row and column allow sees everything: nothing near it can be shaded.', 'Neighbours of a shaded cell are unshaded; use dots to remember them.'],
+      es: ['Un 1 está rodeado de casillas sombreadas (o el borde).', 'Un número tan grande como permiten su fila y columna lo ve todo: nada cerca de él puede sombrearse.', 'Los vecinos de una casilla sombreada no se sombrean; usa puntos para recordarlo.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

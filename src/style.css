@@ -1773,3 +1773,31 @@ button.primary {
 .board-fillomino .cell.clash {
   background: color-mix(in srgb, var(--bad) 22%, var(--surface));
 }
+
+/* Kuromasu */
+.board-kuromasu .cell.clue {
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+}
+.board-kuromasu .cell.clue.done {
+  color: var(--done);
+}
+.board-kuromasu .cell.clue.bad {
+  color: var(--bad);
+}
+.board-kuromasu .cell.shaded {
+  background: var(--fill);
+}
+.board-kuromasu .cell.shaded.clash {
+  background: var(--bad);
+}
+.board-kuromasu .cell.dot::after {
+  content: '';
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.board-kuromasu .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}

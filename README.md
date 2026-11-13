@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with twenty logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with twenty-one logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -186,6 +186,14 @@ Fill every cell with a number so that each group of touching equal numbers has e
 
 <img src="docs/fillomino.png" width="240" alt="Fillomino" />
 
+### Kuromasu
+
+Shade cells so each number sees exactly that many cells (itself included) along its row and column until a shaded cell. Shaded cells never touch side by side and the unshaded cells stay connected.
+
+**Sizes:** 5×5, 7×7, 9×9
+
+<img src="docs/kuromasu.png" width="240" alt="Kuromasu" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -278,6 +286,9 @@ solver and an independent rule checker.
 - **Fillomino**: the grid is cut into random polyominoes (equal-sized neighbours are rejected) and each
   cell holds its piece's size; numbers are then removed in random order, first while plain deductions
   (group capacity, closed groups, forced growth) still solve it, then again allowing one-step lookahead.
+- **Kuromasu**: a random non-touching, connectivity-preserving shading is numbered everywhere, then numbers
+  are dropped in random order while a solver using visibility bounds (per-direction minimum/maximum runs),
+  shaded-neighbour exclusion, white connectivity (cut cells) and one-step lookahead still solves the grid.
 
 ## Project layout
 

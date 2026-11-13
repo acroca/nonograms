@@ -197,4 +197,7 @@ export const ES: Record<string, string> = {
   'Fillomino': 'Fillomino',
   'Fill every cell so each group of equal numbers is that big.': 'Rellena cada casilla para que cada grupo de números iguales tenga ese tamaño.',
   'Fillomino board': 'Tablero de Fillomino',
+  'Kuromasu': 'Kuromasu',
+  'Shade cells so every number sees exactly that many cells.': 'Sombrea casillas para que cada número vea exactamente esa cantidad de casillas.',
+  'Kuromasu board': 'Tablero de Kuromasu',
 };

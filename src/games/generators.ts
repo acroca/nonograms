@@ -18,6 +18,7 @@ import { generate as battleships } from './battleships/logic';
 import { generate as masyu } from './masyu/logic';
 import { generate as norinori } from './norinori/logic';
 import { generate as fillomino } from './fillomino/logic';
+import { generate as kuromasu } from './kuromasu/logic';
 
 /** Puzzle generators by game id. Imported by the generation worker, so keep this free of DOM code. */
 export const GENERATORS: Record<string, (variant: string, seed: number, extra?: any) => unknown> = {
@@ -41,4 +42,5 @@ export const GENERATORS: Record<string, (variant: string, seed: number, extra?: 
   masyu,
   norinori,
   fillomino,
+  kuromasu,
 };
