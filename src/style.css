@@ -1666,7 +1666,7 @@ button.primary {
   justify-content: center;
   align-items: center;
   gap: 0.35rem 0.9rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
 }
 .fleet-ship {
   display: inline-flex;
