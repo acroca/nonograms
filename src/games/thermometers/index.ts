@@ -10,6 +10,12 @@ const FILLED = 1;
 const MARKED = 2;
 const NAMES = ['empty', 'filled', 'marked empty'];
 
+const SVG = 'http://www.w3.org/2000/svg';
+/** Sizes in cell units: tube width, bulb radius and glass thickness. */
+const TUBE = 0.4;
+const BULB = 0.36;
+const RIM = 0.06;
+
 export interface ThermometersState {
   /** Per cell: EMPTY, FILLED or MARKED (known to be empty). */
   cells: number[];
@@ -35,23 +41,53 @@ export const thermometers: GameModule<ThermometersPuzzle, ThermometersState> = {
     board.setAttribute('role', 'grid');
     board.setAttribute('aria-label', t('Thermometers board'));
     const eb = buildEdgeBoard(board, n, n, { top: true, left: true });
+    // One drawing over the whole field, in cell units: each thermometer is a glass tube with a bulb at its start,
+    // holding one piece of mercury per cell.
+    const svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('class', 'thermo-art');
+    svg.setAttribute('viewBox', `0 0 ${n} ${n}`);
+    svg.setAttribute('aria-hidden', 'true');
+    const draw = (parent: Element, tag: string, cls: string, attrs: Record<string, string | number>) => {
+      const node = document.createElementNS(SVG, tag);
+      node.setAttribute('class', cls);
+      for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, String(v));
+      parent.append(node);
+      return node;
+    };
+    const at = (cell: number): [number, number] => [(cell % n) + 0.5, Math.floor(cell / n) + 0.5];
+    const line = (pts: [number, number][]) => `M${pts.map((p) => p.join(' ')).join('L')}`;
     // The cell before each one on its thermometer (towards the bulb), or -1 for a bulb.
     const before = new Array<number>(n * n).fill(-1);
+    const mercury = new Array<SVGGElement>(n * n);
     paths.forEach((cells) => {
+      const g = draw(svg, 'g', 'thermo', {});
+      const [bx, by] = at(cells[0]);
+      const d = line(cells.map(at));
+      draw(g, 'path', 'glass', { d });
+      draw(g, 'circle', 'glass-bulb', { cx: bx, cy: by, r: BULB });
+      draw(g, 'path', 'bore', { d });
+      draw(g, 'circle', 'bore-bulb', { cx: bx, cy: by, r: BULB - RIM });
       cells.forEach((cell, k) => {
-        const link = [cells[k - 1], cells[k + 1]].filter((x) => x !== undefined);
-        const flag = (j: number) => link.includes(j);
-        const [u, d, l, r] = [flag(cell - n), flag(cell + n), flag(cell - 1), flag(cell + 1)];
-        const tube = el('span', 'tube');
-        const pad = 22;
-        tube.style.inset = `${u ? 0 : pad}% ${r ? 0 : pad}% ${d ? 0 : pad}% ${l ? 0 : pad}%`;
-        const rad = (a: boolean, b: boolean) => (a || b ? '0' : '45%');
-        tube.style.borderRadius = `${rad(u, l)} ${rad(u, r)} ${rad(d, r)} ${rad(d, l)}`;
-        eb.cells[cell].append(tube);
-        if (k === 0) eb.cells[cell].append(el('span', 'bulb'));
-        else before[cell] = cells[k - 1];
+        const [x, y] = at(cell);
+        const m = draw(g, 'g', 'mercury', {}) as SVGGElement;
+        const pts: [number, number][] = [[x, y]];
+        if (k > 0) {
+          // Start a little inside the previous cell so neighbouring pieces join without a seam.
+          const [px, py] = at(cells[k - 1]);
+          pts.unshift([x + (px - x) * 0.51, y + (py - y) * 0.51]);
+          before[cell] = cells[k - 1];
+        }
+        if (k < cells.length - 1) {
+          const [nx, ny] = at(cells[k + 1]);
+          pts.push([(x + nx) / 2, (y + ny) / 2]);
+        }
+        if (pts.length > 1) draw(m, 'path', 'level', { d: line(pts) });
+        if (k === 0) draw(m, 'circle', 'drop', { cx: x, cy: y, r: BULB - RIM });
+        else if (k === cells.length - 1) draw(m, 'circle', 'drop', { cx: x, cy: y, r: TUBE / 2 - RIM });
+        mercury[cell] = m;
       });
     });
+    eb.field.prepend(svg);
     eb.top.forEach((c, k) => (c.textContent = String(colCounts[k])));
     eb.left.forEach((c, k) => (c.textContent = String(rowCounts[k])));
     ctx.fit(eb.cols, eb.rows);
@@ -68,7 +104,7 @@ export const thermometers: GameModule<ThermometersPuzzle, ThermometersState> = {
           cols[i % n]++;
         }
         // Mercury can't float above an empty section.
-        cell.classList.toggle('fill', v === FILLED);
+        mercury[i].classList.toggle('on', v === FILLED);
         cell.classList.toggle('mark', v === MARKED);
         cell.classList.toggle('clash', v === FILLED && before[i] >= 0 && s[before[i]] === MARKED);
         cell.classList.remove('wrong');

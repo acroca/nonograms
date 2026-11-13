@@ -592,7 +592,7 @@ const RAW: Record<string, RawGuide> = {
       es: ['Toca una casilla para alternar: llena → ✕ (vacía segura) → borrar. Arrastra para aplicar la misma marca a varias casillas.', 'Los números se ponen grises al cumplirse y rojos si se superan.'],
     },
     examples: [
-      ex(['*1 *1 .'], undefined, 'A thermometer of three cells filled up to its second cell: the bulb and the cell after it hold mercury.', 'Un termómetro de tres casillas lleno hasta la segunda: el bulbo y la casilla siguiente tienen mercurio.'),
+      ex(['*● *━ ━'], undefined, 'A thermometer of three cells filled up to its second cell: the bulb and the cell after it hold mercury.', 'Un termómetro de tres casillas lleno hasta la segunda: el bulbo y la casilla siguiente tienen mercurio.'),
     ],
     tips: {
       en: ['A filled cell forces everything between it and the bulb to be filled; an empty cell forces everything beyond it to be empty.', 'A row or column with 0 is empty; one whose count equals its length is full.', 'A tip cell far from the bulb can only be filled if the whole thermometer is.'],
