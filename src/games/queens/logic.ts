@@ -446,6 +446,10 @@ export function generate(variant: string, seed: number): QueensPuzzle {
     if (current > 0) continue;
     const puzzle: QueensPuzzle = { size: n, regions, solution, variant: String(n), seed };
     const { solved, queens, level } = solveLogic(puzzle);
-    if (solved && level > SINGLES && queens.every((c, r) => c === solution[r])) return puzzle;
+    if (!solved || level === SINGLES || queens.some((c, r) => c !== solution[r])) continue;
+    // Region ids follow the queens' rows so far; shuffle them so colors don't always run top to bottom.
+    const ids = shuffle(rng, Array.from({ length: n }, (_, i) => i));
+    puzzle.regions = regions.map((g) => ids[g]);
+    return puzzle;
   }
 }

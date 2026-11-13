@@ -79,6 +79,14 @@ describe('generate', () => {
     expect(generate('8', 123)).not.toEqual(generate('8', 124));
   });
 
+  it('does not tie region ids to the queens’ rows', () => {
+    const ordered = (seed: number) => {
+      const p = generate('8', seed);
+      return p.solution.every((c, r) => p.regions[r * p.size + c] === r);
+    };
+    expect([1, 2, 3, 4, 5].every(ordered)).toBe(false);
+  });
+
   it('falls back to the default variant', () => {
     expect(generate('nope', 5).size).toBe(Number(DEFAULT_VARIANT));
   });
