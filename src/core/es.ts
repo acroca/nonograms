@@ -222,4 +222,8 @@ export const ES: Record<string, string> = {
   'Mosaic': 'Mosaico',
   'Shade cells so each number counts the shaded cells around it.': 'Sombrea casillas para que cada número cuente las casillas sombreadas a su alrededor.',
   'Mosaic board': 'Tablero de Mosaico',
+  'Jigsaw Sudoku': 'Sudoku Jigsaw',
+  'Sudoku with irregular, jigsaw-shaped regions instead of boxes.': 'Sudoku con regiones irregulares en forma de puzle en lugar de cajas.',
+  'Jigsaw Sudoku board': 'Tablero de Sudoku Jigsaw',
+  'region {n}': 'región {n}',
 };

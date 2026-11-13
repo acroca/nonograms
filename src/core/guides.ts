@@ -621,6 +621,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Empieza por los 0 y 9 (y los 4 en esquinas, 6 en bordes): deciden bloques enteros.', 'Compara números vecinos: la diferencia entre dos bloques solapados está en las casillas que no comparten.', 'Cuando un número se cumple, marca sus casillas restantes como sin sombrear.'],
     },
   },
+
+  jigsaw: {
+    goal: {
+      en: 'Fill the grid with digits so that every row, column and irregular region contains each digit once.',
+      es: 'Rellena la cuadrícula con dígitos para que cada fila, columna y región irregular contenga cada dígito una vez.',
+    },
+    rules: {
+      en: ['Each row and each column holds the digits 1 to N exactly once (N is the grid size).', 'Instead of square boxes, the grid is split into N irregular regions of N cells, marked by thick lines and soft colours. Each region also holds every digit exactly once.', 'The given digits are fixed.'],
+      es: ['Cada fila y cada columna contiene los dígitos de 1 a N exactamente una vez (N es el tamaño de la cuadrícula).', 'En lugar de cajas cuadradas, la cuadrícula se divide en N regiones irregulares de N casillas, marcadas con líneas gruesas y colores suaves. Cada región también contiene cada dígito exactamente una vez.', 'Los dígitos dados son fijos.'],
+    },
+    controls: {
+      en: ['Tap a cell, then a number on the pad. Tap the same number again to clear it.', 'Notes lets you pencil in candidates. Cells sharing a row, column or region with the selected one are highlighted; clashes turn red.'],
+      es: ['Toca una casilla y luego un número del teclado. Toca el mismo número otra vez para borrarlo.', 'Notas permite anotar candidatos. Las casillas que comparten fila, columna o región con la seleccionada se resaltan; los choques se ponen rojos.'],
+    },
+    examples: [
+      ex(['*1 *2 3 4', '3 *4 *3 2'], undefined, 'The highlighted L-shaped region holds 1, 2, 3 and 4 once each, just like a box would.', 'La región resaltada, con forma de L, contiene 1, 2, 3 y 4 una vez cada uno, igual que lo haría una caja.'),
+    ],
+    tips: {
+      en: ['Look for a digit that can go in only one cell of a region, row or column.', 'If a digit in a region can only go in one row, it can’t go elsewhere in that row (and vice versa).', 'Odd-shaped regions often have a cell squeezed between others: start there.'],
+      es: ['Busca un dígito que solo pueda ir en una casilla de una región, fila o columna.', 'Si un dígito de una región solo puede ir en una fila, no puede ir en otro lugar de esa fila (y al revés).', 'Las regiones de forma rara suelen tener una casilla encajada entre otras: empieza por ahí.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

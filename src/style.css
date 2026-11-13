@@ -1958,3 +1958,20 @@ button.primary {
 .board-mosaic .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);
 }
+
+/* Jigsaw Sudoku */
+.board-jigsaw .cell {
+  background: var(--tint);
+}
+.board-jigsaw .cell.rel {
+  background: color-mix(in srgb, var(--highlight) 55%, var(--tint));
+}
+.board-jigsaw .cell.same {
+  background: color-mix(in srgb, var(--accent) 24%, var(--tint));
+}
+.board-jigsaw .cell.sel {
+  background: color-mix(in srgb, var(--accent) 40%, var(--tint));
+}
+.board-jigsaw .cell.wrong {
+  background: color-mix(in srgb, var(--bad) 30%, var(--surface));
+}

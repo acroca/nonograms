@@ -1,5 +1,6 @@
 import { t } from '../../core/i18n';
 import { cyclePaint } from '../../core/pointer';
+import { REGION_HUES, tintRegions } from '../../core/regions';
 import type { GameModule } from '../../core/types';
 import { el } from '../../core/util';
 import { DEFAULT_VARIANT, VARIANTS, type NorinoriPuzzle } from './logic';
@@ -8,33 +9,10 @@ const EMPTY = 0;
 const SHADED = 1;
 const DOT = 2;
 const NAMES = ['empty', 'shaded', 'unshaded'];
-const HUES = [210, 30, 130, 320, 55, 270];
 
 export interface NorinoriState {
   /** Per cell: EMPTY, SHADED or DOT (marked as unshaded). */
   cells: number[];
-}
-
-/** Greedy colouring so neighbouring regions get different tints. */
-function tints(n: number, regions: number[]): number[] {
-  const count = Math.max(...regions) + 1;
-  const touch: Set<number>[] = Array.from({ length: count }, () => new Set());
-  for (let i = 0; i < n * n; i++) {
-    for (const j of [i + 1 < n * n && i % n < n - 1 ? i + 1 : -1, i + n < n * n ? i + n : -1]) {
-      if (j >= 0 && regions[j] !== regions[i]) {
-        touch[regions[i]].add(regions[j]);
-        touch[regions[j]].add(regions[i]);
-      }
-    }
-  }
-  const colour = new Array<number>(count).fill(-1);
-  for (let g = 0; g < count; g++) {
-    const used = new Set([...touch[g]].map((h) => colour[h]));
-    let c = 0;
-    while (used.has(c)) c++;
-    colour[g] = c;
-  }
-  return regions.map((g) => colour[g] % HUES.length);
 }
 
 export const norinori: GameModule<NorinoriPuzzle, NorinoriState> = {
@@ -58,12 +36,12 @@ export const norinori: GameModule<NorinoriPuzzle, NorinoriState> = {
     board.style.setProperty('--n', String(n));
     board.setAttribute('role', 'grid');
     board.setAttribute('aria-label', t('Norinori board'));
-    const tint = tints(n, regions);
+    const tint = tintRegions(n, regions);
     const cells = regions.map((g, i) => {
       const cell = el('div', 'cell');
       cell.dataset.i = String(i);
       cell.setAttribute('role', 'gridcell');
-      cell.style.setProperty('--tint', `color-mix(in srgb, hsl(${HUES[tint[i]]} 75% 55%) 20%, var(--surface))`);
+      cell.style.setProperty('--tint', `color-mix(in srgb, hsl(${REGION_HUES[tint[i]]} 75% 55%) 20%, var(--surface))`);
       if (i % n < n - 1 && regions[i + 1] !== g) cell.classList.add('wall-r');
       if (i + n < n * n && regions[i + n] !== g) cell.classList.add('wall-b');
       board.append(cell);

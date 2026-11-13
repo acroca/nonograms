@@ -58,6 +58,14 @@ The classic: every row, column and box holds each digit exactly once.
 
 <img src="docs/sudoku.png" width="240" alt="Sudoku" />
 
+### Jigsaw Sudoku
+
+Sudoku with irregular, jigsaw-shaped regions instead of boxes: every row, column and region holds each digit exactly once.
+
+**Sizes:** 5×5, 6×6, 7×7, 9×9
+
+<img src="docs/jigsaw.png" width="240" alt="Jigsaw Sudoku" />
+
 ### Killer Sudoku
 
 Sudoku with cages instead of clues: the digits in each dashed cage add up to its sum, and no digit repeats inside a cage.
@@ -335,6 +343,10 @@ solver and an independent rule checker.
 - **Mosaic**: a blobby random picture (noise smoothed by majority votes) is numbered everywhere, then numbers
   are dropped in random order, first while plain block-count deductions still solve it and then while one-step
   lookahead does.
+- **Jigsaw Sudoku**: N connected regions of N cells are carved out one at a time (rejecting carves that would
+  strand an odd-sized pocket), a random full grid is found by backtracking, and digits are removed in random order
+  while a solver using naked/hidden singles and locked candidates between lines and regions still solves it, then
+  again allowing one-step lookahead.
 
 ## Project layout
 
