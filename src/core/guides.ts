@@ -533,6 +533,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Un 1 está rodeado de casillas sombreadas (o el borde).', 'Un número tan grande como permiten su fila y columna lo ve todo: nada cerca de él puede sombrearse.', 'Los vecinos de una casilla sombreada no se sombrean; usa puntos para recordarlo.'],
     },
   },
+
+  dominosa: {
+    goal: {
+      en: 'Cut the grid into dominoes so that every pair of numbers appears exactly once.',
+      es: 'Divide la cuadrícula en dominós para que cada pareja de números aparezca exactamente una vez.',
+    },
+    rules: {
+      en: ['The grid holds the numbers of a full set of dominoes, laid out in a jumble: a double-6 set has 28 dominoes, 0-0 up to 6-6.', 'Every cell belongs to exactly one domino (two neighbouring cells).', 'Each pair of numbers (for instance 2-5) is used exactly once; the list under the board shows which ones are still free.'],
+      es: ['La cuadrícula contiene los números de un juego completo de dominó, mezclados: un juego doble 6 tiene 28 fichas, de 0-0 a 6-6.', 'Cada casilla pertenece exactamente a un dominó (dos casillas vecinas).', 'Cada pareja de números (por ejemplo 2-5) se usa exactamente una vez; la lista bajo el tablero muestra cuáles siguen libres.'],
+    },
+    controls: {
+      en: ['Drag from a cell onto a neighbouring cell to place a domino there. Drag over an existing domino to lift it, or tap it.', 'Dominoes are coloured by their number pair: a pair used twice turns red, and used pairs fade in the list.'],
+      es: ['Arrastra de una casilla a una vecina para colocar un dominó. Arrastra sobre un dominó existente para quitarlo, o tócalo.', 'Los dominós se colorean según su pareja de números: una pareja usada dos veces se pone roja, y las usadas se atenúan en la lista.'],
+    },
+    examples: [
+      ex(['*0 *1 1 2'], undefined, 'Cells with 0 and 1 side by side can be the 0-1 domino. If another 0-1 pair shows up elsewhere, only one of them can be used.', 'Dos casillas con 0 y 1 juntas pueden ser el dominó 0-1. Si aparece otra pareja 0-1 en otro sitio, solo una puede usarse.'),
+    ],
+    tips: {
+      en: ['A pair that appears only once on the board must be a domino right there.', 'Corner and edge cells have fewer neighbours: start with the ones that have a single option.', 'When a domino is placed, cross it off the list: its neighbours with the same pair can’t be dominoes.'],
+      es: ['Una pareja que aparece una sola vez en el tablero debe ser un dominó justo ahí.', 'Las casillas de esquina y borde tienen menos vecinas: empieza por las que tienen una sola opción.', 'Al colocar un dominó, táchalo de la lista: las demás casillas con la misma pareja ya no pueden ser dominós.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

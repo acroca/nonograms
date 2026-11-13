@@ -200,4 +200,13 @@ export const ES: Record<string, string> = {
   'Kuromasu': 'Kuromasu',
   'Shade cells so every number sees exactly that many cells.': 'Sombrea casillas para que cada número vea exactamente esa cantidad de casillas.',
   'Kuromasu board': 'Tablero de Kuromasu',
+  'Dominosa': 'Dominosa',
+  'Cut the grid into dominoes so every number pair appears once.': 'Divide la cuadrícula en dominós para que cada pareja de números aparezca una vez.',
+  'Dominosa board': 'Tablero de Dominosa',
+  'Domino set': 'Juego de dominó',
+  'Double 3': 'Doble 3',
+  'Double 4': 'Doble 4',
+  'Double 5': 'Doble 5',
+  'Double 6': 'Doble 6',
+  'Drag from one cell to its neighbour to place a domino; tap a domino to remove it.': 'Arrastra de una casilla a su vecina para colocar un dominó; toca un dominó para quitarlo.',
 };

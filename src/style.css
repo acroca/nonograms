@@ -1801,3 +1801,58 @@ button.primary {
 .board-kuromasu .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);
 }
+
+/* Dominosa */
+.board-dominosa .num {
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+  pointer-events: none;
+}
+.board-dominosa .cell.placed {
+  background: color-mix(in srgb, hsl(var(--h) 80% 55%) 28%, var(--surface));
+  border-color: color-mix(in srgb, hsl(var(--h) 80% 45%) 55%, var(--surface));
+}
+.board-dominosa .cell.jr {
+  border-right-color: transparent;
+}
+.board-dominosa .cell.jl {
+  border-left-color: transparent;
+}
+.board-dominosa .cell.jb {
+  border-bottom-color: transparent;
+}
+.board-dominosa .cell.jt {
+  border-top-color: transparent;
+}
+.board-dominosa .cell.placed.clash {
+  background: color-mix(in srgb, var(--bad) 35%, var(--surface));
+}
+.board-dominosa .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+.domino-chart {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+.domino-chart .tile {
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.15em;
+  background: color-mix(in srgb, hsl(var(--h) 80% 55%) 28%, var(--surface));
+  border: 1px solid color-mix(in srgb, hsl(var(--h) 80% 45%) 55%, var(--surface));
+}
+.domino-chart .tile.used {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+.domino-chart .tile.dup {
+  opacity: 1;
+  background: color-mix(in srgb, var(--bad) 35%, var(--surface));
+  text-decoration: none;
+}

@@ -194,6 +194,14 @@ Shade cells so each number sees exactly that many cells (itself included) along 
 
 <img src="docs/kuromasu.png" width="240" alt="Kuromasu" />
 
+### Dominosa
+
+The grid shows the numbers of a full double-N domino set. Cut it into dominoes so that every pair of numbers appears exactly once.
+
+**Sizes:** Double 3 – double 6 (4×5 to 7×8)
+
+<img src="docs/dominosa.png" width="240" alt="Dominosa" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -289,6 +297,9 @@ solver and an independent rule checker.
 - **Kuromasu**: a random non-touching, connectivity-preserving shading is numbered everywhere, then numbers
   are dropped in random order while a solver using visibility bounds (per-direction minimum/maximum runs),
   shaded-neighbour exclusion, white connectivity (cut cells) and one-step lookahead still solves the grid.
+- **Dominosa**: a random domino tiling is dealt a shuffled, randomly flipped copy of the full set; the
+  numbers are kept when a solver using one-domino-per-cell, one-domino-per-pair and one-step lookahead
+  solves the board (otherwise two dominoes' numbers are swapped and it is tried again).
 
 ## Project layout
 
