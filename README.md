@@ -202,6 +202,14 @@ The grid shows the numbers of a full double-N domino set. Cut it into dominoes s
 
 <img src="docs/dominosa.png" width="240" alt="Dominosa" />
 
+### Numberlink
+
+Connect each pair of equal numbers with a path. Paths never cross or share cells, and together they must fill every cell of the grid.
+
+**Sizes:** 5×5, 6×6, 7×7
+
+<img src="docs/numberlink.png" width="240" alt="Numberlink" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -300,6 +308,10 @@ solver and an independent rule checker.
 - **Dominosa**: a random domino tiling is dealt a shuffled, randomly flipped copy of the full set; the
   numbers are kept when a solver using one-domino-per-cell, one-domino-per-pair and one-step lookahead
   solves the board (otherwise two dominoes' numbers are swapped and it is tried again).
+- **Numberlink**: a random Hamiltonian path of the grid (a snake shuffled by random "backbite" moves) is cut
+  into pieces, whose ends become the pairs. A layout is kept when a solver using cell degrees (1 at a number,
+  2 elsewhere), no closed loops, no joining different pairs and one-step lookahead solves it and the counting
+  solver agrees it is unique. 8×8 and larger were too slow to find, so they are not offered.
 
 ## Project layout
 

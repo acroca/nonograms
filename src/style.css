@@ -1856,3 +1856,30 @@ button.primary {
   background: color-mix(in srgb, var(--bad) 35%, var(--surface));
   text-decoration: none;
 }
+
+/* Numberlink */
+.board-numberlink .cell.painted {
+  background: color-mix(in srgb, hsl(var(--h) 75% 55%) 38%, var(--surface));
+}
+.board-numberlink .cell.clash {
+  background: color-mix(in srgb, var(--bad) 40%, var(--surface));
+}
+.board-numberlink .cell.end .tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  background: hsl(var(--h) 65% 42%);
+  color: #fff;
+  font-size: calc(var(--cell) * 0.45);
+  font-weight: 700;
+  pointer-events: none;
+}
+.board-numberlink .cell.end.linked .tag {
+  box-shadow: 0 0 0 3px color-mix(in srgb, hsl(var(--h) 65% 42%) 40%, transparent);
+}
+.board-numberlink .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}

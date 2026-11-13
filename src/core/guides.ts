@@ -555,6 +555,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una pareja que aparece una sola vez en el tablero debe ser un dominó justo ahí.', 'Las casillas de esquina y borde tienen menos vecinas: empieza por las que tienen una sola opción.', 'Al colocar un dominó, táchalo de la lista: las demás casillas con la misma pareja ya no pueden ser dominós.'],
     },
   },
+
+  numberlink: {
+    goal: {
+      en: 'Connect every pair of equal numbers with a path, using every cell of the grid.',
+      es: 'Conecta cada pareja de números iguales con un camino, usando todas las casillas de la cuadrícula.',
+    },
+    rules: {
+      en: ['Each path joins two equal numbers and runs from cell to cell horizontally or vertically.', 'Paths never cross, branch or share cells.', 'Every cell of the grid must be on a path.'],
+      es: ['Cada camino une dos números iguales y avanza de casilla en casilla en horizontal o vertical.', 'Los caminos nunca se cruzan, ramifican ni comparten casillas.', 'Todas las casillas de la cuadrícula deben estar en un camino.'],
+    },
+    controls: {
+      en: ['Drag from a number (or from the end of its path) through the cells to paint the path in its colour.', 'Drag over cells to replace another path, or start on an empty cell to erase. Tap a path cell to clear it.', 'A number gets a glow ring once its pair is connected.'],
+      es: ['Arrastra desde un número (o desde el final de su camino) por las casillas para pintar el camino de su color.', 'Arrastra sobre casillas para sustituir otro camino, o empieza en una casilla vacía para borrar. Toca una casilla del camino para borrarla.', 'Un número se rodea de un halo cuando su pareja está conectada.'],
+    },
+    examples: [
+      ex(['*1 *1 .', '*2 . *2'], undefined, 'Two pairs: the 1s are neighbours; the 2s must go round to cover the remaining cells.', 'Dos parejas: los 1 son vecinos; los 2 deben rodear para cubrir las casillas restantes.'),
+    ],
+    tips: {
+      en: ['A number in a corner has only two ways out; a cell with only one free neighbour is a dead end for the path.', 'Cells in a corridor of width one force the path along it.', 'Because every cell must be used, avoid leaving holes the path can’t reach.'],
+      es: ['Un número en una esquina solo tiene dos salidas; una casilla con un solo vecino libre es un callejón sin salida.', 'Las casillas de un pasillo de ancho uno obligan al camino a recorrerlo.', 'Como hay que usar todas las casillas, evita dejar huecos a los que el camino no pueda llegar.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

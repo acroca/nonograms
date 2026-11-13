@@ -21,6 +21,7 @@ import { norinori } from './norinori';
 import { fillomino } from './fillomino';
 import { kuromasu } from './kuromasu';
 import { dominosa } from './dominosa';
+import { numberlink } from './numberlink';
 
 /** Games in menu order. */
-export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, skyscrapers, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup, bridges, battleships, masyu, norinori, fillomino, kuromasu, dominosa];
+export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, skyscrapers, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup, bridges, battleships, masyu, norinori, fillomino, kuromasu, dominosa, numberlink];

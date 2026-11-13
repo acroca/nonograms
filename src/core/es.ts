@@ -209,4 +209,9 @@ export const ES: Record<string, string> = {
   'Double 5': 'Doble 5',
   'Double 6': 'Doble 6',
   'Drag from one cell to its neighbour to place a domino; tap a domino to remove it.': 'Arrastra de una casilla a su vecina para colocar un dominó; toca un dominó para quitarlo.',
+  'Numberlink': 'Numberlink',
+  'Join matching numbers with paths that fill the whole grid.': 'Une los números iguales con caminos que llenen toda la cuadrícula.',
+  'Numberlink board': 'Tablero de Numberlink',
+  'Drag from a number through the cells to draw its path. Tap a path cell to clear it.': 'Arrastra desde un número por las casillas para dibujar su camino. Toca una casilla del camino para borrarla.',
+  'path {n}': 'camino {n}',
 };
