@@ -1,3 +1,4 @@
+import { trackPlay } from './analytics';
 import { generatePuzzle } from './generate';
 import { openGuide } from './guide';
 import { t } from './i18n';
@@ -146,6 +147,7 @@ export class GameScreen {
     if (token !== this.loadToken) return;
     this.start({ v: 1, variant, puzzle, state: game.newState(puzzle), elapsed: 0, solved: false, lost: false });
     this.persist();
+    trackPlay(game.id);
   }
 
   private start(session: Saved) {
