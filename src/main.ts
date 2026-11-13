@@ -6,6 +6,7 @@ import { load, loadRaw, save } from './core/storage';
 import { el, formatTime } from './core/util';
 import { GAMES } from './games/registry';
 import { initInstall, initShare } from './core/install';
+import { trackGame } from './core/analytics';
 import './style.css';
 
 registerSW({ immediate: true });
@@ -75,6 +76,7 @@ function route() {
   if (game) {
     menuScreen.hidden = true;
     screen.open(game);
+    trackGame(game.id);
   } else {
     screen.close();
     document.title = t('Logic Puzzles');
