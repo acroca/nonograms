@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with seventeen logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with eighteen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -162,6 +162,14 @@ Find the hidden fleet. The numbers give how many ship cells each row and column 
 
 <img src="docs/battleships.png" width="240" alt="Battleships" />
 
+### Masyu
+
+Draw one closed loop through the centres of cells, visiting every pearl. The loop turns on a black pearl and goes straight on both sides of it; it goes straight through a white pearl and turns just before or after it.
+
+**Sizes:** 6×6, 7×7, 8×8
+
+<img src="docs/masyu.png" width="240" alt="Masyu" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -243,6 +251,10 @@ solver and an independent rule checker.
   placed at random without touching; revealed cells (water, single, round ends, middles) are added at
   random until a solver using row/column counts, diagonal exclusion, straightness and "which fleet
   ship can this run still be" reasoning finishes the grid, then thinned again while it still does.
+- **Masyu**: the loop is the outline of a random region; the region is hill-climbed (one cell flipped
+  at a time) until the puzzle with a pearl on every legal site has a single solution that the solver
+  finds, then pearls are thinned in random order while it still does. The solver uses degree-0-or-2,
+  black/white pearl rules, no premature loops, and one-step lookahead.
 
 ## Project layout
 

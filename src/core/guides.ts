@@ -444,6 +444,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una fila o columna con un 0 es toda agua.', 'Alrededor de cualquier casilla de barco, las diagonales son agua.', 'Un extremo redondeado indica que el barco continúa hacia el otro lado.', 'Cuenta las casillas libres: el barco más grande solo cabe donde hay espacio suficiente.'],
     },
   },
+
+  masyu: {
+    goal: {
+      en: 'Draw a single closed loop that passes through every pearl.',
+      es: 'Dibuja un único bucle cerrado que pase por todas las perlas.',
+    },
+    rules: {
+      en: ['The loop moves horizontally or vertically from cell centre to cell centre, never crossing or branching.', 'On a black pearl the loop must turn, and it must go straight for at least one more cell on both sides of the pearl.', 'On a white pearl the loop must go straight, and it must turn in at least one of the cells just before or after the pearl.', 'The loop doesn’t have to visit empty cells.'],
+      es: ['El bucle se mueve en horizontal o vertical de centro a centro de casilla, sin cruzarse ni ramificarse.', 'En una perla negra el bucle debe girar, y debe seguir recto al menos una casilla más a ambos lados de la perla.', 'En una perla blanca el bucle debe ir recto, y debe girar en al menos una de las casillas justo antes o después de la perla.', 'El bucle no tiene que pasar por las casillas vacías.'],
+    },
+    controls: {
+      en: ['Drag from cell to cell to draw the loop; a drag that starts on a line erases.', 'Tap the gap between two cells to cycle: line → ✕ (known empty) → clear.'],
+      es: ['Arrastra de casilla en casilla para dibujar el bucle; si empiezas sobre una línea, borra.', 'Toca el hueco entre dos casillas para alternar: línea → ✕ (vacío seguro) → borrar.'],
+    },
+    examples: [
+      ex(undefined, '●───┐\n│   │\n│   ○\n└───┘', 'The black pearl is a corner with straight runs on both sides; the white pearl is on a straight side, right before a corner.', 'La perla negra es una esquina con tramos rectos a ambos lados; la blanca está en un lado recto, justo antes de una esquina.'),
+    ],
+    tips: {
+      en: ['Two black pearls next to each other, or a black pearl on the edge, restrict the loop a lot: start there.', 'A black pearl next to the border must turn away from it.', 'Three white pearls in a row can’t all go straight: at least one end must turn.', 'Mark edges you know are unused with ✕ to avoid dead ends and small loops.'],
+      es: ['Dos perlas negras juntas, o una negra en el borde, limitan mucho el bucle: empieza por ahí.', 'Una perla negra junto al borde debe girar alejándose de él.', 'Tres perlas blancas seguidas no pueden ir todas rectas: al menos un extremo debe girar.', 'Marca con ✕ los tramos que sabes sin usar para evitar callejones sin salida y bucles pequeños.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

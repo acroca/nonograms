@@ -185,4 +185,8 @@ export const ES: Record<string, string> = {
   'water': 'agua',
   'ship': 'barco',
   'Auto-fill water diagonal to ships': 'Poner agua automáticamente en las diagonales de los barcos',
+  'Masyu': 'Masyu',
+  'Draw one loop through every pearl, turning on black and straight on white.': 'Dibuja un único bucle por todas las perlas: gira en las negras y sigue recto en las blancas.',
+  'Masyu board': 'Tablero de Masyu',
+  'Tap a gap: line → ✕ → empty. Drag cell to cell to draw.': 'Toca un hueco: línea → ✕ → vacío. Arrastra de casilla en casilla para dibujar.',
 };

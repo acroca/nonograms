@@ -1683,3 +1683,58 @@ button.primary {
   opacity: 0.3;
   text-decoration: line-through;
 }
+
+/* Masyu */
+.board-masyu {
+  width: calc(var(--cell) * var(--span));
+  height: calc(var(--cell) * var(--span));
+}
+.board-masyu svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.board-masyu .dot {
+  fill: var(--line-strong);
+  opacity: 0.45;
+}
+.board-masyu .edge .ln {
+  stroke: transparent;
+  stroke-width: 0.02;
+}
+.board-masyu .edge.on .ln {
+  stroke: var(--accent);
+  stroke-width: 0.12;
+  stroke-linecap: round;
+}
+.board-masyu .edge .x {
+  display: none;
+  stroke: var(--muted);
+  stroke-width: 0.035;
+  stroke-linecap: round;
+}
+.board-masyu .edge.off .x {
+  display: inline;
+}
+.board-masyu .edge.wrong .ln {
+  stroke: var(--bad);
+  stroke-width: 0.12;
+}
+.board-masyu .edge.wrong .x {
+  stroke: var(--bad);
+  stroke-width: 0.05;
+}
+.board-masyu .pearl {
+  stroke: var(--fg);
+  stroke-width: 0.06;
+}
+.board-masyu .pearl.black {
+  fill: var(--fg);
+}
+.board-masyu .pearl.white {
+  fill: var(--surface);
+}
+.board-masyu .pearl.bad {
+  stroke: var(--bad);
+  stroke-width: 0.1;
+}
