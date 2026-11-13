@@ -22,6 +22,7 @@ import { generate as kuromasu } from './kuromasu/logic';
 import { generate as dominosa } from './dominosa/logic';
 import { generate as numberlink } from './numberlink/logic';
 import { generate as thermometers } from './thermometers/logic';
+import { generate as mosaic } from './mosaic/logic';
 
 /** Puzzle generators by game id. Imported by the generation worker, so keep this free of DOM code. */
 export const GENERATORS: Record<string, (variant: string, seed: number, extra?: any) => unknown> = {
@@ -49,4 +50,5 @@ export const GENERATORS: Record<string, (variant: string, seed: number, extra?: 
   dominosa,
   numberlink,
   thermometers,
+  mosaic,
 };

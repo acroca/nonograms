@@ -219,4 +219,7 @@ export const ES: Record<string, string> = {
   'Thermometers board': 'Tablero de Termómetros',
   'Tap: fill → ✕ → clear. Drag to paint.': 'Toca: llenar → ✕ → borrar. Arrastra para pintar.',
   'marked empty': 'marcada vacía',
+  'Mosaic': 'Mosaico',
+  'Shade cells so each number counts the shaded cells around it.': 'Sombrea casillas para que cada número cuente las casillas sombreadas a su alrededor.',
+  'Mosaic board': 'Tablero de Mosaico',
 };

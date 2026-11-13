@@ -1923,3 +1923,38 @@ button.primary {
 .board-thermometers .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);
 }
+
+/* Mosaic */
+.board-mosaic .num {
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+  pointer-events: none;
+}
+.board-mosaic .cell.shaded {
+  background: var(--fill);
+}
+.board-mosaic .cell.shaded .num {
+  color: var(--surface);
+}
+.board-mosaic .cell.bad .num {
+  color: var(--bad);
+}
+.board-mosaic .cell.done .num {
+  color: var(--done);
+}
+.board-mosaic .cell.shaded.done .num {
+  color: var(--muted);
+}
+.board-mosaic .cell.dot::after {
+  content: '';
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: var(--muted);
+  position: absolute;
+  bottom: 12%;
+  right: 12%;
+}
+.board-mosaic .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}

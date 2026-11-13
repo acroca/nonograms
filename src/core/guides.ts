@@ -599,6 +599,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una casilla llena obliga a llenar todo lo que hay entre ella y el bulbo; una vacía obliga a dejar vacío todo lo que hay más allá.', 'Una fila o columna con 0 está vacía; si su número iguala su longitud, está llena.', 'La punta lejos del bulbo solo puede llenarse si se llena todo el termómetro.'],
     },
   },
+
+  mosaic: {
+    goal: {
+      en: 'Shade cells so that every number matches the shaded cells in its 3×3 neighbourhood, revealing a picture.',
+      es: 'Sombrea casillas para que cada número coincida con las casillas sombreadas de su entorno 3×3, descubriendo una imagen.',
+    },
+    rules: {
+      en: ['A number counts the shaded cells among the cell itself and its eight neighbours (fewer at the edges).', 'A 0 means all nine are unshaded; a 9 means all nine are shaded.', 'Cells without a number can be either; the numbers must all be satisfied.'],
+      es: ['Un número cuenta las casillas sombreadas entre la propia casilla y sus ocho vecinas (menos en los bordes).', 'Un 0 significa que las nueve están sin sombrear; un 9, que las nueve están sombreadas.', 'Las casillas sin número pueden ser de cualquier tipo; todos los números deben cumplirse.'],
+    },
+    controls: {
+      en: ['Tap to cycle: shaded → dot (known unshaded) → empty. Drag to apply the same mark to several cells.', 'A number turns grey when its block is fully decided and correct, and red when it can no longer be met.'],
+      es: ['Toca para alternar: sombreada → punto (seguro sin sombrear) → vacía. Arrastra para aplicar la misma marca a varias casillas.', 'Un número se pone gris cuando su bloque está decidido y correcto, y rojo cuando ya no puede cumplirse.'],
+    },
+    examples: [
+      ex(['*2 . .', '. . .', '. . .'], undefined, 'In a corner a block has only 4 cells, so a 2 there means exactly two of those four are shaded.', 'En una esquina un bloque solo tiene 4 casillas, así que un 2 ahí significa que exactamente dos de esas cuatro están sombreadas.'),
+    ],
+    tips: {
+      en: ['Start with 0s and 9s (and 4s in corners, 6s on edges): they decide whole blocks.', 'Compare neighbouring numbers: the difference between two overlapping blocks lives in the cells they don’t share.', 'When a number is satisfied, mark its remaining cells as unshaded.'],
+      es: ['Empieza por los 0 y 9 (y los 4 en esquinas, 6 en bordes): deciden bloques enteros.', 'Compara números vecinos: la diferencia entre dos bloques solapados está en las casillas que no comparten.', 'Cuando un número se cumple, marca sus casillas restantes como sin sombrear.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

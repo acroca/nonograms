@@ -218,6 +218,14 @@ Fill each thermometer with mercury from its bulb, without gaps, so that each row
 
 <img src="docs/thermometers.png" width="240" alt="Thermometers" />
 
+### Mosaic (Fill-a-Pix)
+
+Shade cells so that each number equals the count of shaded cells in the 3×3 block around it, itself included. Solving it reveals a picture.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/mosaic.png" width="240" alt="Mosaic (Fill-a-Pix)" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -324,6 +332,9 @@ solver and an independent rule checker.
   row/column counts are read off; layouts are kept when plain deductions are enough to make real progress and
   a solver using counts, the mercury rule and one-step lookahead solves them. 10×10 was too slow to find, so it
   is not offered.
+- **Mosaic**: a blobby random picture (noise smoothed by majority votes) is numbered everywhere, then numbers
+  are dropped in random order, first while plain block-count deductions still solve it and then while one-step
+  lookahead does.
 
 ## Project layout
 
