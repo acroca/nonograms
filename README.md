@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with fourteen logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with fifteen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -138,6 +138,14 @@ Place bulbs so every white cell is lit. A bulb shines along its row and column u
 
 <img src="docs/lightup.png" width="240" alt="Light Up (Akari)" />
 
+### Bridges
+
+Join the numbered islands with straight bridges, one or two per pair. Each island has as many bridges as its number, bridges never cross, and all islands end up connected.
+
+**Sizes:** 7×7, 9×9, 11×11
+
+<img src="docs/bridges.png" width="240" alt="Bridges" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -207,6 +215,10 @@ solver and an independent rule checker.
 - **Light Up**: random walls, then bulbs are dropped on any cell nothing lights yet (so none sees
   another) and every wall is numbered; numbers are thinned in random order while a solver using
   wall counts, "someone must light every cell" and one-bulb-per-run still solves the puzzle.
+- **Bridges**: islands are grown by shooting a straight bridge from a random island to a new one
+  (never crossing, never touching another island), then extra bridges are added between facing
+  islands; numbers are the resulting bridge counts. Puzzles are kept when a solver using island
+  counts, crossing exclusion and "no closed group / only one way out" connectivity solves them.
 
 ## Project layout
 

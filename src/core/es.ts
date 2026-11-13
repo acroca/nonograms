@@ -170,4 +170,8 @@ export const ES: Record<string, string> = {
   'wall {n}': 'muro {n}',
   'wall': 'muro',
   'lit': 'iluminada',
+  'Bridges': 'Puentes',
+  'Join the islands with bridges to match their numbers.': 'Une las islas con puentes para que coincidan con sus números.',
+  'Bridges board': 'Tablero de Puentes',
+  'Tap a bridge to add one, two or none. Drag between islands.': 'Toca un puente para poner uno, dos o ninguno. Arrastra entre islas.',
 };

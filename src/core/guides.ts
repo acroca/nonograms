@@ -378,6 +378,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Un 4 necesita todos sus vecinos; un 3 contra el borde también; un 0 los descarta todos.', 'Si solo una casilla puede iluminar una casilla blanca, pon la bombilla ahí.', 'Una casilla ya iluminada por una bombilla no puede tener bombilla: márcala con un punto.'],
     },
   },
+
+  bridges: {
+    goal: {
+      en: 'Connect all the islands into one network with bridges.',
+      es: 'Conecta todas las islas en una única red con puentes.',
+    },
+    rules: {
+      en: ['Each island’s number is how many bridges end on it.', 'Bridges run in straight horizontal or vertical lines between two islands. Two islands can be joined by one or two bridges, never more.', 'Bridges never cross each other or pass over an island.', 'All islands must end up connected as one group.'],
+      es: ['El número de cada isla indica cuántos puentes terminan en ella.', 'Los puentes van en línea recta, horizontal o vertical, entre dos islas. Dos islas pueden unirse con uno o dos puentes, nunca más.', 'Los puentes nunca se cruzan ni pasan por encima de una isla.', 'Todas las islas deben quedar conectadas en un único grupo.'],
+    },
+    controls: {
+      en: ['Tap the dotted line between two islands to cycle: one bridge → two bridges → none.', 'Or drag from one island to a neighbouring one. Islands turn blue when complete and red if they have too many.'],
+      es: ['Toca la línea de puntos entre dos islas para alternar: un puente → dos puentes → ninguno.', 'O arrastra de una isla a otra vecina. Las islas se ponen azules al completarse y rojas si tienen demasiados.'],
+    },
+    examples: [
+      ex(undefined, '1──3══2', 'The 3 has a single bridge to the 1 and a double bridge to the 2.', 'El 3 tiene un puente simple al 1 y un puente doble al 2.'),
+    ],
+    tips: {
+      en: ['An island whose number equals twice its possible neighbours (like a 4 with two neighbours) needs two bridges to each.', 'A 1 next to another 1 can’t join them unless those are the only two islands.', 'Always think about connectivity: a finished group with no way out is a dead end.'],
+      es: ['Una isla cuyo número es el doble de sus vecinos posibles (como un 4 con dos vecinos) necesita dos puentes a cada uno.', 'Un 1 junto a otro 1 no puede unirlos salvo que sean las únicas dos islas.', 'Piensa siempre en la conectividad: un grupo terminado sin salida es un callejón sin salida.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

@@ -17,6 +17,8 @@ export const popcount = (m: number): number => {
 export const isSingle = (m: number): boolean => m !== 0 && (m & (m - 1)) === 0;
 /** Smallest value in a domain. */
 export const lowest = (m: number): number => 31 - Math.clz32(m & -m);
+/** Largest value in a domain. */
+export const highest = (m: number): number => 31 - Math.clz32(m);
 
 /** Boolean variables: bit 0 = "no" (value 0), bit 1 = "yes" (value 1). */
 export const NO = 1;

@@ -13,6 +13,7 @@ import { slitherlink } from './slitherlink';
 import { sudoku } from './sudoku';
 import { tents } from './tents';
 import { lightup } from './lightup';
+import { bridges } from './bridges';
 
 /** Games in menu order. */
-export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup];
+export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup, bridges];

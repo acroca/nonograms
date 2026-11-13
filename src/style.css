@@ -1567,3 +1567,60 @@ button.primary {
 .board-lightup .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);
 }
+
+/* Bridges */
+.board-bridges {
+  width: calc(var(--cell) * var(--span));
+  height: calc(var(--cell) * var(--span));
+}
+.board-bridges svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.board-bridges .pt {
+  fill: var(--line);
+}
+.board-bridges .guide {
+  stroke: var(--line);
+  stroke-width: 0.025;
+  stroke-dasharray: 0.06 0.1;
+}
+.board-bridges .bridge line {
+  stroke: var(--fg);
+  stroke-width: 0.06;
+  stroke-linecap: round;
+}
+.board-bridges .bridge.bad line {
+  stroke: var(--bad);
+}
+.board-bridges .bridge.wrong line {
+  stroke: var(--bad);
+  stroke-width: 0.1;
+}
+.board-bridges .island circle {
+  fill: var(--surface);
+  stroke: var(--fg);
+  stroke-width: 0.07;
+}
+.board-bridges .island text {
+  font-size: 0.46px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: var(--fg);
+}
+.board-bridges .island.done circle {
+  fill: color-mix(in srgb, var(--accent) 18%, var(--surface));
+  stroke: var(--accent);
+}
+.board-bridges .island.done text {
+  fill: var(--accent);
+}
+.board-bridges .island.bad circle {
+  stroke: var(--bad);
+  fill: color-mix(in srgb, var(--bad) 25%, var(--surface));
+}
+.board-bridges .island.bad text {
+  fill: var(--bad);
+}
