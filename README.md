@@ -238,7 +238,9 @@ Shade cells so that each number equals the count of shaded cells in the 3×3 blo
 
 Every game has the same app bar and behaviour:
 
-- **Menu cards** list the games, with the in-progress puzzle or your best time.
+- **Menu cards** list the games, with the in-progress puzzle or your best time. Tap a card's
+  heart to make it a **favourite**: favourites are listed first. Recently added games carry a
+  **New** badge until you open them.
 - **Undo** steps back through your moves; **Check** flags entries that contradict the
   solution. (Minesweeper has neither: opening a mine ends the game, with an option to retry
   the same board.)

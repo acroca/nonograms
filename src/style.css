@@ -15,6 +15,7 @@
   --bad: #dc2626;
   --good: #16a34a;
   --given: #e2e8f0;
+  --fav: #e11d48;
   /* App bar sits under the iOS status bar, whose text is always white. */
   --bar: #0f172a;
   --bar-fg: #f8fafc;
@@ -50,6 +51,7 @@
     --bad: #f87171;
     --good: #4ade80;
     --given: #334155;
+    --fav: #fb7185;
   }
 }
 
@@ -224,7 +226,14 @@ button.primary {
   gap: 0.75rem;
 }
 
+.card-item {
+  position: relative;
+  display: flex;
+}
+
 .card {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -236,10 +245,41 @@ button.primary {
   position: relative;
 }
 
+/* Sits on top of the card rather than inside it: buttons can't nest. */
+.card-fav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  color: var(--muted);
+}
+
+.card-fav svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+}
+
+.card-fav[aria-pressed='true'] {
+  color: var(--fav);
+}
+
+.card-fav[aria-pressed='true'] svg {
+  fill: currentColor;
+}
+
 .card-badge {
   position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
+  top: 0.75rem;
+  right: 2.75rem;
   padding: 0.15rem 0.45rem;
   border-radius: 999px;
   background: var(--accent);
