@@ -1,3 +1,4 @@
+import { renderExample as drawExample } from './example';
 import { guideFor, type Example } from './guides';
 import { lang, onLangChange, t } from './i18n';
 import { el } from './util';
@@ -5,39 +6,12 @@ import { GAMES } from '../games/registry';
 
 const dialog = () => document.querySelector<HTMLDialogElement>('#guide')!;
 
-/** Draws a token grid: `.` empty, `#` dark, `#x` shaded x, `*x` highlighted x, anything else as text. */
-function renderGrid(rows: string[]): HTMLElement {
-  const grid = el('div', 'ex-grid');
-  grid.setAttribute('role', 'img');
-  rows.forEach((row) => {
-    const line = el('div', 'ex-row');
-    row.split(' ').forEach((tok) => {
-      const cell = el('span', 'ex-cell');
-      if (tok === '#') cell.classList.add('dark');
-      else if (tok === '.') cell.classList.add('blank');
-      else if (tok.startsWith('#')) {
-        cell.classList.add('dark');
-        cell.textContent = tok.slice(1);
-      } else if (tok.startsWith('*')) {
-        cell.classList.add('hl');
-        cell.textContent = tok.slice(1);
-      } else {
-        if (/^[<>]$/.test(tok)) cell.classList.add('op');
-        else if (tok.length > 2) cell.classList.add('wide');
-        cell.textContent = tok;
-      }
-      line.append(cell);
-    });
-    grid.append(line);
-  });
-  return grid;
-}
-
 function renderExample(e: Example): HTMLElement {
-  const box = el('figure', 'example');
-  if (e.grid) box.append(renderGrid(e.grid));
-  if (e.pre) box.append(el('pre', 'ex-pre', e.pre));
-  box.append(el('figcaption', '', e.caption));
+  const box = el('figure', e.mark ? `example ${e.mark}` : 'example');
+  const caption = el('figcaption');
+  if (e.mark) caption.append(el('span', 'ex-verdict', e.mark === 'ok' ? '✓ ' : '✕ '));
+  caption.append(e.caption);
+  box.append(drawExample(e), caption);
   return box;
 }
 
@@ -73,10 +47,10 @@ function render() {
     body.append(back, head);
     body.append(section(t('Goal'), el('p', '', guide.goal)));
     body.append(section(t('Rules of the game'), list(guide.rules)));
-    body.append(section(t('Controls'), list(guide.controls)));
     const examples = el('div');
     guide.examples.forEach((e) => examples.append(renderExample(e)));
-    body.append(section(t('Example'), examples));
+    body.append(section(t(guide.examples.length > 1 ? 'Examples' : 'Example'), examples));
+    body.append(section(t('Controls'), list(guide.controls)));
     body.append(section(t('Tips'), list(guide.tips)));
   } else {
     body.append(el('h2', '', t('Rules & how to play')));

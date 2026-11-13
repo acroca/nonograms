@@ -56,6 +56,7 @@ export const ES: Record<string, string> = {
   'Rules of the game': 'Reglas del juego',
   'Controls': 'Controles',
   'Example': 'Ejemplo',
+  'Examples': 'Ejemplos',
   'Tips': 'Consejos',
   'Easy': 'Fácil',
   'Medium': 'Media',
