@@ -1518,3 +1518,52 @@ button.primary {
 .board-tents .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);
 }
+
+/* Light Up */
+.board-lightup {
+  --lit: #fde68a;
+  --bulb: #f59e0b;
+}
+@media (prefers-color-scheme: dark) {
+  .board-lightup {
+    --lit: #78601a;
+  }
+}
+.board-lightup .cell.wall {
+  background: var(--fill);
+  color: var(--surface);
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+}
+.board-lightup .cell.wall.done {
+  color: var(--done);
+}
+.board-lightup .cell.wall.bad {
+  background: var(--bad);
+  color: #fff;
+}
+.board-lightup .cell.lit {
+  background: var(--lit);
+}
+.board-lightup .cell.is-bulb::after {
+  content: '';
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  background: var(--bulb);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--bulb) 40%, #fff) inset, 0 0 calc(var(--cell) * 0.3) var(--bulb);
+}
+.board-lightup .cell.is-bulb.clash::after {
+  background: var(--bad);
+  box-shadow: none;
+}
+.board-lightup .cell.is-dot::after {
+  content: '';
+  width: 16%;
+  height: 16%;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.board-lightup .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}

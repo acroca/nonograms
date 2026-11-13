@@ -161,4 +161,13 @@ export const ES: Record<string, string> = {
   'tree': 'árbol',
   'tent': 'tienda',
   'grass': 'hierba',
+  'Light Up': 'Ilumina',
+  'Place bulbs to light every cell; bulbs must not light each other.': 'Coloca bombillas para iluminar todas las casillas sin que se iluminen entre sí.',
+  'Light Up board': 'Tablero de Ilumina',
+  'Tap: bulb → dot → clear. Drag to paint.': 'Toca: bombilla → punto → borrar. Arrastra para pintar.',
+  'bulb': 'bombilla',
+  'no bulb': 'sin bombilla',
+  'wall {n}': 'muro {n}',
+  'wall': 'muro',
+  'lit': 'iluminada',
 };

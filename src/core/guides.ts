@@ -355,6 +355,29 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una casilla sin árbol al lado nunca puede tener tienda: márcala como hierba.', 'Un árbol con un solo vecino libre debe poner su tienda ahí.', 'Si un árbol tiene dos casillas posibles que tocan una casilla común, esa casilla común es hierba.', 'Una fila o columna con un 0 es toda hierba; si su número iguala sus casillas libres, son todas tiendas.'],
     },
   },
+
+  lightup: {
+    goal: {
+      en: 'Light up every white square with bulbs, without letting bulbs shine on each other.',
+      es: 'Ilumina todas las casillas blancas con bombillas, sin que las bombillas se iluminen entre sí.',
+    },
+    rules: {
+      en: ['A bulb lights its own square and every square in its row and column until a black wall.', 'Every white square must be lit.', 'Two bulbs must never light each other.', 'A number on a wall says exactly how many bulbs are in the (up to four) squares touching it. Walls without a number can have any amount.'],
+      es: ['Una bombilla ilumina su casilla y todas las de su fila y columna hasta un muro negro.', 'Todas las casillas blancas deben quedar iluminadas.', 'Dos bombillas nunca pueden iluminarse entre sí.', 'Un número en un muro indica exactamente cuántas bombillas hay en las (hasta cuatro) casillas que lo tocan. Los muros sin número pueden tener cualquier cantidad.'],
+    },
+    controls: {
+      en: ['Tap a white square to cycle: bulb → dot (a square you know has no bulb) → empty.', 'Drag to apply the same mark to several squares. Lit squares turn yellow; bulbs that clash turn red.'],
+      es: ['Toca una casilla blanca para alternar: bombilla → punto (una casilla que sabes sin bombilla) → vacía.', 'Arrastra para aplicar la misma marca a varias casillas. Las casillas iluminadas se ponen amarillas; las bombillas que chocan, rojas.'],
+    },
+    examples: [
+      ex(['#0 . .', '. . .'], undefined, 'A 0 wall has no bulb beside it: its neighbours stay dark of bulbs.', 'Un muro 0 no tiene bombillas a su lado: sus vecinas quedan sin bombilla.'),
+      ex(['#4 . #', '. #1 .', '# . #'], undefined, 'A 4 wall surrounded by white squares needs a bulb on all four sides.', 'Un muro 4 rodeado de casillas blancas necesita una bombilla en sus cuatro lados.'),
+    ],
+    tips: {
+      en: ['A 4 needs all its neighbours; a 3 against the edge does too; a 0 rules out all of them.', 'If only one square can light a white square, put a bulb there.', 'A square already lit by a bulb can’t hold a bulb itself: mark it with a dot.'],
+      es: ['Un 4 necesita todos sus vecinos; un 3 contra el borde también; un 0 los descarta todos.', 'Si solo una casilla puede iluminar una casilla blanca, pon la bombilla ahí.', 'Una casilla ya iluminada por una bombilla no puede tener bombilla: márcala con un punto.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

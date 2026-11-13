@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with thirteen logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with fourteen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -130,6 +130,14 @@ Pitch one tent next to every tree, matched one to one. Tents never touch each ot
 
 <img src="docs/tents.png" width="240" alt="Tents" />
 
+### Light Up (Akari)
+
+Place bulbs so every white cell is lit. A bulb shines along its row and column until a wall, bulbs never light each other, and a number on a wall says how many bulbs touch it.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/lightup.png" width="240" alt="Light Up (Akari)" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -196,6 +204,9 @@ solver and an independent rule checker.
 - **Tents**: non-touching tents are placed first, each with a tree beside it, and the row/column
   counts are read off; layouts are re-rolled until a solver using counts, tree adjacency, tent
   exclusion and "common neighbour of a tree's candidates" reasoning solves them.
+- **Light Up**: random walls, then bulbs are dropped on any cell nothing lights yet (so none sees
+  another) and every wall is numbered; numbers are thinned in random order while a solver using
+  wall counts, "someone must light every cell" and one-bulb-per-run still solves the puzzle.
 
 ## Project layout
 
