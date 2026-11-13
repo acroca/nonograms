@@ -26,8 +26,10 @@ export const YES = 2;
 export const ANY = 3;
 
 /** Runs the propagators until nothing changes. Returns false on a contradiction. */
+let scratch = new Uint32Array(0);
 export function fixpoint(d: Doms, props: Propagator[]): boolean {
-  const prev = new Uint32Array(d.length);
+  if (scratch.length !== d.length) scratch = new Uint32Array(d.length);
+  const prev = scratch;
   for (;;) {
     prev.set(d);
     for (const p of props) if (!p(d)) return false;

@@ -489,6 +489,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una región de solo dos casillas se sombrea entera.', 'Las casillas junto a un dominó terminado no pueden sombrearse: márcalas con puntos.', 'Una casilla sin ningún vecino libre nunca puede sombrearse.'],
     },
   },
+
+  fillomino: {
+    goal: {
+      en: 'Write a number in every cell so that each group of touching equal numbers contains exactly that many cells.',
+      es: 'Escribe un número en cada casilla para que cada grupo de números iguales conectados tenga exactamente esa cantidad de casillas.',
+    },
+    rules: {
+      en: ['Every cell gets a number.', 'Cells with the same number that touch side by side form a group, and a group of N cells must carry the number N.', 'So a 1 is alone, a 2 is part of a pair, a 3 of a group of three, and so on.', 'Two different groups with the same number can’t touch.'],
+      es: ['Cada casilla lleva un número.', 'Las casillas con el mismo número que se tocan por los lados forman un grupo, y un grupo de N casillas debe llevar el número N.', 'Así, un 1 está solo, un 2 forma pareja, un 3 es parte de un grupo de tres, y así sucesivamente.', 'Dos grupos distintos con el mismo número no pueden tocarse.'],
+    },
+    controls: {
+      en: ['Tap a cell, then a number on the pad. Tap the same number again to clear it.', 'Notes lets you pencil in candidates. Complete groups turn green; groups that are too big turn red.'],
+      es: ['Toca una casilla y luego un número del teclado. Toca el mismo número otra vez para borrarlo.', 'Notas permite anotar candidatos. Los grupos completos se ponen verdes; los demasiado grandes, rojos.'],
+    },
+    examples: [
+      ex(['*2 *2 3', '1 3 3'], undefined, 'The two 2s form a group of two, the three 3s a group of three, and the 1 stands alone.', 'Los dos 2 forman un grupo de dos, los tres 3 un grupo de tres y el 1 está solo.'),
+    ],
+    tips: {
+      en: ['Start by surrounding 1s and completing the groups that are already the right size.', 'A given number with only one free neighbour must grow through that neighbour.', 'A cell that no group can reach with enough room can’t hold a large number.'],
+      es: ['Empieza rodeando los 1 y completando los grupos que ya tienen el tamaño correcto.', 'Un número dado con un único vecino libre debe crecer por ese vecino.', 'Una casilla a la que ningún grupo puede llegar con espacio suficiente no puede tener un número grande.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

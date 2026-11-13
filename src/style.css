@@ -1759,3 +1759,17 @@ button.primary {
 .board-norinori .cell.wrong {
   box-shadow: inset 0 0 0 3px var(--bad);
 }
+
+/* Fillomino */
+.board-fillomino .cell.jr {
+  border-right-color: transparent;
+}
+.board-fillomino .cell.jb {
+  border-bottom-color: transparent;
+}
+.board-fillomino .cell.done {
+  background: color-mix(in srgb, var(--good) 16%, var(--surface));
+}
+.board-fillomino .cell.clash {
+  background: color-mix(in srgb, var(--bad) 22%, var(--surface));
+}

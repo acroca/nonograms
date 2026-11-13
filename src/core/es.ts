@@ -194,4 +194,7 @@ export const ES: Record<string, string> = {
   'Norinori board': 'Tablero de Norinori',
   'Tap: shade → dot → clear. Drag to paint.': 'Toca: sombrear → punto → borrar. Arrastra para pintar.',
   'unshaded': 'sin sombrear',
+  'Fillomino': 'Fillomino',
+  'Fill every cell so each group of equal numbers is that big.': 'Rellena cada casilla para que cada grupo de números iguales tenga ese tamaño.',
+  'Fillomino board': 'Tablero de Fillomino',
 };
