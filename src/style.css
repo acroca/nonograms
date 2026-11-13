@@ -1624,3 +1624,62 @@ button.primary {
 .board-bridges .island.bad text {
   fill: var(--bad);
 }
+
+/* Battleships */
+.board-battleships {
+  --ship: #334155;
+  --water: #bfdbfe;
+}
+@media (prefers-color-scheme: dark) {
+  .board-battleships {
+    --ship: #cbd5e1;
+    --water: #1e3a8a;
+  }
+}
+.board-battleships .cell .ship {
+  display: none;
+  position: absolute;
+  background: var(--ship);
+}
+.board-battleships .cell.is-ship .ship {
+  display: block;
+}
+.board-battleships .cell.is-water {
+  background: var(--water);
+}
+.board-battleships .cell.is-water::after {
+  content: '';
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 60%, var(--surface));
+}
+.board-battleships .cell.clash .ship {
+  background: var(--bad);
+}
+.board-battleships .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+.fleet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  margin-bottom: 0.4rem;
+}
+.fleet-ship {
+  display: inline-flex;
+  gap: 2px;
+}
+.fleet-ship i {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 3px;
+  background: var(--fg);
+}
+.fleet-ship.found {
+  opacity: 0.3;
+  text-decoration: line-through;
+}

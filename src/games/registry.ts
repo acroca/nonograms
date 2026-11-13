@@ -15,6 +15,7 @@ import { tents } from './tents';
 import { lightup } from './lightup';
 import { bridges } from './bridges';
 import { skyscrapers } from './skyscrapers';
+import { battleships } from './battleships';
 
 /** Games in menu order. */
-export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, skyscrapers, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup, bridges];
+export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, skyscrapers, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup, bridges, battleships];

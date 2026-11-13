@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with sixteen logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with seventeen logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -154,6 +154,14 @@ Join the numbered islands with straight bridges, one or two per pair. Each islan
 
 <img src="docs/bridges.png" width="240" alt="Bridges" />
 
+### Battleships
+
+Find the hidden fleet. The numbers give how many ship cells each row and column holds, a few cells are revealed, and ships never touch, not even diagonally.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/battleships.png" width="240" alt="Battleships" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -231,6 +239,10 @@ solver and an independent rule checker.
   while a solver (all-different with hidden singles, plus every row/column arrangement consistent
   with a clue and the remaining candidates) still solves it; a third of the dropped clues are handed
   back so the puzzle isn't a bare minimum.
+- **Battleships**: the fleet (on 10×10: four ships of length 1, three of 2, two of 3 and one of 4) is
+  placed at random without touching; revealed cells (water, single, round ends, middles) are added at
+  random until a solver using row/column counts, diagonal exclusion, straightness and "which fleet
+  ship can this run still be" reasoning finishes the grid, then thinned again while it still does.
 
 ## Project layout
 

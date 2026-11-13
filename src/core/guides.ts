@@ -422,6 +422,28 @@ const RAW: Record<string, RawGuide> = {
       es: ['Una pista de 1 significa que el edificio más alto (N) está justo junto a la pista.', 'Una pista de N significa que las alturas suben 1, 2, … N desde ese lado.', 'Con una pista de 2, el primer edificio no puede ser el más alto; si lo fuera solo verías uno.'],
     },
   },
+
+  battleships: {
+    goal: {
+      en: 'Find where every ship of the fleet is hiding.',
+      es: 'Encuentra dónde se esconde cada barco de la flota.',
+    },
+    rules: {
+      en: ['The fleet is shown under the board: ships are straight lines of 1 to 4 squares.', 'Ships never touch each other, not even diagonally.', 'The numbers beside the grid tell how many squares of each row and column are part of a ship.', 'Some squares are already revealed: a round end, a middle piece, a single boat or open water.'],
+      es: ['La flota se muestra bajo el tablero: los barcos son líneas rectas de 1 a 4 casillas.', 'Los barcos nunca se tocan, ni siquiera en diagonal.', 'Los números junto a la cuadrícula indican cuántas casillas de cada fila y columna son parte de un barco.', 'Algunas casillas ya están reveladas: un extremo, una pieza central, un barco suelto o agua.'],
+    },
+    controls: {
+      en: ['Tap a square to cycle: water → ship → empty. Drag to apply the same mark to several squares.', 'Ships in the fleet list fade once you have drawn them and closed them in with water.'],
+      es: ['Toca una casilla para alternar: agua → barco → vacía. Arrastra para aplicar la misma marca a varias casillas.', 'Los barcos de la lista de la flota se atenúan cuando los has dibujado y rodeado de agua.'],
+    },
+    examples: [
+      ex(['~ ~ ~ ~', '~ ◖ ■ ◗', '~ ~ ~ ~'], undefined, 'A ship of three squares: both ends are rounded and everything around it is water.', 'Un barco de tres casillas: ambos extremos son redondeados y todo a su alrededor es agua.'),
+    ],
+    tips: {
+      en: ['A row or column with a 0 is all water.', 'Around any ship square, the diagonal squares are water.', 'A rounded end tells you the ship continues the other way.', 'Count the squares left: the biggest ship can only go where there is enough room.'],
+      es: ['Una fila o columna con un 0 es toda agua.', 'Alrededor de cualquier casilla de barco, las diagonales son agua.', 'Un extremo redondeado indica que el barco continúa hacia el otro lado.', 'Cuenta las casillas libres: el barco más grande solo cabe donde hay espacio suficiente.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

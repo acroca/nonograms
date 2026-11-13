@@ -177,4 +177,12 @@ export const ES: Record<string, string> = {
   'Skyscrapers': 'Rascacielos',
   'Fill a Latin square of building heights; clues count what you can see.': 'Rellena un cuadrado latino de alturas; las pistas cuentan lo que se ve.',
   'Skyscrapers board': 'Tablero de Rascacielos',
+  'Battleships': 'Hundir la flota',
+  'Find the hidden fleet from the row and column counts.': 'Encuentra la flota oculta a partir de los números de filas y columnas.',
+  'Battleships board': 'Tablero de Hundir la flota',
+  'Fleet': 'Flota',
+  'Tap: water → ship → clear. Drag to paint.': 'Toca: agua → barco → borrar. Arrastra para pintar.',
+  'water': 'agua',
+  'ship': 'barco',
+  'Auto-fill water diagonal to ships': 'Poner agua automáticamente en las diagonales de los barcos',
 };
