@@ -11,6 +11,20 @@ import { nurikabe } from './nurikabe';
 import { queens } from './queens';
 import { slitherlink } from './slitherlink';
 import { sudoku } from './sudoku';
+import { tents } from './tents';
+import { lightup } from './lightup';
+import { bridges } from './bridges';
+import { skyscrapers } from './skyscrapers';
+import { battleships } from './battleships';
+import { masyu } from './masyu';
+import { norinori } from './norinori';
+import { fillomino } from './fillomino';
+import { kuromasu } from './kuromasu';
+import { dominosa } from './dominosa';
+import { numberlink } from './numberlink';
+import { thermometers } from './thermometers';
+import { mosaic } from './mosaic';
+import { jigsaw } from './jigsaw';
 
 /** Games in menu order. */
-export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, killer, kenken, futoshiki, kakuro, hitori, nurikabe, slitherlink, minesweeper];
+export const GAMES: GameModule[] = [nonogram, binairo, queens, sudoku, jigsaw, killer, kenken, futoshiki, skyscrapers, kakuro, hitori, nurikabe, slitherlink, minesweeper, tents, lightup, bridges, battleships, masyu, norinori, fillomino, kuromasu, dominosa, numberlink, thermometers, mosaic];

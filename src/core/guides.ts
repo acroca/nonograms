@@ -332,6 +332,317 @@ const RAW: Record<string, RawGuide> = {
       es: ['Un 1 con un solo vecino oculto: ese vecino es una mina.', 'Si todas las minas de un número están marcadas, los demás vecinos son seguros.', 'Compara números vecinos: la diferencia entre ellos suele indicar dónde están las minas.'],
     },
   },
+
+  tents: {
+    goal: {
+      en: 'Pitch a tent next to every tree without any two tents touching.',
+      es: 'Planta una tienda junto a cada árbol sin que dos tiendas se toquen.',
+    },
+    rules: {
+      en: ['Every tree has exactly one tent next to it (above, below, left or right), and every tent belongs to exactly one tree.', 'Tents never touch each other, not even diagonally.', 'The numbers outside the grid tell how many tents are in each row and column.'],
+      es: ['Cada árbol tiene exactamente una tienda a su lado (arriba, abajo, izquierda o derecha), y cada tienda pertenece a un único árbol.', 'Las tiendas nunca se tocan, ni siquiera en diagonal.', 'Los números fuera de la cuadrícula indican cuántas tiendas hay en cada fila y columna.'],
+    },
+    controls: {
+      en: ['Tap a square to cycle: tent → grass (a square you know has no tent) → empty.', 'Drag to apply the same mark to several squares. Numbers turn grey when satisfied and red when exceeded.'],
+      es: ['Toca una casilla para alternar: tienda → hierba (una casilla que sabes sin tienda) → vacía.', 'Arrastra para aplicar la misma marca a varias casillas. Los números se ponen grises al cumplirse y rojos si se superan.'],
+    },
+    examples: [
+      ex(['🌲 ⛺ .', '. . .', '. . .'], undefined, 'A tent is pitched right beside its tree.', 'Una tienda plantada justo al lado de su árbol.'),
+      ex(['🌲 ⛺ .', '. 🌲 ⛺', '. . .'], undefined, 'Not allowed: the two tents touch diagonally.', 'No permitido: las dos tiendas se tocan en diagonal.'),
+    ],
+    tips: {
+      en: ['A square with no tree beside it can never hold a tent: mark it as grass.', 'A tree with only one free neighbour must get its tent there.', 'When a tree has two possible squares that touch a common square, that common square is grass.', 'A row or column with a 0 is entirely grass; one whose count equals its free squares is entirely tents.'],
+      es: ['Una casilla sin árbol al lado nunca puede tener tienda: márcala como hierba.', 'Un árbol con un solo vecino libre debe poner su tienda ahí.', 'Si un árbol tiene dos casillas posibles que tocan una casilla común, esa casilla común es hierba.', 'Una fila o columna con un 0 es toda hierba; si su número iguala sus casillas libres, son todas tiendas.'],
+    },
+  },
+
+  lightup: {
+    goal: {
+      en: 'Light up every white square with bulbs, without letting bulbs shine on each other.',
+      es: 'Ilumina todas las casillas blancas con bombillas, sin que las bombillas se iluminen entre sí.',
+    },
+    rules: {
+      en: ['A bulb lights its own square and every square in its row and column until a black wall.', 'Every white square must be lit.', 'Two bulbs must never light each other.', 'A number on a wall says exactly how many bulbs are in the (up to four) squares touching it. Walls without a number can have any amount.'],
+      es: ['Una bombilla ilumina su casilla y todas las de su fila y columna hasta un muro negro.', 'Todas las casillas blancas deben quedar iluminadas.', 'Dos bombillas nunca pueden iluminarse entre sí.', 'Un número en un muro indica exactamente cuántas bombillas hay en las (hasta cuatro) casillas que lo tocan. Los muros sin número pueden tener cualquier cantidad.'],
+    },
+    controls: {
+      en: ['Tap a white square to cycle: bulb → dot (a square you know has no bulb) → empty.', 'Drag to apply the same mark to several squares. Lit squares turn yellow; bulbs that clash turn red.'],
+      es: ['Toca una casilla blanca para alternar: bombilla → punto (una casilla que sabes sin bombilla) → vacía.', 'Arrastra para aplicar la misma marca a varias casillas. Las casillas iluminadas se ponen amarillas; las bombillas que chocan, rojas.'],
+    },
+    examples: [
+      ex(['#0 . .', '. . .'], undefined, 'A 0 wall has no bulb beside it: its neighbours stay dark of bulbs.', 'Un muro 0 no tiene bombillas a su lado: sus vecinas quedan sin bombilla.'),
+      ex(['#4 . #', '. #1 .', '# . #'], undefined, 'A 4 wall surrounded by white squares needs a bulb on all four sides.', 'Un muro 4 rodeado de casillas blancas necesita una bombilla en sus cuatro lados.'),
+    ],
+    tips: {
+      en: ['A 4 needs all its neighbours; a 3 against the edge does too; a 0 rules out all of them.', 'If only one square can light a white square, put a bulb there.', 'A square already lit by a bulb can’t hold a bulb itself: mark it with a dot.'],
+      es: ['Un 4 necesita todos sus vecinos; un 3 contra el borde también; un 0 los descarta todos.', 'Si solo una casilla puede iluminar una casilla blanca, pon la bombilla ahí.', 'Una casilla ya iluminada por una bombilla no puede tener bombilla: márcala con un punto.'],
+    },
+  },
+
+  bridges: {
+    goal: {
+      en: 'Connect all the islands into one network with bridges.',
+      es: 'Conecta todas las islas en una única red con puentes.',
+    },
+    rules: {
+      en: ['Each island’s number is how many bridges end on it.', 'Bridges run in straight horizontal or vertical lines between two islands. Two islands can be joined by one or two bridges, never more.', 'Bridges never cross each other or pass over an island.', 'All islands must end up connected as one group.'],
+      es: ['El número de cada isla indica cuántos puentes terminan en ella.', 'Los puentes van en línea recta, horizontal o vertical, entre dos islas. Dos islas pueden unirse con uno o dos puentes, nunca más.', 'Los puentes nunca se cruzan ni pasan por encima de una isla.', 'Todas las islas deben quedar conectadas en un único grupo.'],
+    },
+    controls: {
+      en: ['Tap the dotted line between two islands to cycle: one bridge → two bridges → none.', 'Or drag from one island to a neighbouring one. Islands turn blue when complete and red if they have too many.'],
+      es: ['Toca la línea de puntos entre dos islas para alternar: un puente → dos puentes → ninguno.', 'O arrastra de una isla a otra vecina. Las islas se ponen azules al completarse y rojas si tienen demasiados.'],
+    },
+    examples: [
+      ex(undefined, '1──3══2', 'The 3 has a single bridge to the 1 and a double bridge to the 2.', 'El 3 tiene un puente simple al 1 y un puente doble al 2.'),
+    ],
+    tips: {
+      en: ['An island whose number equals twice its possible neighbours (like a 4 with two neighbours) needs two bridges to each.', 'A 1 next to another 1 can’t join them unless those are the only two islands.', 'Always think about connectivity: a finished group with no way out is a dead end.'],
+      es: ['Una isla cuyo número es el doble de sus vecinos posibles (como un 4 con dos vecinos) necesita dos puentes a cada uno.', 'Un 1 junto a otro 1 no puede unirlos salvo que sean las únicas dos islas.', 'Piensa siempre en la conectividad: un grupo terminado sin salida es un callejón sin salida.'],
+    },
+  },
+
+  skyscrapers: {
+    goal: {
+      en: 'Place a building of height 1 to N in every square so that each clue counts the buildings visible from its edge.',
+      es: 'Coloca un edificio de altura 1 a N en cada casilla para que cada pista cuente los edificios visibles desde su borde.',
+    },
+    rules: {
+      en: ['Each row and each column holds the heights 1 to N exactly once.', 'A number outside the grid tells how many buildings you can see looking along that row or column from that side.', 'A taller building hides every shorter one behind it.'],
+      es: ['Cada fila y cada columna contiene las alturas de 1 a N exactamente una vez.', 'Un número fuera de la cuadrícula indica cuántos edificios se ven mirando a lo largo de esa fila o columna desde ese lado.', 'Un edificio más alto oculta a todos los más bajos que tiene detrás.'],
+    },
+    controls: {
+      en: ['Tap a square, then a number on the pad. Tap the same number again to clear it.', 'Notes lets you pencil in possible heights. Clues turn grey when their line is correct and red when it is not.'],
+      es: ['Toca una casilla y luego un número del teclado. Toca el mismo número otra vez para borrarlo.', 'Notas permite anotar alturas posibles. Las pistas se ponen grises cuando su línea es correcta y rojas si no lo es.'],
+    },
+    examples: [
+      ex(['#4 1 2 3 4', '#1 4 3 2 1'], undefined, 'From the left, the first row shows all four buildings (1 2 3 4 rises every step); the second shows just one, the 4, which hides the rest.', 'Desde la izquierda, la primera fila deja ver los cuatro edificios (1 2 3 4 sube en cada paso); la segunda solo uno, el 4, que oculta a los demás.'),
+    ],
+    tips: {
+      en: ['A clue of 1 means the tallest building (N) is right next to the clue.', 'A clue of N means the heights ascend 1, 2, … N from that side.', 'With a clue of 2, the first building can’t be the tallest, otherwise you would see only one.'],
+      es: ['Una pista de 1 significa que el edificio más alto (N) está justo junto a la pista.', 'Una pista de N significa que las alturas suben 1, 2, … N desde ese lado.', 'Con una pista de 2, el primer edificio no puede ser el más alto; si lo fuera solo verías uno.'],
+    },
+  },
+
+  battleships: {
+    goal: {
+      en: 'Find where every ship of the fleet is hiding.',
+      es: 'Encuentra dónde se esconde cada barco de la flota.',
+    },
+    rules: {
+      en: ['The fleet is shown under the board: ships are straight lines of 1 to 4 squares.', 'Ships never touch each other, not even diagonally.', 'The numbers beside the grid tell how many squares of each row and column are part of a ship.', 'Some squares are already revealed: a round end, a middle piece, a single boat or open water.'],
+      es: ['La flota se muestra bajo el tablero: los barcos son líneas rectas de 1 a 4 casillas.', 'Los barcos nunca se tocan, ni siquiera en diagonal.', 'Los números junto a la cuadrícula indican cuántas casillas de cada fila y columna son parte de un barco.', 'Algunas casillas ya están reveladas: un extremo, una pieza central, un barco suelto o agua.'],
+    },
+    controls: {
+      en: ['Tap a square to cycle: water → ship → empty. Drag to apply the same mark to several squares.', 'Ships in the fleet list fade once you have drawn them and closed them in with water.'],
+      es: ['Toca una casilla para alternar: agua → barco → vacía. Arrastra para aplicar la misma marca a varias casillas.', 'Los barcos de la lista de la flota se atenúan cuando los has dibujado y rodeado de agua.'],
+    },
+    examples: [
+      ex(['~ ~ ~ ~', '~ ◖ ■ ◗', '~ ~ ~ ~'], undefined, 'A ship of three squares: both ends are rounded and everything around it is water.', 'Un barco de tres casillas: ambos extremos son redondeados y todo a su alrededor es agua.'),
+    ],
+    tips: {
+      en: ['A row or column with a 0 is all water.', 'Around any ship square, the diagonal squares are water.', 'A rounded end tells you the ship continues the other way.', 'Count the squares left: the biggest ship can only go where there is enough room.'],
+      es: ['Una fila o columna con un 0 es toda agua.', 'Alrededor de cualquier casilla de barco, las diagonales son agua.', 'Un extremo redondeado indica que el barco continúa hacia el otro lado.', 'Cuenta las casillas libres: el barco más grande solo cabe donde hay espacio suficiente.'],
+    },
+  },
+
+  masyu: {
+    goal: {
+      en: 'Draw a single closed loop that passes through every pearl.',
+      es: 'Dibuja un único bucle cerrado que pase por todas las perlas.',
+    },
+    rules: {
+      en: ['The loop moves horizontally or vertically from cell centre to cell centre, never crossing or branching.', 'On a black pearl the loop must turn, and it must go straight for at least one more cell on both sides of the pearl.', 'On a white pearl the loop must go straight, and it must turn in at least one of the cells just before or after the pearl.', 'The loop doesn’t have to visit empty cells.'],
+      es: ['El bucle se mueve en horizontal o vertical de centro a centro de casilla, sin cruzarse ni ramificarse.', 'En una perla negra el bucle debe girar, y debe seguir recto al menos una casilla más a ambos lados de la perla.', 'En una perla blanca el bucle debe ir recto, y debe girar en al menos una de las casillas justo antes o después de la perla.', 'El bucle no tiene que pasar por las casillas vacías.'],
+    },
+    controls: {
+      en: ['Drag from cell to cell to draw the loop; a drag that starts on a line erases.', 'Tap the gap between two cells to cycle: line → ✕ (known empty) → clear.'],
+      es: ['Arrastra de casilla en casilla para dibujar el bucle; si empiezas sobre una línea, borra.', 'Toca el hueco entre dos casillas para alternar: línea → ✕ (vacío seguro) → borrar.'],
+    },
+    examples: [
+      ex(undefined, '●───┐\n│   │\n│   ○\n└───┘', 'The black pearl is a corner with straight runs on both sides; the white pearl is on a straight side, right before a corner.', 'La perla negra es una esquina con tramos rectos a ambos lados; la blanca está en un lado recto, justo antes de una esquina.'),
+    ],
+    tips: {
+      en: ['Two black pearls next to each other, or a black pearl on the edge, restrict the loop a lot: start there.', 'A black pearl next to the border must turn away from it.', 'Three white pearls in a row can’t all go straight: at least one end must turn.', 'Mark edges you know are unused with ✕ to avoid dead ends and small loops.'],
+      es: ['Dos perlas negras juntas, o una negra en el borde, limitan mucho el bucle: empieza por ahí.', 'Una perla negra junto al borde debe girar alejándose de él.', 'Tres perlas blancas seguidas no pueden ir todas rectas: al menos un extremo debe girar.', 'Marca con ✕ los tramos que sabes sin usar para evitar callejones sin salida y bucles pequeños.'],
+    },
+  },
+
+  norinori: {
+    goal: {
+      en: 'Shade cells so that every region has exactly two shaded cells, forming dominoes.',
+      es: 'Sombrea casillas para que cada región tenga exactamente dos casillas sombreadas, formando dominós.',
+    },
+    rules: {
+      en: ['Every outlined region contains exactly two shaded cells.', 'Every shaded cell is part of exactly one domino: it touches exactly one other shaded cell, side by side.', 'A domino may stretch over two regions, and two dominoes never touch side by side (diagonals are fine).'],
+      es: ['Cada región delimitada contiene exactamente dos casillas sombreadas.', 'Cada casilla sombreada forma parte de exactamente un dominó: toca por un lado exactamente a otra casilla sombreada.', 'Un dominó puede abarcar dos regiones, y dos dominós nunca se tocan por los lados (en diagonal sí).'],
+    },
+    controls: {
+      en: ['Tap to cycle: shaded → dot (a cell you know is not shaded) → empty.', 'Drag to apply the same mark to several cells. Shaded cells in red break a rule.'],
+      es: ['Toca para alternar: sombreada → punto (una casilla que sabes que no se sombrea) → vacía.', 'Arrastra para aplicar la misma marca a varias casillas. Las casillas sombreadas en rojo rompen una regla.'],
+    },
+    examples: [
+      ex(['# # .', '. . .', '. . .'], undefined, 'A valid domino: two shaded cells side by side, touching nothing else shaded.', 'Un dominó válido: dos casillas sombreadas juntas que no tocan ninguna otra sombreada.'),
+      ex(['# # #', '. . .', '. . .'], undefined, 'Not allowed: the middle cell touches two shaded cells.', 'No permitido: la casilla central toca dos casillas sombreadas.'),
+    ],
+    tips: {
+      en: ['A region with only two cells is entirely shaded.', 'Cells next to a finished domino can’t be shaded: mark them with dots.', 'A lone cell with no free neighbour can never be shaded.'],
+      es: ['Una región de solo dos casillas se sombrea entera.', 'Las casillas junto a un dominó terminado no pueden sombrearse: márcalas con puntos.', 'Una casilla sin ningún vecino libre nunca puede sombrearse.'],
+    },
+  },
+
+  fillomino: {
+    goal: {
+      en: 'Write a number in every cell so that each group of touching equal numbers contains exactly that many cells.',
+      es: 'Escribe un número en cada casilla para que cada grupo de números iguales conectados tenga exactamente esa cantidad de casillas.',
+    },
+    rules: {
+      en: ['Every cell gets a number.', 'Cells with the same number that touch side by side form a group, and a group of N cells must carry the number N.', 'So a 1 is alone, a 2 is part of a pair, a 3 of a group of three, and so on.', 'Two different groups with the same number can’t touch.'],
+      es: ['Cada casilla lleva un número.', 'Las casillas con el mismo número que se tocan por los lados forman un grupo, y un grupo de N casillas debe llevar el número N.', 'Así, un 1 está solo, un 2 forma pareja, un 3 es parte de un grupo de tres, y así sucesivamente.', 'Dos grupos distintos con el mismo número no pueden tocarse.'],
+    },
+    controls: {
+      en: ['Tap a cell, then a number on the pad. Tap the same number again to clear it.', 'Notes lets you pencil in candidates. Complete groups turn green; groups that are too big turn red.'],
+      es: ['Toca una casilla y luego un número del teclado. Toca el mismo número otra vez para borrarlo.', 'Notas permite anotar candidatos. Los grupos completos se ponen verdes; los demasiado grandes, rojos.'],
+    },
+    examples: [
+      ex(['*2 *2 3', '1 3 3'], undefined, 'The two 2s form a group of two, the three 3s a group of three, and the 1 stands alone.', 'Los dos 2 forman un grupo de dos, los tres 3 un grupo de tres y el 1 está solo.'),
+    ],
+    tips: {
+      en: ['Start by surrounding 1s and completing the groups that are already the right size.', 'A given number with only one free neighbour must grow through that neighbour.', 'A cell that no group can reach with enough room can’t hold a large number.'],
+      es: ['Empieza rodeando los 1 y completando los grupos que ya tienen el tamaño correcto.', 'Un número dado con un único vecino libre debe crecer por ese vecino.', 'Una casilla a la que ningún grupo puede llegar con espacio suficiente no puede tener un número grande.'],
+    },
+  },
+
+  kuromasu: {
+    goal: {
+      en: 'Shade cells so that every number can see exactly that many unshaded cells.',
+      es: 'Sombrea casillas para que cada número vea exactamente esa cantidad de casillas sin sombrear.',
+    },
+    rules: {
+      en: ['A number counts the cells it sees, itself included, looking up, down, left and right until a shaded cell or the edge.', 'Numbered cells are never shaded.', 'Shaded cells can’t touch each other side by side.', 'All unshaded cells must stay connected as one area.'],
+      es: ['Un número cuenta las casillas que ve, incluida la suya, mirando arriba, abajo, izquierda y derecha hasta una casilla sombreada o el borde.', 'Las casillas con número nunca se sombrean.', 'Las casillas sombreadas no pueden tocarse por los lados.', 'Todas las casillas sin sombrear deben seguir conectadas como una única zona.'],
+    },
+    controls: {
+      en: ['Tap to cycle: shaded → dot (known unshaded) → empty. Drag to apply the same mark to several cells.', 'A number turns grey when it can’t change any more, and red when it can no longer be satisfied.'],
+      es: ['Toca para alternar: sombreada → punto (seguro sin sombrear) → vacía. Arrastra para aplicar la misma marca a varias casillas.', 'Un número se pone gris cuando ya no puede cambiar, y rojo cuando ya no puede cumplirse.'],
+    },
+    examples: [
+      ex(['*3 . #', '. . .', '# . .'], undefined, 'The 3 sees itself plus the cell to its right (the next one is shaded) and the cell below (the one after that is shaded): 1 + 1 + 1 = 3.', 'El 3 se ve a sí mismo, la casilla de su derecha (la siguiente está sombreada) y la de abajo (la siguiente está sombreada): 1 + 1 + 1 = 3.'),
+    ],
+    tips: {
+      en: ['A 1 is surrounded by shaded cells (or the edge).', 'A number as large as its row and column allow sees everything: nothing near it can be shaded.', 'Neighbours of a shaded cell are unshaded; use dots to remember them.'],
+      es: ['Un 1 está rodeado de casillas sombreadas (o el borde).', 'Un número tan grande como permiten su fila y columna lo ve todo: nada cerca de él puede sombrearse.', 'Los vecinos de una casilla sombreada no se sombrean; usa puntos para recordarlo.'],
+    },
+  },
+
+  dominosa: {
+    goal: {
+      en: 'Cut the grid into dominoes so that every pair of numbers appears exactly once.',
+      es: 'Divide la cuadrícula en dominós para que cada pareja de números aparezca exactamente una vez.',
+    },
+    rules: {
+      en: ['The grid holds the numbers of a full set of dominoes, laid out in a jumble: a double-6 set has 28 dominoes, 0-0 up to 6-6.', 'Every cell belongs to exactly one domino (two neighbouring cells).', 'Each pair of numbers (for instance 2-5) is used exactly once; the list under the board shows which ones are still free.'],
+      es: ['La cuadrícula contiene los números de un juego completo de dominó, mezclados: un juego doble 6 tiene 28 fichas, de 0-0 a 6-6.', 'Cada casilla pertenece exactamente a un dominó (dos casillas vecinas).', 'Cada pareja de números (por ejemplo 2-5) se usa exactamente una vez; la lista bajo el tablero muestra cuáles siguen libres.'],
+    },
+    controls: {
+      en: ['Drag from a cell onto a neighbouring cell to place a domino there. Drag over an existing domino to lift it, or tap it.', 'Dominoes are coloured by their number pair: a pair used twice turns red, and used pairs fade in the list.'],
+      es: ['Arrastra de una casilla a una vecina para colocar un dominó. Arrastra sobre un dominó existente para quitarlo, o tócalo.', 'Los dominós se colorean según su pareja de números: una pareja usada dos veces se pone roja, y las usadas se atenúan en la lista.'],
+    },
+    examples: [
+      ex(['*0 *1 1 2'], undefined, 'Cells with 0 and 1 side by side can be the 0-1 domino. If another 0-1 pair shows up elsewhere, only one of them can be used.', 'Dos casillas con 0 y 1 juntas pueden ser el dominó 0-1. Si aparece otra pareja 0-1 en otro sitio, solo una puede usarse.'),
+    ],
+    tips: {
+      en: ['A pair that appears only once on the board must be a domino right there.', 'Corner and edge cells have fewer neighbours: start with the ones that have a single option.', 'When a domino is placed, cross it off the list: its neighbours with the same pair can’t be dominoes.'],
+      es: ['Una pareja que aparece una sola vez en el tablero debe ser un dominó justo ahí.', 'Las casillas de esquina y borde tienen menos vecinas: empieza por las que tienen una sola opción.', 'Al colocar un dominó, táchalo de la lista: las demás casillas con la misma pareja ya no pueden ser dominós.'],
+    },
+  },
+
+  numberlink: {
+    goal: {
+      en: 'Connect every pair of equal numbers with a path, using every cell of the grid.',
+      es: 'Conecta cada pareja de números iguales con un camino, usando todas las casillas de la cuadrícula.',
+    },
+    rules: {
+      en: ['Each path joins two equal numbers and runs from cell to cell horizontally or vertically.', 'Paths never cross, branch or share cells.', 'Every cell of the grid must be on a path.'],
+      es: ['Cada camino une dos números iguales y avanza de casilla en casilla en horizontal o vertical.', 'Los caminos nunca se cruzan, ramifican ni comparten casillas.', 'Todas las casillas de la cuadrícula deben estar en un camino.'],
+    },
+    controls: {
+      en: ['Drag from a number (or from the end of its path) through the cells to paint the path in its colour.', 'Drag over cells to replace another path, or start on an empty cell to erase. Tap a path cell to clear it.', 'A number gets a glow ring once its pair is connected.'],
+      es: ['Arrastra desde un número (o desde el final de su camino) por las casillas para pintar el camino de su color.', 'Arrastra sobre casillas para sustituir otro camino, o empieza en una casilla vacía para borrar. Toca una casilla del camino para borrarla.', 'Un número se rodea de un halo cuando su pareja está conectada.'],
+    },
+    examples: [
+      ex(['*1 *1 .', '*2 . *2'], undefined, 'Two pairs: the 1s are neighbours; the 2s must go round to cover the remaining cells.', 'Dos parejas: los 1 son vecinos; los 2 deben rodear para cubrir las casillas restantes.'),
+    ],
+    tips: {
+      en: ['A number in a corner has only two ways out; a cell with only one free neighbour is a dead end for the path.', 'Cells in a corridor of width one force the path along it.', 'Because every cell must be used, avoid leaving holes the path can’t reach.'],
+      es: ['Un número en una esquina solo tiene dos salidas; una casilla con un solo vecino libre es un callejón sin salida.', 'Las casillas de un pasillo de ancho uno obligan al camino a recorrerlo.', 'Como hay que usar todas las casillas, evita dejar huecos a los que el camino no pueda llegar.'],
+    },
+  },
+
+  thermometers: {
+    goal: {
+      en: 'Fill each thermometer with mercury from its bulb so every row and column has the right number of filled cells.',
+      es: 'Llena cada termómetro de mercurio desde su bulbo para que cada fila y columna tenga la cantidad correcta de casillas llenas.',
+    },
+    rules: {
+      en: ['Mercury starts at the round bulb and rises along the thermometer without gaps, as far as you like (or not at all).', 'The numbers beside the grid tell how many cells are filled in each row and column.', 'Every cell belongs to a thermometer.'],
+      es: ['El mercurio parte del bulbo redondo y sube por el termómetro sin huecos, hasta donde quieras (o nada).', 'Los números junto a la cuadrícula indican cuántas casillas están llenas en cada fila y columna.', 'Cada casilla pertenece a un termómetro.'],
+    },
+    controls: {
+      en: ['Tap a cell to cycle: filled → ✕ (known empty) → clear. Drag to apply the same mark to several cells.', 'Numbers turn grey when satisfied and red when exceeded.'],
+      es: ['Toca una casilla para alternar: llena → ✕ (vacía segura) → borrar. Arrastra para aplicar la misma marca a varias casillas.', 'Los números se ponen grises al cumplirse y rojos si se superan.'],
+    },
+    examples: [
+      ex(['*1 *1 .'], undefined, 'A thermometer of three cells filled up to its second cell: the bulb and the cell after it hold mercury.', 'Un termómetro de tres casillas lleno hasta la segunda: el bulbo y la casilla siguiente tienen mercurio.'),
+    ],
+    tips: {
+      en: ['A filled cell forces everything between it and the bulb to be filled; an empty cell forces everything beyond it to be empty.', 'A row or column with 0 is empty; one whose count equals its length is full.', 'A tip cell far from the bulb can only be filled if the whole thermometer is.'],
+      es: ['Una casilla llena obliga a llenar todo lo que hay entre ella y el bulbo; una vacía obliga a dejar vacío todo lo que hay más allá.', 'Una fila o columna con 0 está vacía; si su número iguala su longitud, está llena.', 'La punta lejos del bulbo solo puede llenarse si se llena todo el termómetro.'],
+    },
+  },
+
+  mosaic: {
+    goal: {
+      en: 'Shade cells so that every number matches the shaded cells in its 3×3 neighbourhood, revealing a picture.',
+      es: 'Sombrea casillas para que cada número coincida con las casillas sombreadas de su entorno 3×3, descubriendo una imagen.',
+    },
+    rules: {
+      en: ['A number counts the shaded cells among the cell itself and its eight neighbours (fewer at the edges).', 'A 0 means all nine are unshaded; a 9 means all nine are shaded.', 'Cells without a number can be either; the numbers must all be satisfied.'],
+      es: ['Un número cuenta las casillas sombreadas entre la propia casilla y sus ocho vecinas (menos en los bordes).', 'Un 0 significa que las nueve están sin sombrear; un 9, que las nueve están sombreadas.', 'Las casillas sin número pueden ser de cualquier tipo; todos los números deben cumplirse.'],
+    },
+    controls: {
+      en: ['Tap to cycle: shaded → dot (known unshaded) → empty. Drag to apply the same mark to several cells.', 'A number turns grey when its block is fully decided and correct, and red when it can no longer be met.'],
+      es: ['Toca para alternar: sombreada → punto (seguro sin sombrear) → vacía. Arrastra para aplicar la misma marca a varias casillas.', 'Un número se pone gris cuando su bloque está decidido y correcto, y rojo cuando ya no puede cumplirse.'],
+    },
+    examples: [
+      ex(['*2 . .', '. . .', '. . .'], undefined, 'In a corner a block has only 4 cells, so a 2 there means exactly two of those four are shaded.', 'En una esquina un bloque solo tiene 4 casillas, así que un 2 ahí significa que exactamente dos de esas cuatro están sombreadas.'),
+    ],
+    tips: {
+      en: ['Start with 0s and 9s (and 4s in corners, 6s on edges): they decide whole blocks.', 'Compare neighbouring numbers: the difference between two overlapping blocks lives in the cells they don’t share.', 'When a number is satisfied, mark its remaining cells as unshaded.'],
+      es: ['Empieza por los 0 y 9 (y los 4 en esquinas, 6 en bordes): deciden bloques enteros.', 'Compara números vecinos: la diferencia entre dos bloques solapados está en las casillas que no comparten.', 'Cuando un número se cumple, marca sus casillas restantes como sin sombrear.'],
+    },
+  },
+
+  jigsaw: {
+    goal: {
+      en: 'Fill the grid with digits so that every row, column and irregular region contains each digit once.',
+      es: 'Rellena la cuadrícula con dígitos para que cada fila, columna y región irregular contenga cada dígito una vez.',
+    },
+    rules: {
+      en: ['Each row and each column holds the digits 1 to N exactly once (N is the grid size).', 'Instead of square boxes, the grid is split into N irregular regions of N cells, marked by thick lines and soft colours. Each region also holds every digit exactly once.', 'The given digits are fixed.'],
+      es: ['Cada fila y cada columna contiene los dígitos de 1 a N exactamente una vez (N es el tamaño de la cuadrícula).', 'En lugar de cajas cuadradas, la cuadrícula se divide en N regiones irregulares de N casillas, marcadas con líneas gruesas y colores suaves. Cada región también contiene cada dígito exactamente una vez.', 'Los dígitos dados son fijos.'],
+    },
+    controls: {
+      en: ['Tap a cell, then a number on the pad. Tap the same number again to clear it.', 'Notes lets you pencil in candidates. Cells sharing a row, column or region with the selected one are highlighted; clashes turn red.'],
+      es: ['Toca una casilla y luego un número del teclado. Toca el mismo número otra vez para borrarlo.', 'Notas permite anotar candidatos. Las casillas que comparten fila, columna o región con la seleccionada se resaltan; los choques se ponen rojos.'],
+    },
+    examples: [
+      ex(['*1 *2 3 4', '3 *4 *3 2'], undefined, 'The highlighted L-shaped region holds 1, 2, 3 and 4 once each, just like a box would.', 'La región resaltada, con forma de L, contiene 1, 2, 3 y 4 una vez cada uno, igual que lo haría una caja.'),
+    ],
+    tips: {
+      en: ['Look for a digit that can go in only one cell of a region, row or column.', 'If a digit in a region can only go in one row, it can’t go elsewhere in that row (and vice versa).', 'Odd-shaped regions often have a cell squeezed between others: start there.'],
+      es: ['Busca un dígito que solo pueda ir en una casilla de una región, fila o columna.', 'Si un dígito de una región solo puede ir en una fila, no puede ir en otro lugar de esa fila (y al revés).', 'Las regiones de forma rara suelen tener una casilla encajada entre otras: empieza por ahí.'],
+    },
+  },
 };
 
 export function guideFor(id: string, lang: Lang): Guide | null {

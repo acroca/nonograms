@@ -5,7 +5,7 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with twelve logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with twenty-six logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
@@ -58,6 +58,14 @@ The classic: every row, column and box holds each digit exactly once.
 
 <img src="docs/sudoku.png" width="240" alt="Sudoku" />
 
+### Jigsaw Sudoku
+
+Sudoku with irregular, jigsaw-shaped regions instead of boxes: every row, column and region holds each digit exactly once.
+
+**Sizes:** 5×5, 6×6, 7×7, 9×9
+
+<img src="docs/jigsaw.png" width="240" alt="Jigsaw Sudoku" />
+
 ### Killer Sudoku
 
 Sudoku with cages instead of clues: the digits in each dashed cage add up to its sum, and no digit repeats inside a cage.
@@ -81,6 +89,14 @@ Fill a Latin square while obeying the greater-than and less-than signs between n
 **Sizes:** 5×5, 6×6
 
 <img src="docs/futoshiki.png" width="240" alt="Futoshiki" />
+
+### Skyscrapers
+
+Fill a Latin square with building heights. Each clue on the edge says how many buildings are visible from that side, since taller buildings hide shorter ones.
+
+**Sizes:** 4×4, 5×5, 6×6
+
+<img src="docs/skyscrapers.png" width="240" alt="Skyscrapers" />
 
 ### Kakuro
 
@@ -121,6 +137,102 @@ Clear the field without hitting a mine: each number counts the mines in the eigh
 **Sizes:** 9×9, 9×16
 
 <img src="docs/minesweeper.png" width="240" alt="Minesweeper (no guessing)" />
+
+### Tents
+
+Pitch one tent next to every tree, matched one to one. Tents never touch each other, not even diagonally, and the numbers give the tents in each row and column.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/tents.png" width="240" alt="Tents" />
+
+### Light Up (Akari)
+
+Place bulbs so every white cell is lit. A bulb shines along its row and column until a wall, bulbs never light each other, and a number on a wall says how many bulbs touch it.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/lightup.png" width="240" alt="Light Up (Akari)" />
+
+### Bridges
+
+Join the numbered islands with straight bridges, one or two per pair. Each island has as many bridges as its number, bridges never cross, and all islands end up connected.
+
+**Sizes:** 7×7, 9×9, 11×11
+
+<img src="docs/bridges.png" width="240" alt="Bridges" />
+
+### Battleships
+
+Find the hidden fleet. The numbers give how many ship cells each row and column holds, a few cells are revealed, and ships never touch, not even diagonally.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/battleships.png" width="240" alt="Battleships" />
+
+### Masyu
+
+Draw one closed loop through the centres of cells, visiting every pearl. The loop turns on a black pearl and goes straight on both sides of it; it goes straight through a white pearl and turns just before or after it.
+
+**Sizes:** 6×6, 7×7, 8×8
+
+<img src="docs/masyu.png" width="240" alt="Masyu" />
+
+### Norinori
+
+Shade cells so every outlined region holds exactly two shaded cells, and every shaded cell belongs to exactly one domino. Dominoes never touch side by side.
+
+**Sizes:** 5×5, 6×6
+
+<img src="docs/norinori.png" width="240" alt="Norinori" />
+
+### Fillomino
+
+Fill every cell with a number so that each group of touching equal numbers has exactly that many cells.
+
+**Sizes:** 5×5, 6×6, 8×8
+
+<img src="docs/fillomino.png" width="240" alt="Fillomino" />
+
+### Kuromasu
+
+Shade cells so each number sees exactly that many cells (itself included) along its row and column until a shaded cell. Shaded cells never touch side by side and the unshaded cells stay connected.
+
+**Sizes:** 5×5, 7×7, 9×9
+
+<img src="docs/kuromasu.png" width="240" alt="Kuromasu" />
+
+### Dominosa
+
+The grid shows the numbers of a full double-N domino set. Cut it into dominoes so that every pair of numbers appears exactly once.
+
+**Sizes:** Double 3 – double 6 (4×5 to 7×8)
+
+<img src="docs/dominosa.png" width="240" alt="Dominosa" />
+
+### Numberlink
+
+Connect each pair of equal numbers with a path. Paths never cross or share cells, and together they must fill every cell of the grid.
+
+**Sizes:** 5×5, 6×6, 7×7
+
+<img src="docs/numberlink.png" width="240" alt="Numberlink" />
+
+### Thermometers
+
+Fill each thermometer with mercury from its bulb, without gaps, so that each row and column holds the given number of filled cells.
+
+**Sizes:** 5×5, 6×6, 7×7, 8×8
+
+<img src="docs/thermometers.png" width="240" alt="Thermometers" />
+
+### Mosaic (Fill-a-Pix)
+
+Shade cells so that each number equals the count of shaded cells in the 3×3 block around it, itself included. Solving it reveals a picture.
+
+**Sizes:** 6×6, 8×8, 10×10
+
+<img src="docs/mosaic.png" width="240" alt="Mosaic (Fill-a-Pix)" />
 
 ## Shared features
 
@@ -185,6 +297,56 @@ solver and an independent rule checker.
 - **Minesweeper**: mines are placed after your first tap, outside its 3×3 area; while a
   simulated player using single/pair rules, frontier enumeration and the mine count gets stuck,
   a mine is moved off the stuck frontier (or the layout is redrawn).
+- **Tents**: non-touching tents are placed first, each with a tree beside it, and the row/column
+  counts are read off; layouts are re-rolled until a solver using counts, tree adjacency, tent
+  exclusion and "common neighbour of a tree's candidates" reasoning solves them.
+- **Light Up**: random walls, then bulbs are dropped on any cell nothing lights yet (so none sees
+  another) and every wall is numbered; numbers are thinned in random order while a solver using
+  wall counts, "someone must light every cell" and one-bulb-per-run still solves the puzzle.
+- **Bridges**: islands are grown by shooting a straight bridge from a random island to a new one
+  (never crossing, never touching another island), then extra bridges are added between facing
+  islands; numbers are the resulting bridge counts. Puzzles are kept when a solver using island
+  counts, crossing exclusion and "no closed group / only one way out" connectivity solves them.
+- **Skyscrapers**: all edge clues are read off a random Latin square, then dropped in random order
+  while a solver (all-different with hidden singles, plus every row/column arrangement consistent
+  with a clue and the remaining candidates) still solves it; a third of the dropped clues are handed
+  back so the puzzle isn't a bare minimum.
+- **Battleships**: the fleet (on 10×10: four ships of length 1, three of 2, two of 3 and one of 4) is
+  placed at random without touching; revealed cells (water, single, round ends, middles) are added at
+  random until a solver using row/column counts, diagonal exclusion, straightness and "which fleet
+  ship can this run still be" reasoning finishes the grid, then thinned again while it still does.
+- **Masyu**: the loop is the outline of a random region; the region is hill-climbed (one cell flipped
+  at a time) until the puzzle with a pearl on every legal site has a single solution that the solver
+  finds, then pearls are thinned in random order while it still does. The solver uses degree-0-or-2,
+  black/white pearl rules, no premature loops, and one-step lookahead.
+- **Norinori**: non-touching dominoes are planted and regions are grown around them, then region borders
+  are nudged (never breaking the planted answer) to minimise what the solver can't decide; kept once a solver
+  using region counts, the domino rule and one-step lookahead finishes the grid. Only small sizes: larger
+  grids are too slow to find.
+- **Fillomino**: the grid is cut into random polyominoes (equal-sized neighbours are rejected) and each
+  cell holds its piece's size; numbers are then removed in random order, first while plain deductions
+  (group capacity, closed groups, forced growth) still solve it, then again allowing one-step lookahead.
+- **Kuromasu**: a random non-touching, connectivity-preserving shading is numbered everywhere, then numbers
+  are dropped in random order while a solver using visibility bounds (per-direction minimum/maximum runs),
+  shaded-neighbour exclusion, white connectivity (cut cells) and one-step lookahead still solves the grid.
+- **Dominosa**: a random domino tiling is dealt a shuffled, randomly flipped copy of the full set; the
+  numbers are kept when a solver using one-domino-per-cell, one-domino-per-pair and one-step lookahead
+  solves the board (otherwise two dominoes' numbers are swapped and it is tried again).
+- **Numberlink**: a random Hamiltonian path of the grid (a snake shuffled by random "backbite" moves) is cut
+  into pieces, whose ends become the pairs. A layout is kept when a solver using cell degrees (1 at a number,
+  2 elsewhere), no closed loops, no joining different pairs and one-step lookahead solves it and the counting
+  solver agrees it is unique. 8×8 and larger were too slow to find, so they are not offered.
+- **Thermometers**: the grid is covered by random snaking thermometers, each filled to a random level, and the
+  row/column counts are read off; layouts are kept when plain deductions are enough to make real progress and
+  a solver using counts, the mercury rule and one-step lookahead solves them. 10×10 was too slow to find, so it
+  is not offered.
+- **Mosaic**: a blobby random picture (noise smoothed by majority votes) is numbered everywhere, then numbers
+  are dropped in random order, first while plain block-count deductions still solve it and then while one-step
+  lookahead does.
+- **Jigsaw Sudoku**: N connected regions of N cells are carved out one at a time (rejecting carves that would
+  strand an odd-sized pocket), a random full grid is found by backtracking, and digits are removed in random order
+  while a solver using naked/hidden singles and locked candidates between lines and regions still solves it, then
+  again allowing one-step lookahead.
 
 ## Project layout
 

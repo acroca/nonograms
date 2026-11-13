@@ -1447,3 +1447,531 @@ button.primary {
 .about a {
   color: var(--accent);
 }
+
+/* Boards with clue cells around the field (Tents, Battleships, Thermometers, Skyscrapers) */
+.edge-board {
+  display: grid;
+  justify-content: center;
+}
+.edge-field {
+  display: grid;
+  box-shadow: 0 0 0 2px var(--line-strong);
+  box-sizing: content-box;
+}
+.edge-field > .cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.eclue {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--cell) * 0.5);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.eclue.done {
+  color: var(--done);
+}
+.eclue.bad {
+  color: var(--bad);
+}
+
+/* Tents */
+.board-tents {
+  --tree: #15803d;
+  --tent: #d97706;
+}
+.board-tents .tree,
+.board-tents .tent {
+  width: 78%;
+  height: 78%;
+}
+.board-tents .tree {
+  color: var(--tree);
+}
+.board-tents .tent {
+  display: none;
+  color: var(--tent);
+}
+.board-tents .is-tent .tent {
+  display: block;
+}
+.board-tents .grass-dot {
+  display: none;
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  background: var(--muted);
+  opacity: 0.7;
+}
+.board-tents .is-grass .grass-dot {
+  display: block;
+}
+.board-tents .cell.is-tent.clash {
+  background: color-mix(in srgb, var(--bad) 35%, var(--surface));
+}
+.board-tents .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Light Up */
+.board-lightup {
+  --lit: #fde68a;
+  --bulb: #f59e0b;
+}
+@media (prefers-color-scheme: dark) {
+  .board-lightup {
+    --lit: #78601a;
+  }
+}
+.board-lightup .cell.wall {
+  background: var(--fill);
+  color: var(--surface);
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+}
+.board-lightup .cell.wall.done {
+  color: var(--done);
+}
+.board-lightup .cell.wall.bad {
+  background: var(--bad);
+  color: #fff;
+}
+.board-lightup .cell.lit {
+  background: var(--lit);
+}
+.board-lightup .cell.is-bulb::after {
+  content: '';
+  width: 56%;
+  height: 56%;
+  border-radius: 50%;
+  background: var(--bulb);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--bulb) 40%, #fff) inset, 0 0 calc(var(--cell) * 0.3) var(--bulb);
+}
+.board-lightup .cell.is-bulb.clash::after {
+  background: var(--bad);
+  box-shadow: none;
+}
+.board-lightup .cell.is-dot::after {
+  content: '';
+  width: 16%;
+  height: 16%;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.board-lightup .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Bridges */
+.board-bridges {
+  width: calc(var(--cell) * var(--span));
+  height: calc(var(--cell) * var(--span));
+}
+.board-bridges svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.board-bridges .pt {
+  fill: var(--line);
+}
+.board-bridges .guide {
+  stroke: var(--line);
+  stroke-width: 0.025;
+  stroke-dasharray: 0.06 0.1;
+}
+.board-bridges .bridge line {
+  stroke: var(--fg);
+  stroke-width: 0.06;
+  stroke-linecap: round;
+}
+.board-bridges .bridge.bad line {
+  stroke: var(--bad);
+}
+.board-bridges .bridge.wrong line {
+  stroke: var(--bad);
+  stroke-width: 0.1;
+}
+.board-bridges .island circle {
+  fill: var(--surface);
+  stroke: var(--fg);
+  stroke-width: 0.07;
+}
+.board-bridges .island text {
+  font-size: 0.46px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+  fill: var(--fg);
+}
+.board-bridges .island.done circle {
+  fill: color-mix(in srgb, var(--accent) 18%, var(--surface));
+  stroke: var(--accent);
+}
+.board-bridges .island.done text {
+  fill: var(--accent);
+}
+.board-bridges .island.bad circle {
+  stroke: var(--bad);
+  fill: color-mix(in srgb, var(--bad) 25%, var(--surface));
+}
+.board-bridges .island.bad text {
+  fill: var(--bad);
+}
+
+/* Battleships */
+.board-battleships {
+  --ship: #334155;
+  --water: #bfdbfe;
+}
+@media (prefers-color-scheme: dark) {
+  .board-battleships {
+    --ship: #cbd5e1;
+    --water: #1e3a8a;
+  }
+}
+.board-battleships .cell .ship {
+  display: none;
+  position: absolute;
+  background: var(--ship);
+}
+.board-battleships .cell.is-ship .ship {
+  display: block;
+}
+.board-battleships .cell.is-water {
+  background: var(--water);
+}
+.board-battleships .cell.is-water::after {
+  content: '';
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 60%, var(--surface));
+}
+.board-battleships .cell.clash .ship {
+  background: var(--bad);
+}
+.board-battleships .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+.fleet {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0.9rem;
+  margin-bottom: 0.75rem;
+}
+.fleet-ship {
+  display: inline-flex;
+  gap: 2px;
+}
+.fleet-ship i {
+  display: block;
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 3px;
+  background: var(--fg);
+}
+.fleet-ship.found {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+
+/* Masyu */
+.board-masyu {
+  width: calc(var(--cell) * var(--span));
+  height: calc(var(--cell) * var(--span));
+}
+.board-masyu svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.board-masyu .dot {
+  fill: var(--line-strong);
+  opacity: 0.45;
+}
+.board-masyu .edge .ln {
+  stroke: transparent;
+  stroke-width: 0.02;
+}
+.board-masyu .edge.on .ln {
+  stroke: var(--accent);
+  stroke-width: 0.12;
+  stroke-linecap: round;
+}
+.board-masyu .edge .x {
+  display: none;
+  stroke: var(--muted);
+  stroke-width: 0.035;
+  stroke-linecap: round;
+}
+.board-masyu .edge.off .x {
+  display: inline;
+}
+.board-masyu .edge.wrong .ln {
+  stroke: var(--bad);
+  stroke-width: 0.12;
+}
+.board-masyu .edge.wrong .x {
+  stroke: var(--bad);
+  stroke-width: 0.05;
+}
+.board-masyu .pearl {
+  stroke: var(--fg);
+  stroke-width: 0.06;
+}
+.board-masyu .pearl.black {
+  fill: var(--fg);
+}
+.board-masyu .pearl.white {
+  fill: var(--surface);
+}
+.board-masyu .pearl.bad {
+  stroke: var(--bad);
+  stroke-width: 0.1;
+}
+
+/* Norinori */
+.board-norinori .cell {
+  background: var(--tint);
+}
+.board-norinori .cell.shaded {
+  background: var(--fill);
+}
+.board-norinori .cell.shaded.clash {
+  background: var(--bad);
+}
+.board-norinori .cell.dot::after {
+  content: '';
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.board-norinori .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Fillomino */
+.board-fillomino .cell.jr {
+  border-right-color: transparent;
+}
+.board-fillomino .cell.jb {
+  border-bottom-color: transparent;
+}
+.board-fillomino .cell.done {
+  background: color-mix(in srgb, var(--good) 16%, var(--surface));
+}
+.board-fillomino .cell.clash {
+  background: color-mix(in srgb, var(--bad) 22%, var(--surface));
+}
+
+/* Kuromasu */
+.board-kuromasu .cell.clue {
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+}
+.board-kuromasu .cell.clue.done {
+  color: var(--done);
+}
+.board-kuromasu .cell.clue.bad {
+  color: var(--bad);
+}
+.board-kuromasu .cell.shaded {
+  background: var(--fill);
+}
+.board-kuromasu .cell.shaded.clash {
+  background: var(--bad);
+}
+.board-kuromasu .cell.dot::after {
+  content: '';
+  width: 18%;
+  height: 18%;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.board-kuromasu .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Dominosa */
+.board-dominosa .num {
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+  pointer-events: none;
+}
+.board-dominosa .cell.placed {
+  background: color-mix(in srgb, hsl(var(--h) 80% 55%) 28%, var(--surface));
+  border-color: color-mix(in srgb, hsl(var(--h) 80% 45%) 55%, var(--surface));
+}
+.board-dominosa .cell.jr {
+  border-right-color: transparent;
+}
+.board-dominosa .cell.jl {
+  border-left-color: transparent;
+}
+.board-dominosa .cell.jb {
+  border-bottom-color: transparent;
+}
+.board-dominosa .cell.jt {
+  border-top-color: transparent;
+}
+.board-dominosa .cell.placed.clash {
+  background: color-mix(in srgb, var(--bad) 35%, var(--surface));
+}
+.board-dominosa .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+.domino-chart {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 0.4rem;
+}
+.domino-chart .tile {
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.15em;
+  background: color-mix(in srgb, hsl(var(--h) 80% 55%) 28%, var(--surface));
+  border: 1px solid color-mix(in srgb, hsl(var(--h) 80% 45%) 55%, var(--surface));
+}
+.domino-chart .tile.used {
+  opacity: 0.3;
+  text-decoration: line-through;
+}
+.domino-chart .tile.dup {
+  opacity: 1;
+  background: color-mix(in srgb, var(--bad) 35%, var(--surface));
+  text-decoration: none;
+}
+
+/* Numberlink */
+.board-numberlink .cell.painted {
+  background: color-mix(in srgb, hsl(var(--h) 75% 55%) 38%, var(--surface));
+}
+.board-numberlink .cell.clash {
+  background: color-mix(in srgb, var(--bad) 40%, var(--surface));
+}
+.board-numberlink .cell.end .tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78%;
+  height: 78%;
+  border-radius: 50%;
+  background: hsl(var(--h) 65% 42%);
+  color: #fff;
+  font-size: calc(var(--cell) * 0.45);
+  font-weight: 700;
+  pointer-events: none;
+}
+.board-numberlink .cell.end.linked .tag {
+  box-shadow: 0 0 0 3px color-mix(in srgb, hsl(var(--h) 65% 42%) 40%, transparent);
+}
+.board-numberlink .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Thermometers */
+.board-thermometers {
+  --mercury: #ef4444;
+  --glass: #cbd5e1;
+}
+@media (prefers-color-scheme: dark) {
+  .board-thermometers {
+    --glass: #475569;
+  }
+}
+.board-thermometers .cell .tube {
+  position: absolute;
+  background: var(--glass);
+}
+.board-thermometers .cell .bulb {
+  position: absolute;
+  width: 76%;
+  height: 76%;
+  border-radius: 50%;
+  background: var(--glass);
+}
+.board-thermometers .cell.fill .tube,
+.board-thermometers .cell.fill .bulb {
+  background: var(--mercury);
+}
+.board-thermometers .cell.mark::after {
+  content: '✕';
+  position: absolute;
+  color: var(--muted);
+  font-size: calc(var(--cell) * 0.4);
+  line-height: 1;
+}
+.board-thermometers .cell.clash .tube,
+.board-thermometers .cell.clash .bulb {
+  box-shadow: 0 0 0 2px var(--bad);
+}
+.board-thermometers .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Mosaic */
+.board-mosaic .num {
+  font-size: calc(var(--cell) * 0.55);
+  font-weight: 700;
+  pointer-events: none;
+}
+.board-mosaic .cell.shaded {
+  background: var(--fill);
+}
+.board-mosaic .cell.shaded .num {
+  color: var(--surface);
+}
+.board-mosaic .cell.bad .num {
+  color: var(--bad);
+}
+.board-mosaic .cell.done .num {
+  color: var(--done);
+}
+.board-mosaic .cell.shaded.done .num {
+  color: var(--muted);
+}
+.board-mosaic .cell.dot::after {
+  content: '';
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: var(--muted);
+  position: absolute;
+  bottom: 12%;
+  right: 12%;
+}
+.board-mosaic .cell.wrong {
+  box-shadow: inset 0 0 0 3px var(--bad);
+}
+
+/* Jigsaw Sudoku */
+.board-jigsaw .cell {
+  background: var(--tint);
+}
+.board-jigsaw .cell.rel {
+  background: color-mix(in srgb, var(--highlight) 55%, var(--tint));
+}
+.board-jigsaw .cell.same {
+  background: color-mix(in srgb, var(--accent) 24%, var(--tint));
+}
+.board-jigsaw .cell.sel {
+  background: color-mix(in srgb, var(--accent) 40%, var(--tint));
+}
+.board-jigsaw .cell.wrong {
+  background: color-mix(in srgb, var(--bad) 30%, var(--surface));
+}
