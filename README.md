@@ -12,10 +12,7 @@ Every puzzle is generated on the fly, has exactly one solution, and can be solve
 alone — no guessing needed.
 
 <p align="center">
-  <img src="docs/menu.png" width="190" alt="Game menu" />
-  <img src="docs/queens.png" width="190" alt="Queens" />
-  <img src="docs/sudoku.png" width="190" alt="Sudoku" />
-  <img src="docs/slitherlink.png" width="190" alt="Slitherlink" />
+  <img src="docs/menu.png" width="260" alt="Game menu" />
 </p>
 
 ## Install
@@ -29,20 +26,26 @@ It then runs full-screen and works offline.
 
 ## Games
 
-| Game | Sizes / levels |
-| --- | --- |
-| Nonogram | 10×10 |
-| Binairo (Takuzu) | 6×6, 8×8, 10×10 |
-| Queens (Star Battle) | 7×7 – 10×10 |
-| Sudoku | 4×4, 6×6, 9×9 (easy, medium, hard) |
-| Killer Sudoku | Easy, medium, hard |
-| KenKen | 4×4, 5×5, 6×6 |
-| Futoshiki | 5×5, 6×6 |
-| Kakuro | 6×6, 8×8 (including clue cells) |
-| Hitori | 6×6, 7×7, 8×8 |
-| Nurikabe | 7×7 – 10×10 |
-| Slitherlink | 5×5, 6×6, 7×7 |
-| Minesweeper (no guessing) | 9×9, 9×16 |
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="docs/nonogram.png" width="180" alt="Nonogram" /><br /><b>Nonogram</b><br /><sub>10×10</sub></td>
+    <td align="center" width="25%"><img src="docs/binairo.png" width="180" alt="Binairo (Takuzu)" /><br /><b>Binairo (Takuzu)</b><br /><sub>6×6, 8×8, 10×10</sub></td>
+    <td align="center" width="25%"><img src="docs/queens.png" width="180" alt="Queens (Star Battle)" /><br /><b>Queens (Star Battle)</b><br /><sub>7×7 – 10×10</sub></td>
+    <td align="center" width="25%"><img src="docs/sudoku.png" width="180" alt="Sudoku" /><br /><b>Sudoku</b><br /><sub>4×4, 6×6, 9×9 (easy, medium, hard)</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img src="docs/killer.png" width="180" alt="Killer Sudoku" /><br /><b>Killer Sudoku</b><br /><sub>Easy, medium, hard</sub></td>
+    <td align="center" width="25%"><img src="docs/kenken.png" width="180" alt="KenKen" /><br /><b>KenKen</b><br /><sub>4×4, 5×5, 6×6</sub></td>
+    <td align="center" width="25%"><img src="docs/futoshiki.png" width="180" alt="Futoshiki" /><br /><b>Futoshiki</b><br /><sub>5×5, 6×6</sub></td>
+    <td align="center" width="25%"><img src="docs/kakuro.png" width="180" alt="Kakuro" /><br /><b>Kakuro</b><br /><sub>6×6, 8×8 (including clue cells)</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="25%"><img src="docs/hitori.png" width="180" alt="Hitori" /><br /><b>Hitori</b><br /><sub>6×6, 7×7, 8×8</sub></td>
+    <td align="center" width="25%"><img src="docs/nurikabe.png" width="180" alt="Nurikabe" /><br /><b>Nurikabe</b><br /><sub>7×7 – 10×10</sub></td>
+    <td align="center" width="25%"><img src="docs/slitherlink.png" width="180" alt="Slitherlink" /><br /><b>Slitherlink</b><br /><sub>5×5, 6×6, 7×7</sub></td>
+    <td align="center" width="25%"><img src="docs/minesweeper.png" width="180" alt="Minesweeper (no guessing)" /><br /><b>Minesweeper (no guessing)</b><br /><sub>9×9, 9×16</sub></td>
+  </tr>
+</table>
 
 ## Shared features
 
