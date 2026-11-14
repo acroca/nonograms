@@ -62,6 +62,12 @@ const COMMON: Bi<string> = {
   es: 'Deshacer revierte tu última jugada. Comprobar marca tus errores en rojo.',
 };
 const NO_COMMON = new Set(['minesweeper']);
+/** Shown instead in games that have Undo but nothing to check. */
+const UNDO_ONLY: Bi<string> = {
+  en: 'Undo takes back your last move, including adding numbers.',
+  es: 'Deshacer revierte tu última jugada, también la de añadir números.',
+};
+const NO_CHECK = new Set(['taketen']);
 
 const RAW: Record<string, RawGuide> = {
   nonogram: {
@@ -1530,6 +1536,80 @@ const RAW: Record<string, RawGuide> = {
       ],
     },
   },
+  taketen: {
+    goal: {
+      en: 'Cross out every number on the sheet, two at a time.',
+      es: 'Tacha todos los números de la hoja, de dos en dos.',
+    },
+    rules: {
+      en: [
+        'Two numbers make a pair when they are equal or add up to 10.',
+        'A pair can be crossed out when the two numbers are next to each other: side by side, one above the other, or diagonally.',
+        'Crossed-out numbers no longer count. A pair can also be taken across them, in a straight line along a row, a column or a diagonal, as long as no other number is in the way.',
+        'The sheet reads like text: the end of each row continues at the start of the next. Two numbers that follow each other in that order, with only crossed-out numbers between them, also make a pair.',
+        'A row with every number crossed out disappears, and the rows below move up.',
+        'Add numbers copies the numbers still on the sheet to the end, in reading order. Every sheet can be cleared without it.',
+      ],
+      es: [
+        'Dos números forman pareja cuando son iguales o suman 10.',
+        'Una pareja se puede tachar cuando los dos números están juntos: uno al lado del otro, uno encima del otro o en diagonal.',
+        'Los números tachados ya no cuentan. También se puede formar pareja pasando por encima de ellos, en línea recta por una fila, una columna o una diagonal, siempre que no haya otro número en medio.',
+        'La hoja se lee como un texto: el final de cada fila continúa al principio de la siguiente. Dos números seguidos en ese orden, con solo números tachados entre ellos, también forman pareja.',
+        'Una fila con todos sus números tachados desaparece, y las filas de abajo suben.',
+        'Añadir números copia al final los números que quedan en la hoja, en orden de lectura. Toda hoja se puede vaciar sin usarlo.',
+      ],
+    },
+    controls: {
+      en: [
+        'Tap a number, then tap its partner. Or drag from one number to the other.',
+        'Tap the selected number again to let go of it.',
+        'If the two numbers cannot be paired, they shake and the second one stays selected.',
+        'Hint shows a pair that can be crossed out. When there is none, the game tells you so.',
+      ],
+      es: [
+        'Toca un número y luego su pareja. O arrastra de un número al otro.',
+        'Toca otra vez el número seleccionado para soltarlo.',
+        'Si los dos números no se pueden emparejar, tiemblan y el segundo queda seleccionado.',
+        'Pista muestra una pareja que se puede tachar. Cuando no hay ninguna, el juego te lo dice.',
+      ],
+    },
+    examples: [
+      ex(
+        { grid: ['*3 1 *8', '6 *7 *8'], mark: 'ok' },
+        '3 and 7 touch diagonally and add up to 10. The two 8s are equal and one is above the other. Either pair can be crossed out.',
+        '3 y 7 se tocan en diagonal y suman 10. Los dos 8 son iguales y uno está encima del otro. Cualquiera de las dos parejas se puede tachar.',
+      ),
+      ex(
+        { grid: ['*4 ~ 5 2', '9 ~ 1 8', '3 7 *6 5'], mark: 'ok' },
+        'The grey squares are crossed out. 4 and 6 are on the same diagonal with only a crossed-out square between them, so they make a pair.',
+        'Las casillas grises están tachadas. 4 y 6 están en la misma diagonal con solo una casilla tachada entre ellos, así que forman pareja.',
+      ),
+      ex(
+        { grid: ['5 1 2 *9', '*9 3 6 2'], mark: 'ok' },
+        'The 9 at the end of the first row is followed, in reading order, by the 9 at the start of the second row. They make a pair.',
+        'Al 9 del final de la primera fila le sigue, en orden de lectura, el 9 del principio de la segunda. Forman pareja.',
+      ),
+      ex(
+        { grid: ['!2 5 !8 1'], mark: 'bad' },
+        '2 and 8 add up to 10, but the 5 between them is still there. Cross out the 5 first.',
+        '2 y 8 suman 10, pero el 5 que hay entre ellos sigue ahí. Tacha primero el 5.',
+      ),
+    ],
+    tips: {
+      en: [
+        'Before taking a pair, look at what it opens up and what it leaves alone. Each number has few partners nearby, and using up the wrong one can leave another without a pair.',
+        'Pairs in the same row or in neighbouring squares are easy to see. Check the columns and diagonals too, and the ends of the rows.',
+        'Clearing a whole row brings the rows around it together, which creates new pairs between them.',
+        'If you get stuck, try Undo before Add numbers: a different order often clears the sheet.',
+      ],
+      es: [
+        'Antes de tachar una pareja, mira qué deja libre y qué deja solo. Cada número tiene pocos compañeros cerca, y gastar el que no toca puede dejar a otro sin pareja.',
+        'Las parejas en la misma fila o en casillas vecinas se ven enseguida. Mira también las columnas, las diagonales y los extremos de las filas.',
+        'Vaciar una fila entera junta las filas de alrededor, y eso crea parejas nuevas entre ellas.',
+        'Si te atascas, prueba Deshacer antes que Añadir números: un orden distinto suele vaciar la hoja.',
+      ],
+    },
+  },
 };
 
 export const GUIDE_IDS = Object.keys(RAW);
@@ -1540,7 +1620,7 @@ export function guideFor(id: string, lang: Lang): Guide | null {
   return {
     goal: g.goal[lang],
     rules: g.rules[lang],
-    controls: NO_COMMON.has(id) ? g.controls[lang] : [...g.controls[lang], COMMON[lang]],
+    controls: NO_COMMON.has(id) ? g.controls[lang] : [...g.controls[lang], (NO_CHECK.has(id) ? UNDO_ONLY : COMMON)[lang]],
     examples: g.examples.map((e) => e[lang]),
     tips: g.tips[lang],
   };

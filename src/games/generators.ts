@@ -24,6 +24,7 @@ import { generate as numberlink } from './numberlink/logic';
 import { generate as thermometers } from './thermometers/logic';
 import { generate as mosaic } from './mosaic/logic';
 import { generate as jigsaw } from './jigsaw/logic';
+import { generate as taketen } from './taketen/logic';
 
 /** Puzzle generators by game id. Imported by the generation worker, so keep this free of DOM code. */
 export const GENERATORS: Record<string, (variant: string, seed: number, extra?: any) => unknown> = {
@@ -53,4 +54,5 @@ export const GENERATORS: Record<string, (variant: string, seed: number, extra?: 
   thermometers,
   mosaic,
   jigsaw,
+  taketen,
 };
