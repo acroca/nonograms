@@ -5,11 +5,12 @@
 
 **[▶ Play at acroca.com/pwagames](https://acroca.com/pwagames/)**
 
-A free, open-source Progressive Web App with twenty-six logic puzzle games, designed for phones.
+A free, open-source Progressive Web App with twenty-seven logic puzzle games, designed for phones.
 No ads, no accounts, works offline.
 
 Every puzzle is generated on the fly, has exactly one solution, and can be solved by logic
-alone — no guessing needed.
+alone — no guessing needed. The one exception is Take Ten, a pairing game with many ways through:
+its sheets are instead guaranteed to be clearable.
 
 <p align="center">
   <img src="docs/menu.png" width="260" alt="Game menu" />
@@ -234,6 +235,14 @@ Shade cells so that each number equals the count of shaded cells in the 3×3 blo
 
 <img src="docs/mosaic.png" width="240" alt="Mosaic (Fill-a-Pix)" />
 
+### Take Ten (Numberama)
+
+Cross out pairs of numbers that are equal or add up to 10. A pair must be neighbours — side by side, above each other or diagonally — or have only crossed-out numbers between them, in a straight line or in reading order, where the end of a row continues at the start of the next. Emptied rows disappear. When you run out of pairs you can copy the remaining numbers to the end, but every sheet can be cleared without doing so.
+
+**Sizes:** 4, 6 or 8 rows of 9
+
+<img src="docs/taketen.png" width="240" alt="Take Ten (Numberama)" />
+
 ## Shared features
 
 Every game has the same app bar and behaviour:
@@ -349,6 +358,10 @@ solver and an independent rule checker.
   strand an odd-sized pocket), a random full grid is found by backtracking, and digits are removed in random order
   while a solver using naked/hidden singles and locked candidates between lines and regions still solves it, then
   again allowing one-step lookahead.
+- **Take Ten**: not a one-solution puzzle. A whole game is played on a sheet of blanks, picking a random pair of
+  squares with a clear line between them at each step (preferring pairs that only open up once others are gone) and
+  only then deciding their two digits, favouring digits that add few ready-made pairs to the starting sheet. The
+  moves are stored with the puzzle, and tests replay them against the rules to confirm the sheet empties.
 
 ## Project layout
 
